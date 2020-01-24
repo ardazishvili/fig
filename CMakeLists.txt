@@ -1,0 +1,94 @@
+cmake_minimum_required(VERSION 3.10)
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+project(Fig)
+
+add_library(fig
+    Application.h
+    Window.h
+    events/Event.h
+    events/EventFabric.h
+    math/AStar.cpp
+    math/AStar.h
+    math/Noise.cpp
+    math/Noise.h
+    misc/Log.cpp
+    misc/Log.h
+    misc/Logger.cpp
+    misc/Logger.h
+		Timer.cpp
+		Timer.h
+		Animation.cpp
+		Animation.h
+		Camera.cpp
+		Camera.h
+		Light.cpp
+		Light.h
+		Model.cpp
+		Model.h
+		ModelLoader.cpp
+		ModelLoader.h
+		ModelMesh.cpp
+		ModelMesh.h
+		PhongShader.cpp
+		PhongShader.h
+		Shader.cpp
+		Shader.h
+		Terrain.cpp
+		Terrain.h
+		Texture.cpp
+		Texture.h
+		globals.cpp
+		globals.h
+    # Circle.cpp
+    # Circle.h
+    # CircleMesh.cpp
+    # CircleMesh.h
+    Beam.cpp
+    Beam.h
+    HeightsSegment.cpp
+    HeightsSegment.h
+    LinesObject.cpp
+    LinesObject.h
+    LinesShader.cpp
+    LinesShader.h
+    MainTerrainMesh.cpp
+    MainTerrainMesh.h
+    Mesh.cpp
+    Mesh.h
+    ObstaclesSegment.cpp
+    ObstaclesSegment.h
+    Path.cpp
+    Path.h
+    PlainMesh.cpp
+    PlainMesh.h
+    RectangleShape.cpp
+    RectangleShape.h
+    Skybox.cpp
+    Skybox.h
+    SkyboxShader.cpp
+    SkyboxShader.h
+    Sphere.cpp
+    Sphere.h
+    SphereMesh.cpp
+    SphereMesh.h
+    SubTerrainMesh.cpp
+    SubTerrainMesh.h
+    Surface.cpp
+    Surface.h
+    TerrainMesh.cpp
+    TerrainMesh.h
+    TerrainMeshSegment.cpp
+    TerrainMeshSegment.h
+    Vertex.cpp
+    Vertex.h
+		imgui/imgui.cpp
+		imgui/imgui_demo.cpp
+		imgui/imgui_draw.cpp
+		imgui/imgui_impl_glfw.cpp
+		imgui/imgui_impl_opengl3.cpp
+		imgui/imgui_internal.h
+		imgui/imgui_widgets.cpp
+		imgui/imstb_rectpack.h
+		imgui/imstb_truetype.h
+		)
