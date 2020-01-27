@@ -14,3 +14,8 @@ void Application::render()
 {
   _layers.render();
 }
+
+void Application::update()
+{
+  _layers.update();
+}

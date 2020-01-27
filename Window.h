@@ -4,7 +4,13 @@
 class Window
 {
 public:
-  Window() = default;
+  struct Param
+  {
+    int width;
+    int height;
+  };
+
+  Window(const Param& param);
   Window(const Window&) = delete;
   Window(Window&&) = delete;
   Window& operator=(const Window&) = delete;
@@ -13,6 +19,9 @@ public:
 
   virtual float width() const = 0;
   virtual float height() const = 0;
+
+protected:
+  Param _param;
 };
 
 #endif

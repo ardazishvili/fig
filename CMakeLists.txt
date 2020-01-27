@@ -10,6 +10,7 @@ add_library(fig
     Application.h
     Application.cpp
     Window.h
+    Window.cpp
     events/Event.h
     events/EventFabric.h
     math/AStar.cpp

@@ -15,6 +15,7 @@ public:
 
   void addLayer(std::unique_ptr<Layer> l);
   void removeLayer();
+  void update();
   void render();
   virtual void run() = 0;
 

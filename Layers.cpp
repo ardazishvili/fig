@@ -9,9 +9,18 @@ void Layers::remove()
 {
   _layers.pop_back();
 }
+
+void Layers::update()
+{
+  for (auto& l : _layers) {
+    l->update();
+  }
+}
+
 void Layers::render()
 {
   for (auto& l : _layers) {
     l->render();
   }
 }
+

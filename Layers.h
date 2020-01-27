@@ -11,6 +11,7 @@ class Layers
 public:
   void add(std::unique_ptr<Layer> l);
   void remove();
+  void update();
   void render();
 
 private:
