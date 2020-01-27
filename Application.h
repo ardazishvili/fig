@@ -2,6 +2,7 @@
 #define APPLICATION_H
 
 #include "Layers.h"
+#include "Window.h"
 
 class Application
 {
@@ -18,6 +19,9 @@ public:
   void update();
   void render();
   virtual void run() = 0;
+
+protected:
+  std::unique_ptr<Window> _window;
 
 private:
   Layers _layers;

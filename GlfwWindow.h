@@ -1,15 +1,11 @@
 #ifndef GLFW_WINDOW_H
 #define GLFW_WINDOW_H
 
-#include <functional>
-#include <memory>
-
 #include <GL/glew.h> // Initialize with glewInit()
 #include <GLFW/glfw3.h>
 
 #include "Camera.h"
 #include "Window.h"
-#include "events/Event.h"
 
 class EventFabric;
 class GlfwWindow : public Window
@@ -20,10 +16,10 @@ public:
              EventFabric* eventFabric,
              const Window::Param& param);
   ~GlfwWindow() override;
-  void setOnEvent(std::function<void(std::unique_ptr<Event> event)> onEvent);
-
-  void update();
-  void show();
+  void setOnEvent(
+    std::function<void(std::unique_ptr<Event> event)> onEvent) override;
+  void update() override;
+  void show() override;
   float width() const override;
   float height() const override;
   void getCursorPos(double* xpos, double* ypos) const;
