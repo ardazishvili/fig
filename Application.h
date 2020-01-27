@@ -1,6 +1,8 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include "Layers.h"
+
 class Application
 {
 public:
@@ -11,7 +13,13 @@ public:
   Application& operator=(Application&&) = delete;
   virtual ~Application() = default;
 
+  void addLayer(std::unique_ptr<Layer> l);
+  void removeLayer();
+  void render();
   virtual void run() = 0;
+
+private:
+  Layers _layers;
 };
 
 #endif
