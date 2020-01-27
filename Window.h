@@ -1,6 +1,9 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include <GL/glew.h> // Initialize with glewInit()
+#include <GLFW/glfw3.h>
+
 class Window
 {
 public:
@@ -19,6 +22,10 @@ public:
 
   virtual float width() const = 0;
   virtual float height() const = 0;
+  virtual void getCursorPos(double* xpos, double* ypos) const = 0;
+
+  // TODO make non-public
+  GLFWwindow* _window;
 
 protected:
   Param _param;

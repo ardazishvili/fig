@@ -11,6 +11,8 @@ add_library(fig
     Application.cpp
     Window.h
     Window.cpp
+    EventManager.h
+    EventManager.cpp
     events/Event.h
     events/EventFabric.h
     math/AStar.cpp
