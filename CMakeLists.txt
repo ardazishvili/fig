@@ -11,6 +11,8 @@ add_library(fig
     Application.cpp
     Window.h
     Window.cpp
+    GlfwWindow.h
+    GlfwWindow.cpp
     EventManager.h
     EventManager.cpp
     events/Event.h
