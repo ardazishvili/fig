@@ -1,8 +1,7 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-#include <GL/glew.h> // Initialize with glewInit()
-#include <GLFW/glfw3.h>
+#include "../Window.h"
 
 class EventManager;
 class Camera;
@@ -22,13 +21,12 @@ public:
 class KeyboardEvent : public Event
 {
 public:
-  KeyboardEvent(GLFWwindow* window, int key, int scancode, int mods) :
-    _window(window), _key(key), _scancode(), _mods(mods)
+  KeyboardEvent(int key, int scancode, int mods) :
+    _key(key), _scancode(), _mods(mods)
   {
   }
 
 protected:
-  GLFWwindow* _window;
   int _key;
   int _scancode;
   int _mods;
@@ -37,8 +35,8 @@ protected:
 class KeyboardPressEvent : public KeyboardEvent
 {
 public:
-  KeyboardPressEvent(GLFWwindow* window, int key, int scancode, int mods) :
-    KeyboardEvent(window, key, scancode, mods)
+  KeyboardPressEvent(int key, int scancode, int mods) :
+    KeyboardEvent(key, scancode, mods)
   {
   }
 };
@@ -46,8 +44,8 @@ public:
 class KeyboardReleaseEvent : public KeyboardEvent
 {
 public:
-  KeyboardReleaseEvent(GLFWwindow* window, int key, int scancode, int mods) :
-    KeyboardEvent(window, key, scancode, mods)
+  KeyboardReleaseEvent(int key, int scancode, int mods) :
+    KeyboardEvent(key, scancode, mods)
   {
   }
 };
@@ -55,8 +53,8 @@ public:
 class KeyboardRepeatEvent : public KeyboardEvent
 {
 public:
-  KeyboardRepeatEvent(GLFWwindow* window, int key, int scancode, int mods) :
-    KeyboardEvent(window, key, scancode, mods)
+  KeyboardRepeatEvent(int key, int scancode, int mods) :
+    KeyboardEvent(key, scancode, mods)
   {
   }
 };
@@ -95,13 +93,11 @@ public:
 class MouseMoveEvent : public MouseEvent
 {
 public:
-  MouseMoveEvent(GLFWwindow* window, double xpos, double ypos) :
-    _window(window), _xpos(xpos), _ypos(ypos)
+  MouseMoveEvent(double xpos, double ypos) : _xpos(xpos), _ypos(ypos)
   {
   }
 
 protected:
-  GLFWwindow* _window;
   double _xpos;
   double _ypos;
 };
@@ -109,13 +105,12 @@ protected:
 class MouseScrollEvent : public MouseEvent
 {
 public:
-  MouseScrollEvent(GLFWwindow* window, double xoffset, double yoffset) :
-    _window(window), _xoffset(xoffset), _yoffset(yoffset)
+  MouseScrollEvent(double xoffset, double yoffset) :
+    _xoffset(xoffset), _yoffset(yoffset)
   {
   }
 
 protected:
-  GLFWwindow* _window;
   double _xoffset;
   double _yoffset;
 };

@@ -13,6 +13,9 @@ add_library(fig
     Window.cpp
     GlfwWindow.h
     GlfwWindow.cpp
+    GuiBackend.h
+    ImGuiBackend.h
+    ImGuiBackend.cpp
     EventManager.h
     EventManager.cpp
     events/Event.h

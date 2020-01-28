@@ -1,7 +1,7 @@
 #include <cstdio>
 
-#include "events//Event.h"
 #include "events/ErrorEvent.h"
+#include "events/Event.h"
 #include "events/EventFabric.h"
 
 #include "GlfwWindow.h"
@@ -52,24 +52,22 @@ GlfwWindow::GlfwWindow(glm::mat4& view,
 
   glfwSetCursorPosCallback(
     _window, [](GLFWwindow* window, double xpos, double ypos) {
-      _onEvent(_eventFabric->getMouseMoveEvent(window, xpos, ypos));
+      _onEvent(_eventFabric->getMouseMoveEvent(xpos, ypos));
     });
 
   glfwSetScrollCallback(
     _window, [](GLFWwindow* window, double xoffset, double yoffset) {
-      _onEvent(_eventFabric->getMouseScrollEvent(window, xoffset, yoffset));
+      _onEvent(_eventFabric->getMouseScrollEvent(xoffset, yoffset));
     });
 
   glfwSetMouseButtonCallback(
     _window, [](GLFWwindow* window, int button, int action, int mods) {
       switch (action) {
         case GLFW_PRESS:
-          _onEvent(
-            _eventFabric->getMousePressedEvent(window, button, action, mods));
+          _onEvent(_eventFabric->getMousePressedEvent(button, action, mods));
           break;
         case GLFW_RELEASE:
-          _onEvent(
-            _eventFabric->getMouseReleasedEvent(window, button, action, mods));
+          _onEvent(_eventFabric->getMouseReleasedEvent(button, action, mods));
           break;
       }
     });
@@ -79,15 +77,13 @@ GlfwWindow::GlfwWindow(glm::mat4& view,
     [](GLFWwindow* window, int key, int scancode, int action, int mods) {
       switch (action) {
         case GLFW_PRESS:
-          _onEvent(_eventFabric->getKeyPressEvent(window, key, scancode, mods));
+          _onEvent(_eventFabric->getKeyPressEvent(key, scancode, mods));
           break;
         case GLFW_RELEASE:
-          _onEvent(
-            _eventFabric->getKeyReleaseEvent(window, key, scancode, mods));
+          _onEvent(_eventFabric->getKeyReleaseEvent(key, scancode, mods));
           break;
         case GLFW_REPEAT:
-          _onEvent(
-            _eventFabric->getKeyRepeatEvent(window, key, scancode, mods));
+          _onEvent(_eventFabric->getKeyRepeatEvent(key, scancode, mods));
           break;
       }
     });
@@ -139,4 +135,14 @@ void GlfwWindow::setOnEvent(
   std::function<void(std::unique_ptr<Event> event)> onEvent)
 {
   _onEvent = onEvent;
+}
+
+bool GlfwWindow::shouldClose()
+{
+  return glfwWindowShouldClose(_window);
+}
+
+void GlfwWindow::close()
+{
+  glfwSetWindowShouldClose(_window, true);
 }

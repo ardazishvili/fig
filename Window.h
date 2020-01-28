@@ -4,11 +4,7 @@
 #include <functional>
 #include <memory>
 
-#include <GL/glew.h> // Initialize with glewInit()
-#include <GLFW/glfw3.h>
-
-#include "events/Event.h"
-
+class Event;
 class Window
 {
 public:
@@ -33,8 +29,8 @@ public:
   virtual void update() = 0;
   virtual void show() = 0;
 
-  // TODO make non-public
-  GLFWwindow* _window;
+  virtual bool shouldClose() = 0;
+  virtual void close() = 0;
 
 protected:
   Param _param;

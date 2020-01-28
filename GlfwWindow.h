@@ -23,6 +23,8 @@ public:
   float width() const override;
   float height() const override;
   void getCursorPos(double* xpos, double* ypos) const;
+  bool shouldClose() override;
+  void close() override;
 
 private:
   glm::mat4& _view;
@@ -30,6 +32,10 @@ private:
 
   static EventFabric* _eventFabric;
   static std::function<void(std::unique_ptr<Event> event)> _onEvent;
+  GLFWwindow* _window;
+
+  // for ImGui instantiation we might need raw GLFWwindow*
+  friend class ImGuiBackend;
 };
 
 #endif
