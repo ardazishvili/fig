@@ -1,6 +1,6 @@
-#include "Logger.h"
+#include "ImGuiLogger.h"
 
-void Logger::log(const std::string& str, float f)
+void ImGuiLogger::log(const std::string& str, float f)
 {
   ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
   ImGui::Begin("Log");
@@ -9,7 +9,7 @@ void Logger::log(const std::string& str, float f)
   _log.Draw("Log");
 }
 
-void Logger::log(const std::string& str)
+void ImGuiLogger::log(const std::string& str)
 {
   ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
   ImGui::Begin("Log");
@@ -18,7 +18,7 @@ void Logger::log(const std::string& str)
   _log.Draw("Log");
 }
 
-void Logger::render()
+void ImGuiLogger::render()
 {
   _log.Draw("Log");
 }

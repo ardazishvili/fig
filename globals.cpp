@@ -1,5 +1,5 @@
 #include "globals.h"
 
 std::unique_ptr<ModelLoader> modelLoader;
-Logger logger;
+ImGuiLogger logger;
 bool flatView = true;
