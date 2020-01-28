@@ -25,15 +25,32 @@ glm::vec3 EventManager::unProject(Window* window,
   return objcoord;
 }
 
-bool EventManager::shiftPressed() const
+bool EventManager::isKeyPressed(KeyButton k) const
 {
-  return _shiftPressed;
+  return _keyset.test(static_cast<size_t>(k));
 }
 
-bool EventManager::mousePressed(MouseButton b) const
+bool EventManager::isMousePressed(MouseButton b) const
 {
-  switch (b) {
-    case MouseButton::MIDDLE:
-      return _middleButtonPressed;
-  }
+  return _mouseSet.test(static_cast<size_t>(b));
+}
+
+void EventManager::pressMouse(MouseButton b)
+{
+  _mouseSet.set(static_cast<size_t>(b));
+}
+
+void EventManager::pressKey(KeyButton k)
+{
+  _keyset.set(static_cast<size_t>(k));
+}
+
+void EventManager::releaseMouse(MouseButton b)
+{
+  _mouseSet.reset(static_cast<size_t>(b));
+}
+
+void EventManager::releaseKey(KeyButton k)
+{
+  _keyset.reset(static_cast<size_t>(k));
 }
