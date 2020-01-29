@@ -3,8 +3,10 @@
 
 #include <memory>
 
-#include "LogBackend.h"
+enum class Level { Trace, Debug, Info, Warn, Error, Critical };
+enum class Type { Core, App };
 
+class LogBackend;
 class Log
 {
 public:
@@ -14,8 +16,13 @@ public:
   Log& operator=(const Log&) = delete;
   Log& operator=(Log&&) = delete;
 
+  static void logCore(Level l, const std::string& m);
+  static void logApp(Level l, const std::string& m);
+
 private:
-  std::unique_ptr<LogBackend> _backend;
+  static std::unique_ptr<LogBackend> _backend;
 };
+
+std::unique_ptr<Log> createSpdlog();
 
 #endif

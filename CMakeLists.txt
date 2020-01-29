@@ -4,7 +4,13 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 project(Fig)
 
 add_library(fig
+    Log.h
+    Log.cpp
+    LogBackend.h
+    SpdBackend.h
+    SpdBackend.cpp
     Application.h
+    Application.cpp
     Window.h
     events/Event.h
     events/EventFabric.h
