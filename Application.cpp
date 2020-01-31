@@ -1,22 +1,28 @@
 #include "Application.h"
 #include "SpdBackend.h"
 
-void Application::addLayer(std::unique_ptr<Layer> l)
+template<typename T>
+void Application<T>::addLayer(std::unique_ptr<Layer> l)
 {
   _layers.add(std::move(l));
 }
 
-void Application::removeLayer()
+template<typename T>
+void Application<T>::removeLayer()
 {
   _layers.remove();
 }
 
-void Application::render()
+template<typename T>
+void Application<T>::render()
 {
   _layers.render();
 }
 
-void Application::update()
+template<typename T>
+void Application<T>::update()
 {
   _layers.update();
 }
+
+template class Application<SpdBackend>;
