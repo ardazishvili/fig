@@ -1,52 +1,25 @@
-#include <iostream>
-
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 #include "SpdBackend.h"
 
-void SpdBackend::init()
+SpdBackend::SpdBackend(Type t)
 {
-  spdlog::set_pattern("%^[%T] %n: %v%$");
-  _core = spdlog::stdout_color_mt("FIG");
-  _core->set_level(spdlog::level::trace);
-  _app = spdlog::stdout_color_mt("APP");
-  _app->set_level(spdlog::level::trace);
+  init(t);
 }
 
-void SpdBackend::log(Type t, Level l, const std::string& m)
+void SpdBackend::init(Type t)
 {
-  spdlog::logger* logger;
+  spdlog::set_pattern("%^[%T] %n: %v%$");
   switch (t) {
-    case Type::Core:
-      logger = _core.get();
-      break;
     case Type::App:
-      logger = _app.get();
+      _logger = spdlog::stdout_color_mt("APP");
+      break;
+    case Type::Core:
+      _logger = spdlog::stdout_color_mt("FIG");
       break;
     default:
       assert(0);
-      break;
   }
-  switch (l) {
-    case Level::Trace:
-      logger->trace(m);
-      break;
-    case Level::Debug:
-      logger->debug(m);
-      break;
-    case Level::Info:
-      logger->info(m);
-      break;
-    case Level::Warn:
-      logger->warn(m);
-      break;
-    case Level::Error:
-      logger->error(m);
-      break;
-    case Level::Critical:
-      logger->error(m);
-      break;
-    default:
-      break;
-  }
+  _logger->set_level(spdlog::level::trace);
 }
+

@@ -13,8 +13,7 @@ public:
   LogBackend& operator=(LogBackend&&) = delete;
   ~LogBackend() = default;
 
-  virtual void init() = 0;
-  virtual void log(Type t, Level l, const std::string& m) = 0;
+  virtual void init(Type t) = 0;
 };
 
 #endif

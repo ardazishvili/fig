@@ -1,6 +1,3 @@
 #include "Application.h"
+#include "SpdBackend.h"
 
-void Application::init()
-{
-  initLog();
-}
