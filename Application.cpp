@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "SpdBackend.h"
 
 void Application::addLayer(std::unique_ptr<Layer> l)
 {

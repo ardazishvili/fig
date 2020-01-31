@@ -1,12 +1,12 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#ifndef IMGUI_LOGGER_H
+#define IMGUI_LOGGER_H
 
 #include <string>
 
 #include "../imgui/imgui.h"
-#include "Log.h"
+#include "ImGuiLog.h"
 
-class Logger
+class ImGuiLogger
 {
 public:
   void log(const std::string& str, float f);
@@ -14,7 +14,7 @@ public:
   void render();
 
 private:
-  Log _log;
+  ImGuiLog _log;
 };
 
 #endif

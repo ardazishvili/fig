@@ -1,18 +1,18 @@
-#include "Log.h"
-Log::Log()
+#include "ImGuiLog.h"
+ImGuiLog::ImGuiLog()
 {
   AutoScroll = true;
   Clear();
 }
 
-void Log::Clear()
+void ImGuiLog::Clear()
 {
   Buf.clear();
   LineOffsets.clear();
   LineOffsets.push_back(0);
 }
 
-void Log::AddLog(const char* fmt, ...)
+void ImGuiLog::AddLog(const char* fmt, ...)
 {
   int old_size = Buf.size();
   va_list args;
@@ -24,7 +24,7 @@ void Log::AddLog(const char* fmt, ...)
       LineOffsets.push_back(old_size + 1);
 }
 
-void Log::Draw(const char* title, bool* p_open)
+void ImGuiLog::Draw(const char* title, bool* p_open)
 {
   if (!ImGui::Begin(title, p_open)) {
     ImGui::End();

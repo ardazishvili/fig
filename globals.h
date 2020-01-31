@@ -2,10 +2,10 @@
 #define GLOBALS_H
 
 #include "ModelLoader.h"
-#include "misc/Logger.h"
+#include "misc/ImGuiLogger.h"
 
 extern std::unique_ptr<ModelLoader> modelLoader;
-extern Logger logger;
+extern ImGuiLogger logger;
 extern bool flatView;
 
 #endif

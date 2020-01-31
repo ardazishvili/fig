@@ -7,6 +7,13 @@ add_library(fig
     Layer.h
     Layers.h
     Layers.cpp
+    Core.h
+    Core.cpp
+    Log.h
+    Log.cpp
+    LogBackend.h
+    SpdBackend.h
+    SpdBackend.cpp
     Application.h
     Application.cpp
     Window.h
@@ -24,10 +31,12 @@ add_library(fig
     math/AStar.h
     math/Noise.cpp
     math/Noise.h
-    misc/Log.cpp
-    misc/Log.h
-    misc/Logger.cpp
-    misc/Logger.h
+    SpdBackend.h
+    SpdBackend.cpp
+    misc/ImGuiLog.cpp
+    misc/ImGuiLog.h
+    misc/ImGuiLogger.cpp
+    misc/ImGuiLogger.h
 		Timer.cpp
 		Timer.h
 		Animation.cpp
@@ -104,3 +113,5 @@ add_library(fig
 		imgui/imstb_rectpack.h
 		imgui/imstb_truetype.h
 		)
+
+target_include_directories(fig PRIVATE third/logging/spdlog/include/)
