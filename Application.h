@@ -8,6 +8,13 @@
 
 #include <memory>
 
+/**
+ * @brief Application abstraction
+ *
+ * It is suggested that will be only one Application
+ *
+ * @tparam T policy to parametrize Log class, e.g SpdBackend
+ */
 template<typename T>
 class Application
 {
@@ -17,24 +24,75 @@ public:
   }
   Application(const Application&) = delete;
   Application(Application&&) = delete;
-  Application& operator=(const Application&) = default;
-  Application& operator=(Application&&) = default;
+
+  /**
+   * @brief Default copy operator=
+   *
+   * @param other
+   *
+   * @return
+   */
+  Application& operator=(const Application& other) = default;
+
+  /**
+   * @brief Default move operator=
+   *
+   * @param other
+   *
+   * @return
+   */
+  Application& operator=(Application&& other) = default;
   virtual ~Application() = default;
 
+  /**
+   * @brief Add layer
+   *
+   * @param l
+   */
   void addLayer(std::unique_ptr<Layer> l);
-  void removeLayer();
-  void update();
-  void render();
-  virtual void run() = 0;
-  template<typename... Params>
 
+  /**
+   * @brief Remove top layer
+   */
+  void removeLayer();
+
+  /**
+   * @brief Update appliction
+   */
+  void update();
+
+  /**
+   * @brief Render application
+   */
+  void render();
+
+  /**
+   * @brief Run application
+   */
+  virtual void run() = 0;
+
+  /**
+   * @brief Log
+   *
+   * @tparam Params
+   * @param l
+   * @param params
+   */
+  template<typename... Params>
   void log(Level l, Params&&... params)
   {
     _log.print(l, params...);
   }
 
 protected:
+  /**
+   * @brief Window
+   */
   std::unique_ptr<Window> _window;
+
+  /**
+   * @brief Log parametrized with log backend
+   */
   Log<T> _log;
 
 private:

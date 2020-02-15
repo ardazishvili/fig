@@ -1,6 +1,7 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include "../Core.h"
 #include "../Window.h"
 
 class EventManager;
@@ -38,6 +39,7 @@ public:
   KeyboardPressEvent(int key, int scancode, int mods) :
     KeyboardEvent(key, scancode, mods)
   {
+    FG_CORE_TRACE("key pressed")
   }
 };
 
@@ -47,6 +49,7 @@ public:
   KeyboardReleaseEvent(int key, int scancode, int mods) :
     KeyboardEvent(key, scancode, mods)
   {
+    FG_CORE_TRACE("key released")
   }
 };
 
@@ -56,6 +59,7 @@ public:
   KeyboardRepeatEvent(int key, int scancode, int mods) :
     KeyboardEvent(key, scancode, mods)
   {
+    FG_CORE_TRACE("key repeatedly pressed")
   }
 };
 
@@ -79,6 +83,7 @@ class MousePressEvent : public MouseButtonEvent
 public:
   MousePressEvent(int button) : MouseButtonEvent(button)
   {
+    FG_CORE_TRACE("mouse pressed")
   }
 };
 
@@ -87,6 +92,7 @@ class MouseReleaseEvent : public MouseButtonEvent
 public:
   MouseReleaseEvent(int button) : MouseButtonEvent(button)
   {
+    FG_CORE_TRACE("mouse released")
   }
 };
 
@@ -95,6 +101,7 @@ class MouseMoveEvent : public MouseEvent
 public:
   MouseMoveEvent(double xpos, double ypos) : _xpos(xpos), _ypos(ypos)
   {
+    FG_CORE_TRACE("mouse moved")
   }
 
 protected:
@@ -108,6 +115,7 @@ public:
   MouseScrollEvent(double xoffset, double yoffset) :
     _xoffset(xoffset), _yoffset(yoffset)
   {
+    FG_CORE_TRACE("mouse scrolled")
   }
 
 protected:

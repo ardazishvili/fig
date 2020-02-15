@@ -4,6 +4,7 @@
 #include "events/Event.h"
 #include "events/EventFabric.h"
 
+#include "Core.h"
 #include "GlfwWindow.h"
 
 std::function<void(std::unique_ptr<Event> event)> GlfwWindow::_onEvent =
@@ -18,6 +19,7 @@ GlfwWindow::GlfwWindow(glm::mat4& view,
   Window(param),
   _view(view), _projection(projection)
 {
+  FG_CORE_TRACE("create GLFW window")
   _eventFabric = eventFabric;
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -94,6 +96,7 @@ GlfwWindow::GlfwWindow(glm::mat4& view,
 
 GlfwWindow::~GlfwWindow()
 {
+  FG_CORE_TRACE("destroy GLFW window")
   glfwDestroyWindow(_window);
   glfwTerminate();
 }
@@ -110,6 +113,7 @@ float GlfwWindow::height() const
 
 void GlfwWindow::update()
 {
+  FG_CORE_DEBUG("update window")
   glfwPollEvents();
 
   int display_w, display_h;
@@ -144,5 +148,6 @@ bool GlfwWindow::shouldClose()
 
 void GlfwWindow::close()
 {
+  FG_CORE_TRACE("show window")
   glfwSetWindowShouldClose(_window, true);
 }
