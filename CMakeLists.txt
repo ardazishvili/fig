@@ -27,6 +27,10 @@ target_sources(fig
   ImGuiBackend.cpp
   EventManager.h
   EventManager.cpp
+  WindowBackground.h
+  WindowBackground.cpp
+  SkyboxBackground.h
+  SkyboxBackground.cpp
   events/Event.h
   events/EventFabric.h
   math/AStar.cpp

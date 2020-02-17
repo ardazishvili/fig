@@ -4,15 +4,20 @@
 #include "../Camera.h"
 #include "../EventManager.h"
 #include "../Layer.h"
-#include "../PhongShader.h"
-#include "../Skybox.h"
-#include "../SkyboxShader.h"
+/* #include "../PhongShader.h" */
+/* #include "../Skybox.h" */
+/* #include "../SkyboxShader.h" */
 #include "../Window.h"
+#include "../WindowBackground.h"
 
 class WorldLayer : public Layer
 {
 public:
-  WorldLayer(Window* w, Camera* c, glm::mat4& view, glm::mat4& projection);
+  WorldLayer(Window* w,
+             Camera* c,
+             glm::mat4& view,
+             glm::mat4& projection,
+             std::unique_ptr<WindowBackground> background);
   void init() override;
   void update() override;
   void render() override;
@@ -24,10 +29,11 @@ private:
   Camera* _camera;
   glm::mat4& _view;
   glm::mat4& _projection;
-  std::unique_ptr<Skybox> _skybox;
-  std::unique_ptr<Light> _light;
-  std::unique_ptr<PhongShader> _lampShader;
-  std::unique_ptr<SkyboxShader> _skyboxShader;
+  std::unique_ptr<WindowBackground> _background;
+  /* std::unique_ptr<Skybox> _skybox; */
+  /* std::unique_ptr<Light> _light; */
+  /* std::unique_ptr<PhongShader> _lampShader; */
+  /* std::unique_ptr<SkyboxShader> _skyboxShader; */
   std::shared_ptr<EventManager> _eventManager;
 };
 
