@@ -122,6 +122,14 @@ add_executable(editor
   editor/EditorApplication.cpp
   editor/globals.h
   editor/globals.cpp
+  editor/WorldLayer.h
+  editor/WorldLayer.cpp
+  editor/EditorEventManager.h
+  editor/EditorEventManager.cpp
+  editor/EditorEventFabric.h
+  editor/EditorEventFabric.cpp
+  editor/EditorKeyReleaseEvent.h
+  editor/EditorKeyReleaseEvent.cpp
   )
 target_include_directories(editor PRIVATE third/logging/spdlog/include/)
 target_link_libraries(editor fig glfw dl GL GLEW assimp pthread)

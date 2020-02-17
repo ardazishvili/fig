@@ -22,7 +22,7 @@ public:
   void show() override;
   float width() const override;
   float height() const override;
-  void getCursorPos(double* xpos, double* ypos) const;
+  void getCursorPos(double* xpos, double* ypos) const override;
   bool shouldClose() override;
   void close() override;
 

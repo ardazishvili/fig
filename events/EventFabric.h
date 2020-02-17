@@ -8,6 +8,13 @@
 class EventFabric
 {
 public:
+  EventFabric() = default;
+  EventFabric(const EventFabric&) = delete;
+  EventFabric(EventFabric&&) = delete;
+  EventFabric& operator=(const EventFabric&) = delete;
+  EventFabric& operator=(EventFabric&&) = delete;
+  ~EventFabric() = default;
+
   virtual std::unique_ptr<Event> getKeyPressEvent(int key,
                                                   int scancode,
                                                   int mods) = 0;
