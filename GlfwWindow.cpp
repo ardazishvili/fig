@@ -119,8 +119,7 @@ void GlfwWindow::update()
   int display_w, display_h;
   glfwGetFramebufferSize(_window, &display_w, &display_h);
   glViewport(0, 0, display_w, display_h);
-  glm::vec4 clear_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.00f);
-  glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+  glClearColor(_color.r, _color.g, _color.b, _color.alfa);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 }

@@ -1,6 +1,6 @@
 #include "EditorApplication.h"
+#include "../ColorBackground.h"
 #include "../GlfwWindow.h"
-#include "../SkyboxBackground.h"
 #include "EditorEventFabric.h"
 #include "WorldLayer.h"
 
@@ -17,12 +17,13 @@ EditorApplication<T>::EditorApplication() :
   this->_window =
     std::make_unique<GlfwWindow>(_view, _projection, _eventFabric.get(), param);
 
-  auto worldLayer = std::make_unique<WorldLayer>(
-    this->_window.get(),
-    &_camera,
-    _view,
-    _projection,
-    std::make_unique<SkyboxBackground>(&_camera, _view, _projection));
+  Color c = { 194.0f / 255, 194.0f / 255, 214.0f / 255, 1 };
+  auto worldLayer =
+    std::make_unique<WorldLayer>(this->_window.get(),
+                                 &_camera,
+                                 _view,
+                                 _projection,
+                                 std::make_unique<ColorBackground>(c));
   worldLayer->init();
   this->_window->setOnEvent(worldLayer->onEvent());
   this->addLayer(std::move(worldLayer));

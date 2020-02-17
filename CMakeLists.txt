@@ -31,6 +31,8 @@ target_sources(fig
   WindowBackground.cpp
   SkyboxBackground.h
   SkyboxBackground.cpp
+  ColorBackground.h
+  ColorBackground.cpp
   events/Event.h
   events/EventFabric.h
   math/AStar.cpp

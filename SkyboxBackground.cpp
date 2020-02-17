@@ -4,7 +4,6 @@
 SkyboxBackground::SkyboxBackground(Camera* camera,
                                    glm::mat4& view,
                                    glm::mat4& projection)
-/* WindowBackground(camera, view, projection) */
 {
   _light = std::make_unique<Light>(
     glm::vec3(1.2f, 0.0f, 5.0f), *camera, view, projection);

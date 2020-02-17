@@ -4,6 +4,8 @@
 #include <functional>
 #include <memory>
 
+#include "WindowBackground.h"
+
 class Event;
 
 /**
@@ -98,11 +100,19 @@ public:
    */
   virtual void close() = 0;
 
+  /**
+   * @brief Set background color
+   *
+   * @param color
+   */
+  void setBackgroundColor(const Color& color);
+
 protected:
   /**
    * @brief Parameters of the window
    */
   Param _param;
+  Color _color{ 1, 1, 1, 1 };
 };
 
 #endif

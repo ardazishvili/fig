@@ -4,6 +4,14 @@
 #include "Camera.h"
 #include "Light.h"
 
+struct Color
+{
+  float r;
+  float g;
+  float b;
+  float alfa;
+};
+
 class Window;
 class WindowBackground
 {
