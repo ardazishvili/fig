@@ -1,9 +1,17 @@
 cmake_minimum_required(VERSION 3.13)
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 project(Fig)
 
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+add_subdirectory(third/logging/spdlog)
+
 add_library(fig)
+target_link_libraries(fig PRIVATE spdlog::spdlog)
 target_sources(fig
   PUBLIC
   Layer.h
@@ -121,7 +129,7 @@ target_sources(fig
   imgui/imstb_rectpack.h
   imgui/imstb_truetype.h
   )
-target_include_directories(fig PRIVATE third/logging/spdlog/include/)
+
 add_executable(editor
   editor/editor.cpp
   editor/EditorApplication.h
@@ -136,8 +144,12 @@ add_executable(editor
   editor/EditorEventFabric.cpp
   editor/EditorKeyReleaseEvent.h
   editor/EditorKeyReleaseEvent.cpp
+  editor/EditorGuiLayer.h
+  editor/EditorGuiLayer.cpp
+  editor/mainwindow.h
+  editor/mainwindow.cpp
+  editor/myglwidget.h
+  editor/myglwidget.cpp
   )
-target_include_directories(editor PRIVATE third/logging/spdlog/include/)
-target_link_libraries(editor fig glfw dl GL GLEW assimp pthread)
-
-
+target_include_directories(editor PRIVATE editor)
+target_link_libraries(editor PRIVATE spdlog::spdlog fig glfw dl GL GLEW assimp pthread Qt5::Widgets)
