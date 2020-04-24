@@ -72,6 +72,11 @@ public:
   virtual void run() = 0;
 
   /**
+   * @brief One tick
+   */
+  virtual void tick() = 0;
+
+  /**
    * @brief Log
    *
    * @tparam Params

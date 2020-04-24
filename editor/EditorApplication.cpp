@@ -2,7 +2,10 @@
 #include "../ColorBackground.h"
 #include "../GlfwWindow.h"
 #include "EditorEventFabric.h"
+#include "EditorGuiLayer.h"
 #include "WorldLayer.h"
+
+#include "globals.h"
 
 template<typename T>
 EditorApplication<T>::EditorApplication() :
@@ -27,18 +30,32 @@ EditorApplication<T>::EditorApplication() :
   worldLayer->init();
   this->_window->setOnEvent(worldLayer->onEvent());
   this->addLayer(std::move(worldLayer));
+
+  /* auto guiLayer = std::make_unique<EditorGuiLayer>( */
+  /*   param, this->_window.get(), _view, _projection); */
+  /* guiLayer->init(); */
+  /* this->addLayer(std::move(guiLayer)); */
 }
 
 template<typename T>
 void EditorApplication<T>::run()
 {
-  while (!this->_window->shouldClose()) {
-    this->_window->update();
+  /* while (!this->_window->shouldClose()) { */
+  /*   tick(); */
+  /* } */
+  /* MainWindow window; */
+  mainWindow->show();
+  a->exec();
+}
 
-    this->update();
-    this->render();
-    this->_window->show();
-  }
+template<typename T>
+void EditorApplication<T>::tick()
+{
+  this->_window->update();
+
+  this->update();
+  this->render();
+  this->_window->show();
 }
 
 template class EditorApplication<SpdBackend>;

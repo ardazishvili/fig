@@ -10,10 +10,25 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_subdirectory(third/logging/spdlog)
 
+add_library(imgui)
+target_sources(imgui
+  PRIVATE
+  third/gui/imgui/imgui.cpp
+  third/gui/imgui/imgui.h
+  third/gui/imgui/imgui_demo.cpp
+  third/gui/imgui/imgui_draw.cpp
+  third/gui/imgui/imgui_impl_glfw.cpp
+  third/gui/imgui/imgui_impl_opengl3.cpp
+  third/gui/imgui/imgui_internal.h
+  third/gui/imgui/imgui_widgets.cpp
+  third/gui/imgui/imstb_rectpack.h
+  third/gui/imgui/imstb_truetype.h
+  )
+
 add_library(fig)
-target_link_libraries(fig PRIVATE spdlog::spdlog)
+target_link_libraries(fig PRIVATE imgui spdlog::spdlog)
 target_sources(fig
-  PUBLIC
+  PRIVATE
   Layer.h
   Layers.h
   Layers.cpp
@@ -119,15 +134,6 @@ target_sources(fig
   TerrainMeshSegment.h
   Vertex.cpp
   Vertex.h
-  imgui/imgui.cpp
-  imgui/imgui_demo.cpp
-  imgui/imgui_draw.cpp
-  imgui/imgui_impl_glfw.cpp
-  imgui/imgui_impl_opengl3.cpp
-  imgui/imgui_internal.h
-  imgui/imgui_widgets.cpp
-  imgui/imstb_rectpack.h
-  imgui/imstb_truetype.h
   )
 
 add_executable(editor
