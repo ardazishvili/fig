@@ -14,16 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="MyGLWidget" name="openGLWidget">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>250</y>
-      <width>591</width>
-      <height>501</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QTreeView" name="directoryView">
     <property name="geometry">
      <rect>
@@ -33,6 +23,17 @@
       <height>761</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>260</y>
+      <width>731</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="layout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -47,13 +48,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MyGLWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header>myglwidget.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

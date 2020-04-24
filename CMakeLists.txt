@@ -156,6 +156,10 @@ add_executable(editor
   editor/mainwindow.cpp
   editor/myglwidget.h
   editor/myglwidget.cpp
+  editor/TriangleWindow.h
+  editor/TriangleWindow.cpp
+  editor/myopenglwindow.h
+  editor/myopenglwindow.cpp
   )
 target_include_directories(editor PRIVATE editor)
 target_link_libraries(editor PRIVATE spdlog::spdlog fig glfw dl GL GLEW assimp pthread Qt5::Widgets)

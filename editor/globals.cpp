@@ -9,5 +9,4 @@ Application<SpdBackend>* gApp()
 {
   static auto app = std::make_unique<EditorApplication<SpdBackend>>();
   return app.get();
-  /* return app.get(); */
 }
