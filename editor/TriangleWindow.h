@@ -5,14 +5,15 @@
 
 #include "myopenglwindow.h"
 
-class TriangleWindow : public OpenGLWindow {
- public:
+class TriangleWindow : public OpenGLWindow
+{
+public:
   TriangleWindow();
 
   void initialize() override;
   void render() override;
 
- private:
+private:
   GLuint m_posAttr;
   GLuint m_colAttr;
   GLuint m_matrixUniform;

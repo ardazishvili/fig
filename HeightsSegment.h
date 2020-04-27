@@ -3,6 +3,8 @@
 
 #include "TerrainMeshSegment.h"
 
+namespace fig
+{
 class HeightsSegment : public TerrainMeshSegment
 {
 public:
@@ -19,5 +21,6 @@ std::shared_ptr<HeightsSegment> makeHeightsSegment(Shader& colorShader,
                                                    Terrain* terrain,
                                                    glm::vec2 bottomLeft,
                                                    glm::vec2 topRight);
+}
 
 #endif

@@ -2,6 +2,8 @@
 #include "globals.h"
 #include "math/Noise.h"
 
+namespace fig
+{
 float lerp(float a, float b, float f)
 {
   return (a * (1.0 - f)) + (b * f);
@@ -196,4 +198,5 @@ void SubTerrainMesh::calculateColors(float min,
                                      unsigned int width,
                                      unsigned int augmentedWidth)
 {
+}
 }

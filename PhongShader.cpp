@@ -10,6 +10,8 @@
 #include "PhongShader.h"
 #include "globals.h"
 
+namespace fig
+{
 PhongShader::PhongShader(Light* light,
                          Camera& camera,
                          glm::mat4& view,
@@ -71,4 +73,5 @@ void PhongShader::configure()
 
   setTransformation("view", glm::value_ptr(_view));
   setTransformation("projection", glm::value_ptr(_projection));
+}
 }

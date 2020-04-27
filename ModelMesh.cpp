@@ -1,5 +1,7 @@
 #include "ModelMesh.h"
 
+namespace fig
+{
 bool ModelMesh::initModel(const aiScene* scene, const string& Filename)
 {
   _meshesData.resize(scene->mNumMeshes);
@@ -268,4 +270,4 @@ void ModelMesh::animate(Shader& shader, Animation::Type type, float percent)
     _animation.animate(shader, type, percent);
   }
 }
-
+}

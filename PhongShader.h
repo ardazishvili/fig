@@ -5,6 +5,8 @@
 
 #include "Shader.h"
 
+namespace fig
+{
 class PhongShader : public Shader
 {
 public:
@@ -16,5 +18,6 @@ public:
               const GLchar* fragmentPath);
   void configure() override;
 };
+}
 
 #endif

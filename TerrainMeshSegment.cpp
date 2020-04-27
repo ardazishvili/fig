@@ -1,6 +1,8 @@
 #include "TerrainMeshSegment.h"
 #include "globals.h"
 
+namespace fig
+{
 TerrainMeshSegment::TerrainMeshSegment(Shader& colorShader,
                                        Terrain* terrain,
                                        glm::vec2 bottomLeft,
@@ -82,4 +84,5 @@ void TerrainMeshSegment::render()
 
   glDisable(GL_BLEND);
   glDepthMask(GL_TRUE);
+}
 }

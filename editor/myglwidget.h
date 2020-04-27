@@ -7,6 +7,8 @@
 #include <QDebug>
 #include <QOpenGLWidget>
 
+namespace fig
+{
 class MyGLWidget : public QOpenGLWidget
 {
 public:
@@ -22,5 +24,6 @@ private:
   QColor _qcolor;
   Application<SpdBackend>* _app;
 };
+}
 
 #endif // MYGLWIDGET_H

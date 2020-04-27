@@ -4,6 +4,8 @@
 #include "../../fig/events/Event.h"
 #include <iostream>
 
+namespace fig
+{
 class ErrorEvent : public Event
 {
 public:
@@ -12,5 +14,6 @@ public:
     std::cout << "ErrorEvent test output" << std::endl;
   }
 };
+}
 
 #endif

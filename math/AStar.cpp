@@ -3,6 +3,8 @@
 #include "../globals.h"
 #include "AStar.h"
 
+namespace fig
+{
 const unsigned int AStar::MAX_ITER = 2000;
 
 AStar::AStar(const std::vector<VertexColor>& v,
@@ -136,4 +138,5 @@ std::vector<std::shared_ptr<ANode>> AStar::getNeighbors(
     }
   }
   return res;
+}
 }

@@ -3,6 +3,8 @@
 
 #include "../events/EventFabric.h"
 
+namespace fig
+{
 class EditorEventFabric : public EventFabric
 {
 public:
@@ -25,5 +27,6 @@ public:
                                                int action,
                                                int mods) override;
 };
+}
 
 #endif

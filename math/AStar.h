@@ -6,6 +6,8 @@
 
 #include "../ObstaclesSegment.h"
 
+namespace fig
+{
 struct APoint
 {
   APoint(int xc, int yc) : x(xc), y(yc)
@@ -58,5 +60,6 @@ private:
 
   static const unsigned int MAX_ITER;
 };
+}
 
 #endif

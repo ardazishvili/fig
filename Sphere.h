@@ -4,6 +4,8 @@
 #include "Shader.h"
 #include "SphereMesh.h"
 
+namespace fig
+{
 class Sphere
 {
 
@@ -19,5 +21,6 @@ private:
   SphereMesh _mesh;
   glm::vec3 _offset{ glm::vec3(0.0f) };
 };
+}
 
 #endif

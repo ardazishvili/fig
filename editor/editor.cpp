@@ -17,37 +17,26 @@
 
 int main(int argc, char** argv)
 {
-  /* try { */
-  /* a = std::make_unique<QApplication>(argc, argv); */
-  /* mainWindow = std::make_unique<MainWindow>(); */
-  /* app = std::make_unique<EditorApplication<SpdBackend>>(); */
-  /* MainWindow window; */
-  /* window.show(); */
-  /* auto app = gApp(); */
+  /* QApplication a(argc, argv); */
+  /* MainWindow w; */
+  /* w.show(); */
 
-  /* app->run(); */
-  /* a->exec(); */
-  /* } catch (const std::exception& e) { */
-  /* std::cout << e.what() << std::endl; */
-  /* } */
+  /* QSurfaceFormat format; */
+  /* format.setSamples(16); */
 
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.show();
+  /* EditorApplication<SpdBackend> window; */
+  /* window.setFormat(format); */
+  /* window.resize(640, 480); */
+  /* window.setAnimating(true); */
 
-  QSurfaceFormat format;
-  format.setSamples(16);
+  /* auto* container = QWidget::createWindowContainer(&window); */
+  /* auto* layout = w.findChild<QVBoxLayout*>("layout"); */
+  /* layout->addWidget(container); */
 
-  TriangleWindow window;
-  window.setFormat(format);
-  window.resize(640, 480);
-  window.setAnimating(true);
+  /* a.exec(); */
 
-  auto* container = QWidget::createWindowContainer(&window);
-  auto* layout = w.findChild<QVBoxLayout*>("layout");
-  layout->addWidget(container);
-
-  a.exec();
+  auto app = appInit(std::make_unique<QApplication>(argc, argv));
+  app->run();
 
   return 0;
 }

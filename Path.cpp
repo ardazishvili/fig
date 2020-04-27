@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+namespace fig
+{
 const float Path::Z_OFFSET = 0.1;
 
 Path::Path(Shader& shader, AStar* router) : LinesObject(shader), _router(router)
@@ -73,4 +75,4 @@ unsigned int Path::indicesToRender()
 {
   return _indicesToRender;
 }
-
+}

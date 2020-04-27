@@ -2,30 +2,19 @@
 
 #include <QPainter>
 
-OpenGLWindow::OpenGLWindow(QWindow* parent)
-    : QWindow(parent), m_animating(false), m_context(0), m_device(0) {
+OpenGLWindow::OpenGLWindow(QWindow* parent) :
+  QWindow(parent), _animating(false), _context(0), _device(0)
+{
   setSurfaceType(QWindow::OpenGLSurface);
 }
 
-void OpenGLWindow::render(QPainter* painter) { Q_UNUSED(painter); }
-
-void OpenGLWindow::initialize() {}
-
-void OpenGLWindow::render() {
-  if (!m_device) m_device = new QOpenGLPaintDevice;
-
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-  m_device->setSize(size() * devicePixelRatio());
-  m_device->setDevicePixelRatio(devicePixelRatio());
-
-  QPainter painter(m_device);
-  render(&painter);
+void OpenGLWindow::renderLater()
+{
+  requestUpdate();
 }
 
-void OpenGLWindow::renderLater() { requestUpdate(); }
-
-bool OpenGLWindow::event(QEvent* event) {
+bool OpenGLWindow::event(QEvent* event)
+{
   switch (event->type()) {
     case QEvent::UpdateRequest:
       renderNow();
@@ -35,41 +24,40 @@ bool OpenGLWindow::event(QEvent* event) {
   }
 }
 
-void OpenGLWindow::exposeEvent(QExposeEvent* event) {
+void OpenGLWindow::exposeEvent(QExposeEvent* event)
+{
   Q_UNUSED(event);
 
-  if (isExposed()) renderNow();
+  if (isExposed())
+    renderNow();
 }
 
-void OpenGLWindow::renderNow() {
-  if (!isExposed()) return;
-
+void OpenGLWindow::renderNow()
+{
+  if (!isExposed())
+    return;
   bool needsInitialize = false;
 
-  if (!m_context) {
-    m_context = new QOpenGLContext(this);
-    m_context->setFormat(requestedFormat());
-    m_context->create();
-
+  if (!_context) {
+    _context = new QOpenGLContext(this);
+    _context->setFormat(requestedFormat());
+    _context->create();
     needsInitialize = true;
   }
-
-  m_context->makeCurrent(this);
-
+  _context->makeCurrent(this);
   if (needsInitialize) {
     initializeOpenGLFunctions();
     initialize();
   }
-
   render();
-
-  m_context->swapBuffers(this);
-
-  if (m_animating) renderLater();
+  _context->swapBuffers(this);
+  if (_animating)
+    renderLater();
 }
 
-void OpenGLWindow::setAnimating(bool animating) {
-  m_animating = animating;
-
-  if (animating) renderLater();
+void OpenGLWindow::setAnimating(bool animating)
+{
+  _animating = animating;
+  if (animating)
+    renderLater();
 }

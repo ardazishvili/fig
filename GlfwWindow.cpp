@@ -7,6 +7,8 @@
 #include "Core.h"
 #include "GlfwWindow.h"
 
+namespace fig
+{
 std::function<void(std::unique_ptr<Event> event)> GlfwWindow::_onEvent =
   [](std::unique_ptr<Event> event) {
   };
@@ -149,4 +151,5 @@ void GlfwWindow::close()
 {
   FG_CORE_TRACE("show window")
   glfwSetWindowShouldClose(_window, true);
+}
 }

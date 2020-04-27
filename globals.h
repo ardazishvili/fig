@@ -4,8 +4,11 @@
 #include "ModelLoader.h"
 #include "misc/ImGuiLogger.h"
 
+namespace fig
+{
 extern std::unique_ptr<ModelLoader> modelLoader;
 extern ImGuiLogger logger;
 extern bool flatView;
+}
 
 #endif

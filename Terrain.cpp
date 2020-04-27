@@ -2,6 +2,8 @@
 
 #include "Terrain.h"
 
+namespace fig
+{
 const float Terrain::SUBTERRAIN_OFFSET = 0.03f;
 
 Terrain::Terrain(Shader& shader,
@@ -111,4 +113,5 @@ void Terrain::getSegmentObstaclesMap(glm::vec2 bottomLeft,
                                      SegmentDimensions* sd)
 {
   _mainMesh.getSegmentObstaclesMap(bottomLeft, topRight, m, sd);
+}
 }

@@ -8,6 +8,8 @@
 #include "TerrainMesh.h"
 #include <glm/glm.hpp>
 
+namespace fig
+{
 struct RectangleRegion
 {
   float x;
@@ -66,5 +68,5 @@ private:
 
   LivingAreas _livingAreas;
 };
-
+}
 #endif

@@ -6,6 +6,8 @@
 
 #include "Beam.h"
 
+namespace fig
+{
 Beam::Beam(Shader& shader,
            glm::vec3 begin,
            glm::vec3 end,
@@ -76,4 +78,5 @@ void Beam::init(glm::vec3 begin, glm::vec3 end)
   }
 
   LinesObject::initBuffers();
+}
 }

@@ -3,6 +3,8 @@
 
 #include "Terrain.h"
 
+namespace fig
+{
 struct SegmentDimensions
 {
   unsigned int divisionsX;
@@ -35,5 +37,6 @@ protected:
   glm::vec2 _topRight;
   float _zOffset;
 };
+}
 
 #endif

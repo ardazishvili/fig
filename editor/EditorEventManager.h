@@ -1,5 +1,7 @@
 #include "../EventManager.h"
 
+namespace fig
+{
 class EditorEventManager : public EventManager
 {
 public:
@@ -16,3 +18,4 @@ private:
 
   friend class EditorKeyReleaseEvent;
 };
+}

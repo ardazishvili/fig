@@ -1,12 +1,18 @@
 #include "globals.h"
 #include "EditorApplication.h"
+#include <algorithm>
+#include <memory>
 
-/* std::unique_ptr<EditorApplication<SpdBackend>> app; */
-std::unique_ptr<QApplication> a;
-std::unique_ptr<MainWindow> mainWindow;
+using namespace fig;
+
+static std::unique_ptr<EditorApplication<SpdBackend>> app;
+Application<SpdBackend>* appInit(std::unique_ptr<QApplication> a)
+{
+  app = std::make_unique<EditorApplication<SpdBackend>>(std::move(a));
+  return app.get();
+}
 
 Application<SpdBackend>* gApp()
 {
-  static auto app = std::make_unique<EditorApplication<SpdBackend>>();
   return app.get();
 }

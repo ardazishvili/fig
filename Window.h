@@ -6,8 +6,10 @@
 
 #include "WindowBackground.h"
 
-class Event;
+namespace fig
+{
 
+class Event;
 /**
  * @brief Basic abstraction of a Window
  *
@@ -101,6 +103,11 @@ public:
   virtual void close() = 0;
 
   /**
+   * @brief Window post init
+   */
+  virtual void init() = 0;
+
+  /**
    * @brief Set background color
    *
    * @param color
@@ -114,5 +121,7 @@ protected:
   Param _param;
   Color _color{ 1, 1, 1, 1 };
 };
+
+}
 
 #endif

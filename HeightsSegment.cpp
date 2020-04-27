@@ -1,5 +1,7 @@
 #include "HeightsSegment.h"
 
+namespace fig
+{
 HeightsSegment::HeightsSegment(Shader& colorShader,
                                Terrain* terrain,
                                glm::vec2 bottomLeft,
@@ -30,4 +32,5 @@ std::shared_ptr<HeightsSegment> makeHeightsSegment(Shader& colorShader,
     colorShader, terrain, bottomLeft, topRight);
   hs->init();
   return hs;
+}
 }

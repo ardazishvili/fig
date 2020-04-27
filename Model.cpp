@@ -6,7 +6,11 @@
 
 #include <GLFW/glfw3.h>
 
-Model::Model(Shader& shader) : _shader(shader) {}
+namespace fig
+{
+Model::Model(Shader& shader) : _shader(shader)
+{
+}
 
 bool Model::load(const string& file)
 {
@@ -50,4 +54,5 @@ void Model::loadTexture(const std::string& filename, TexturePackType type)
 void Model::setActiveTexturesPack(TexturePackType type)
 {
   _meshes.setActiveTexturesPack(type);
+}
 }

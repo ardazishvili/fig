@@ -4,6 +4,8 @@
 
 #include "Shader.h"
 
+namespace fig
+{
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a) / sizeof(a[0]))
 
 Shader::Shader(Light* light,
@@ -168,4 +170,5 @@ GLint Shader::getUniformLocation(const char* name)
 Camera& Shader::camera()
 {
   return _camera;
+}
 }

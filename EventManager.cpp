@@ -3,6 +3,8 @@
 
 #include "EventManager.h"
 
+namespace fig
+{
 glm::vec3 EventManager::unProject(Window* window,
                                   glm::mat4& view,
                                   glm::mat4& proj)
@@ -53,4 +55,5 @@ void EventManager::releaseMouse(MouseButton b)
 void EventManager::releaseKey(KeyButton k)
 {
   _keyset.reset(static_cast<size_t>(k));
+}
 }

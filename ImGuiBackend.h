@@ -3,6 +3,8 @@
 
 #include "GuiBackend.h"
 
+namespace fig
+{
 class ImGuiBackend : public GuiBackend
 {
 public:
@@ -11,5 +13,6 @@ public:
   void render() override;
   void shutdown() override;
 };
+}
 
 #endif

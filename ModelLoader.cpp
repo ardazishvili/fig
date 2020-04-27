@@ -1,5 +1,7 @@
 #include "ModelLoader.h"
 
+namespace fig
+{
 ModelLoader::ModelLoader(Shader& shader) : _shader(shader)
 {
 }
@@ -135,4 +137,5 @@ ModelsMapping ModelLoader::models()
 MenuTexturesMapping ModelLoader::menuTextures()
 {
   return _menuTextures;
+}
 }

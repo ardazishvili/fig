@@ -4,6 +4,8 @@
 #include "SubTerrainMesh.h"
 #include "TerrainMesh.h"
 
+namespace fig
+{
 class MainTerrainMesh : public TerrainMesh
 {
 public:
@@ -26,5 +28,6 @@ public:
 private:
   std::vector<bool> _obstaclesMap;
 };
+}
 
 #endif

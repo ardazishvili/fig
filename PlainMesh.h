@@ -6,6 +6,8 @@
 #include "Mesh.h"
 #include "ModelMesh.h"
 
+namespace fig
+{
 class PlainMesh : public Mesh
 {
 public:
@@ -25,5 +27,6 @@ private:
   std::vector<Vertex> _vertices;
   std::vector<unsigned int> _indices;
 };
+}
 
 #endif

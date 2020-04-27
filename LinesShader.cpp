@@ -4,6 +4,8 @@
 
 #include "LinesShader.h"
 
+namespace fig
+{
 LinesShader::LinesShader(Light* light,
                          Camera& camera,
                          glm::mat4& view,
@@ -18,4 +20,5 @@ void LinesShader::configure()
 {
   setTransformation("view", glm::value_ptr(_view));
   setTransformation("projection", glm::value_ptr(_projection));
+}
 }

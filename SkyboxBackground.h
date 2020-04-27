@@ -8,6 +8,8 @@
 #include "SkyboxShader.h"
 #include "WindowBackground.h"
 
+namespace fig
+{
 class SkyboxBackground : public WindowBackground
 {
 public:
@@ -22,5 +24,6 @@ private:
   std::unique_ptr<SkyboxShader> _skyboxShader;
   std::unique_ptr<Skybox> _skybox;
 };
+}
 
 #endif

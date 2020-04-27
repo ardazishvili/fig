@@ -4,6 +4,8 @@
 #include "Mesh.h"
 #include "TerrainMesh.h"
 
+namespace fig
+{
 class SphereMesh : public Mesh
 {
 public:
@@ -14,5 +16,6 @@ private:
   std::vector<VertexColor> _v;
   std::vector<unsigned int> _indices;
 };
+}
 
 #endif

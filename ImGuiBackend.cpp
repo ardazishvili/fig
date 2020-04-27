@@ -5,6 +5,8 @@
 #include "GlfwWindow.h"
 #include "ImGuiBackend.h"
 
+namespace fig
+{
 void ImGuiBackend::init(Window* rawWindow)
 {
   const char* glsl_version = "#version 450";
@@ -37,4 +39,5 @@ void ImGuiBackend::shutdown()
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
   ImGui::DestroyContext();
+}
 }

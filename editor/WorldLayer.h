@@ -10,6 +10,8 @@
 #include "../Window.h"
 #include "../WindowBackground.h"
 
+namespace fig
+{
 class WorldLayer : public Layer
 {
 public:
@@ -36,5 +38,6 @@ private:
   /* std::unique_ptr<SkyboxShader> _skyboxShader; */
   std::shared_ptr<EventManager> _eventManager;
 };
+}
 
 #endif

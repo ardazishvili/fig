@@ -3,6 +3,8 @@
 
 #include <glm/glm.hpp>
 
+namespace fig
+{
 class Camera
 {
 public:
@@ -50,5 +52,6 @@ private:
   float _rotationSpeed{ 1.0 };
   float _moveSpeed{ 1.0f };
 };
+}
 
 #endif

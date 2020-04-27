@@ -1,20 +1,30 @@
 #ifndef EDITOR_APPLICATION_H
 #define EDITOR_APPLICATION_H
 
+#include <QApplication>
+#include <memory>
+
 #include "../Application.h"
 #include "../Camera.h"
 #include "../Light.h"
 #include "../events/EventFabric.h"
+#include "myopenglwindow.h"
 
 #include "mainwindow.h"
 
+namespace fig
+{
 template<typename T>
-class EditorApplication : public Application<T>
+class EditorApplication
+  : public Application<T>
+  , public OpenGLWindow
 {
 public:
-  EditorApplication();
+  EditorApplication(std::unique_ptr<QApplication> app);
   void run() override;
   void tick() override;
+  void initialize() override;
+  void render() override;
 
 private:
   Camera _camera;
@@ -24,7 +34,8 @@ private:
   glm::mat4 _view;
   glm::mat4 _projection;
 
-  /* MainWindow _mainWindow; */
+  std::unique_ptr<QApplication> _qapp;
 };
+}
 
 #endif

@@ -3,6 +3,8 @@
 
 #include "WindowBackground.h"
 
+namespace fig
+{
 class ColorBackground : public WindowBackground
 {
 public:
@@ -14,5 +16,6 @@ public:
 private:
   Color _color;
 };
+}
 
 #endif

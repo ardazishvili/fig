@@ -3,6 +3,8 @@
 
 #include "LinesObject.h"
 
+namespace fig
+{
 class RectangleShape : public LinesObject
 {
 public:
@@ -22,5 +24,6 @@ private:
 
   Camera& _camera;
 };
+}
 
 #endif

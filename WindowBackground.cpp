@@ -1,5 +1,7 @@
 #include "WindowBackground.h"
 
+namespace fig
+{
 /* WindowBackground::WindowBackground(Light* light, */
 /*                                    Camera* camera, */
 /*                                    glm::mat4& view, */
@@ -8,3 +10,4 @@
 /*   _camera(camera), _view(view), _projection(projection) */
 /* { */
 /* } */
+}

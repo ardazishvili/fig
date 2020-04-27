@@ -4,6 +4,8 @@
 #include "LinesObject.h"
 #include "math/AStar.h"
 
+namespace fig
+{
 class Path : public LinesObject
 {
 public:
@@ -25,5 +27,6 @@ std::shared_ptr<Path> makePath(Shader& shader,
                                AStar* router,
                                glm::vec3 s,
                                glm::vec3 e);
+}
 
 #endif

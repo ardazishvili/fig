@@ -4,6 +4,8 @@
 #include "../Core.h"
 #include "../Window.h"
 
+namespace fig
+{
 class EventManager;
 class Camera;
 class Event
@@ -122,5 +124,6 @@ protected:
   double _xoffset;
   double _yoffset;
 };
+}
 
 #endif

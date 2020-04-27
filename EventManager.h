@@ -7,6 +7,8 @@
 
 #include "Window.h"
 
+namespace fig
+{
 enum class MouseButton { LEFT, MIDDLE, RIGHT, _LAST };
 enum class KeyButton { LEFT_SHIFT, _LAST };
 
@@ -36,5 +38,6 @@ protected:
   std::bitset<static_cast<size_t>(KeyButton::_LAST)> _keyset;
   std::bitset<static_cast<size_t>(MouseButton::_LAST)> _mouseSet;
 };
+}
 
 #endif

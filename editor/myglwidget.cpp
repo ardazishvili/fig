@@ -2,6 +2,8 @@
 
 #include "globals.h"
 
+namespace fig
+{
 MyGLWidget::MyGLWidget(QWidget* parent) : QOpenGLWidget(parent), _app(gApp())
 {
 }
@@ -36,4 +38,5 @@ void MyGLWidget::mouseReleaseEvent(QMouseEvent* event)
     _qcolor = color;
     update();
   }
+}
 }

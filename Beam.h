@@ -3,6 +3,8 @@
 
 #include "LinesObject.h"
 
+namespace fig
+{
 class Beam : public LinesObject
 {
 public:
@@ -24,5 +26,6 @@ private:
   float _oyAngle;
   glm::vec3 _offset;
 };
+}
 
 #endif

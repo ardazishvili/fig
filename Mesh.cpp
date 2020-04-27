@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+namespace fig
+{
 Mesh::Mesh()
 {
   _vao = 0;
@@ -30,4 +32,5 @@ void Mesh::deinit()
     glDeleteVertexArrays(1, &_vao);
     _vao = 0;
   }
+}
 }

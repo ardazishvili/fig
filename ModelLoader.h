@@ -6,6 +6,8 @@
 
 #include "Model.h"
 
+namespace fig
+{
 enum class Models {
   Shell,
   Tank,
@@ -45,5 +47,6 @@ private:
   ModelsMapping _models;
   MenuTexturesMapping _menuTextures;
 };
+}
 
 #endif

@@ -8,6 +8,8 @@
 
 #include <memory>
 
+namespace fig
+{
 /**
  * @brief Application abstraction
  *
@@ -110,5 +112,6 @@ private:
 #define FG_APP_WARN(...) gApp()->log(Level::Warn, __VA_ARGS__);
 #define FG_APP_ERROR(...) gApp()->log(Level::Error, __VA_ARGS__);
 #define FG_APP_CRITICAL(...) gApp()->log(Level::Critical, __VA_ARGS__);
+}
 
 #endif

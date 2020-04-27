@@ -7,6 +7,8 @@
 
 #include "Mesh.h"
 
+namespace fig
+{
 enum class TerrainType { Main, Sub };
 
 struct VertexColor
@@ -61,5 +63,6 @@ protected:
   float _yStep;
   float _zScale;
 };
+}
 
 #endif

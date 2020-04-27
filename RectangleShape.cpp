@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+namespace fig
+{
 RectangleShape::RectangleShape(Shader& shader, Camera& camera) :
   LinesObject(shader), _camera(camera)
 {
@@ -86,4 +88,5 @@ glm::vec2 RectangleShape::bottomLeft() const
 glm::vec2 RectangleShape::topRight() const
 {
   return glm::vec2(_v.at(2).x, _v.at(2).y);
+}
 }

@@ -7,6 +7,8 @@
 
 #include "Shader.h"
 
+namespace fig
+{
 using Points = std::vector<glm::vec3>;
 using Indices = std::vector<unsigned int>;
 class LinesObject
@@ -32,5 +34,6 @@ protected:
   Points _v;
   Indices _i;
 };
+}
 
 #endif

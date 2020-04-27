@@ -7,6 +7,8 @@
 #include "Camera.h"
 #include "Window.h"
 
+namespace fig
+{
 class EventFabric;
 class GlfwWindow : public Window
 {
@@ -37,5 +39,6 @@ private:
   // for ImGui instantiation we might need raw GLFWwindow*
   friend class ImGuiBackend;
 };
+}
 
 #endif

@@ -10,6 +10,8 @@
 #include "Camera.h"
 #include "Shader.h"
 
+namespace fig
+{
 class Light
 {
 public:
@@ -35,5 +37,6 @@ private:
   glm::mat4 _projection;
   glm::mat4 _model;
 };
+}
 
 #endif

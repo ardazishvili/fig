@@ -5,6 +5,8 @@
 
 #include "Event.h"
 
+namespace fig
+{
 class EventFabric
 {
 public:
@@ -35,5 +37,6 @@ public:
                                                        int action,
                                                        int mods) = 0;
 };
+}
 
 #endif

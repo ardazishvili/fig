@@ -2,6 +2,8 @@
 #include "Core.h"
 #include "SpdBackend.h"
 
+namespace fig
+{
 template<typename T>
 void Application<T>::addLayer(std::unique_ptr<Layer> l)
 {
@@ -31,3 +33,4 @@ void Application<T>::update()
 }
 
 template class Application<SpdBackend>;
+}

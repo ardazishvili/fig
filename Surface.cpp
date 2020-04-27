@@ -1,6 +1,8 @@
 #include "Surface.h"
 #include "globals.h"
 
+namespace fig
+{
 Surface::Surface(Camera& camera,
                  Shader& shader,
                  float bottomLeftX,
@@ -77,4 +79,5 @@ void Surface::setScaleXY(float xFactor, float yFactor)
 {
   _xScaleFactor = xFactor;
   _yScaleFactor = yFactor;
+}
 }

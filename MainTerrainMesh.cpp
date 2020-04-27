@@ -12,6 +12,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/compatibility.hpp>
 
+namespace fig
+{
 struct RgbColor
 {
   float r;
@@ -242,4 +244,5 @@ void MainTerrainMesh::getSegmentObstaclesMap(glm::vec2 bottomLeft,
       m.push_back(_obstaclesMap.at(_latticeWidth * i + j));
     }
   }
+}
 }

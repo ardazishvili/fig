@@ -2,6 +2,8 @@
 
 #include "Sphere.h"
 
+namespace fig
+{
 Sphere::Sphere(Shader& shader,
                glm::vec3 center,
                float radius,
@@ -29,4 +31,5 @@ void Sphere::render()
   _mesh.render();
   glDisable(GL_BLEND);
   glDepthMask(GL_TRUE);
+}
 }

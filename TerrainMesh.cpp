@@ -2,6 +2,8 @@
 #include "TerrainMeshSegment.h"
 #include "globals.h"
 
+namespace fig
+{
 void TerrainMesh::render()
 {
   glBindVertexArray(_vao);
@@ -171,4 +173,5 @@ float TerrainMesh::halfWidth() const
 float TerrainMesh::halfHeight() const
 {
   return _height / 2;
+}
 }

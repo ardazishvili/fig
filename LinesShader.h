@@ -6,6 +6,8 @@
 
 #include "Shader.h"
 
+namespace fig
+{
 class LinesShader : public Shader
 {
 
@@ -21,5 +23,6 @@ public:
 private:
   GLFWwindow* _window;
 };
+}
 
 #endif

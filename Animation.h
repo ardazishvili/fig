@@ -12,6 +12,8 @@
 #include "Shader.h"
 #include "Timer.h"
 
+namespace fig
+{
 struct BoneData
 {
   glm::mat4 offset;
@@ -65,5 +67,6 @@ private:
 
 glm::mat4 mat4From3x3(const aiMatrix3x3& in);
 glm::mat4 mat4From4x4(const aiMatrix4x4& in);
+}
 
 #endif

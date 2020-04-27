@@ -2,6 +2,8 @@
 
 #include "Light.h"
 
+namespace fig
+{
 float vertices[] = {
   // positions          // normals           // texture coords
   -0.5f, -0.5f, -0.5f, 0.0f,  0.0f,  -1.0f, 0.0f,  0.0f,  0.5f,  -0.5f,
@@ -98,4 +100,5 @@ void Light::setPosition(glm::vec3 position)
 void Light::setShader(Shader* shader)
 {
   _shader = shader;
+}
 }

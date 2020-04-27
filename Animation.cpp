@@ -2,12 +2,15 @@
 
 #include "Animation.h"
 
+namespace fig
+{
 Animation::Animation(BonesData& bonesData,
                      BoneMapping& boneMapping,
                      unsigned int& numBones) :
   _bonesData(bonesData),
   _boneMapping(boneMapping), _numBones(numBones)
-{}
+{
+}
 
 void Animation::setScene(const aiScene* scene)
 {
@@ -270,4 +273,5 @@ glm::mat4 mat4From4x4(const aiMatrix4x4& in)
   m[3][3] = in.d4;
 
   return m;
+}
 }

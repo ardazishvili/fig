@@ -4,6 +4,8 @@
 #include "MainTerrainMesh.h"
 #include "Shader.h"
 
+namespace fig
+{
 class Terrain
 {
 public:
@@ -44,5 +46,6 @@ private:
   float _maxXy;
   float _zScale;
 };
+}
 
 #endif

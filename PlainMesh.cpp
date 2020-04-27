@@ -1,5 +1,7 @@
 #include "PlainMesh.h"
 
+namespace fig
+{
 void PlainMesh::initSurface(float bottomLeftX,
                             float bottomLeftY,
                             float topRightX,
@@ -127,4 +129,5 @@ void PlainMesh::loadTexture(const std::string& filename, TexturePackType type)
       std::make_shared<Texture>(GL_TEXTURE_2D, filename));
     _initialTextures[i]->load();
   }
+}
 }

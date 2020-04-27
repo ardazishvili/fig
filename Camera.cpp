@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+namespace fig
+{
 Camera::Camera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) :
   _position(position), _lookAt(lookAt), _up(up)
 {
@@ -150,4 +152,4 @@ void Camera::initAngles()
   _pitch = -glm::degrees(::atan(a / b));
   _camRadius = b;
 }
-
+}

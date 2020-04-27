@@ -3,6 +3,8 @@
 
 #include "SkyboxShader.h"
 
+namespace fig
+{
 SkyboxShader::SkyboxShader(Light* light,
                            Camera& camera,
                            glm::mat4& view,
@@ -19,4 +21,5 @@ void SkyboxShader::configure()
   setTransformation("view", glm::value_ptr(v));
   setTransformation("projection", glm::value_ptr(_projection));
   setInt("skybox", 0);
+}
 }

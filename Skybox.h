@@ -6,6 +6,8 @@
 
 #include "Shader.h"
 
+namespace fig
+{
 class Skybox
 {
 public:
@@ -19,5 +21,6 @@ private:
   unsigned int _vbo;
   unsigned int _id;
 };
+}
 
 #endif

@@ -1,5 +1,7 @@
 #include "LinesObject.h"
 
+namespace fig
+{
 LinesObject::LinesObject(Shader& shader) : _shader(shader)
 {
   glGenVertexArrays(1, &_vao);
@@ -32,4 +34,5 @@ void LinesObject::render()
 unsigned int LinesObject::indicesToRender()
 {
   return _i.size() * 2;
+}
 }

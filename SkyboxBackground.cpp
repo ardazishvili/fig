@@ -1,6 +1,8 @@
 
 #include "SkyboxBackground.h"
 
+namespace fig
+{
 SkyboxBackground::SkyboxBackground(Camera* camera,
                                    glm::mat4& view,
                                    glm::mat4& projection)
@@ -32,4 +34,5 @@ void SkyboxBackground::render()
 
 void SkyboxBackground::bind(Window* window)
 {
+}
 }

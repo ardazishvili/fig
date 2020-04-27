@@ -3,6 +3,8 @@
 
 #include <GL/glew.h>
 
+namespace fig
+{
 class Mesh
 {
 public:
@@ -19,5 +21,6 @@ protected:
   GLuint _vbo;
   GLuint _ebo;
 };
+}
 
 #endif

@@ -2,6 +2,9 @@
 
 #include "SphereMesh.h"
 #include "math/Noise.h"
+
+namespace fig
+{
 float color[3] = { 255.0f / 255, 143.0f / 255, 54.0f / 255 };
 
 void SphereMesh::render()
@@ -115,4 +118,5 @@ void SphereMesh::init(float r, unsigned int divisions)
                GL_STATIC_DRAW);
 
   glBindVertexArray(0);
+}
 }

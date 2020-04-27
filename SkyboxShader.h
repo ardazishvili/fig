@@ -3,6 +3,8 @@
 
 #include "Shader.h"
 
+namespace fig
+{
 class SkyboxShader : public Shader
 {
 public:
@@ -14,5 +16,6 @@ public:
                const GLchar* fragmentPath);
   void configure() override;
 };
+}
 
 #endif

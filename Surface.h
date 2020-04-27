@@ -5,6 +5,8 @@
 #include "PlainMesh.h"
 #include "Shader.h"
 
+namespace fig
+{
 class Surface
 {
 public:
@@ -35,5 +37,6 @@ private:
   glm::vec2 _bottomLeft;
   glm::vec2 _topRight;
 };
+}
 
 #endif

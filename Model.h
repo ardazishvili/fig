@@ -16,8 +16,10 @@
 
 #include "ModelMesh.h"
 
-using namespace std;
+/* using namespace std; */
 
+namespace fig
+{
 class Model
 {
 public:
@@ -40,6 +42,6 @@ private:
   ModelMesh _meshes;
   Shader& _shader;
 };
+}
 
 #endif
-

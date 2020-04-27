@@ -3,6 +3,8 @@
 #include "EditorKeyReleaseEvent.h"
 #include "globals.h"
 
+namespace fig
+{
 class StubEvent : public Event
 {
 
@@ -57,4 +59,5 @@ std::unique_ptr<Event> EditorEventFabric::getMouseReleasedEvent(int button,
                                                                 int mods)
 {
   return std::make_unique<StubEvent>();
+}
 }

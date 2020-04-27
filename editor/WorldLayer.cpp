@@ -3,6 +3,8 @@
 #include "../events/Event.h"
 #include "EditorEventManager.h"
 
+namespace fig
+{
 WorldLayer::WorldLayer(Window* w,
                        Camera* c,
                        glm::mat4& view,
@@ -41,4 +43,5 @@ std::function<void(std::unique_ptr<Event> event)> WorldLayer::onEvent()
   return [this](std::unique_ptr<Event> event) {
     event->process(_camera, _eventManager.get());
   };
+}
 }

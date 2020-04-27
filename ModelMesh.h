@@ -18,6 +18,8 @@
 #include "Vertex.h"
 #define INVALID_MATERIAL 0xFFFFFFFF
 
+namespace fig
+{
 using namespace std;
 
 enum class TexturePackType {
@@ -78,5 +80,6 @@ private:
   Textures _destroyedTextures;
   TexturePackType _texturesType{ TexturePackType::Initial };
 };
+}
 
 #endif

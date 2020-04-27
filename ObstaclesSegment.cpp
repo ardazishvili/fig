@@ -1,5 +1,7 @@
 #include "ObstaclesSegment.h"
 
+namespace fig
+{
 ObstaclesSegment::ObstaclesSegment(Shader& colorShader,
                                    Terrain* terrain,
                                    glm::vec2 bottomLeft,
@@ -48,4 +50,5 @@ const std::vector<bool>& ObstaclesSegment::obstacles() const
 SegmentDimensions ObstaclesSegment::dimensions() const
 {
   return _sd;
+}
 }

@@ -3,6 +3,8 @@
 
 #include "Window.h"
 
+namespace fig
+{
 class GuiBackend
 {
 public:
@@ -11,5 +13,6 @@ public:
   virtual void render() = 0;
   virtual void shutdown() = 0;
 };
+}
 
 #endif

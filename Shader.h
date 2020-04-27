@@ -11,6 +11,8 @@
 
 #include "Camera.h"
 
+namespace fig
+{
 class Light;
 class Shader
 {
@@ -56,5 +58,6 @@ protected:
 private:
   GLuint m_boneLocation[MAX_BONES];
 };
+}
 
 #endif

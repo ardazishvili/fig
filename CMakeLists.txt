@@ -137,6 +137,8 @@ target_sources(fig
   )
 
 add_executable(editor
+  QtWindow.h
+  QtWindow.cpp
   editor/editor.cpp
   editor/EditorApplication.h
   editor/EditorApplication.cpp
@@ -150,8 +152,8 @@ add_executable(editor
   editor/EditorEventFabric.cpp
   editor/EditorKeyReleaseEvent.h
   editor/EditorKeyReleaseEvent.cpp
-  editor/EditorGuiLayer.h
-  editor/EditorGuiLayer.cpp
+  # editor/EditorGuiLayer.h
+  # editor/EditorGuiLayer.cpp
   editor/mainwindow.h
   editor/mainwindow.cpp
   editor/myglwidget.h

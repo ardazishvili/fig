@@ -4,6 +4,8 @@
 #include "EditorEventManager.h"
 #include "EditorKeyReleaseEvent.h"
 
+namespace fig
+{
 EditorKeyReleaseEvent::EditorKeyReleaseEvent(int key, int scancode, int mods) :
   KeyboardReleaseEvent(key, scancode, mods)
 {
@@ -17,4 +19,5 @@ void EditorKeyReleaseEvent::process(Camera* camera, EventManager* eventManager)
   if (_key == GLFW_KEY_ESCAPE) {
     em->_window->close();
   }
+}
 }
