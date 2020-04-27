@@ -15,16 +15,12 @@
 namespace fig
 {
 template<typename T>
-class EditorApplication
-  : public Application<T>
-  , public OpenGLWindow
+class EditorApplication : public Application<T>
 {
 public:
   EditorApplication(std::unique_ptr<QApplication> app);
   void run() override;
   void tick() override;
-  void initialize() override;
-  void render() override;
 
 private:
   Camera _camera;

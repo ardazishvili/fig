@@ -1,9 +1,11 @@
 #include "myopenglwindow.h"
 
-#include <QPainter>
+#include <GL/glew.h>
+#include <QDebug>
+#include <QOpenGLContext>
 
 OpenGLWindow::OpenGLWindow(QWindow* parent) :
-  QWindow(parent), _animating(false), _context(0), _device(0)
+  QWindow(parent), _animating(false), _context(0)
 {
   setSurfaceType(QWindow::OpenGLSurface);
 }
@@ -41,16 +43,22 @@ void OpenGLWindow::renderNow()
   if (!_context) {
     _context = new QOpenGLContext(this);
     _context->setFormat(requestedFormat());
+    auto f = requestedFormat();
     _context->create();
+
     needsInitialize = true;
   }
   _context->makeCurrent(this);
+  GLenum err = glewInit();
+  if (GLEW_OK != err) {
+    qDebug() << "[Error] GLEW failed to initialize. "
+             << (const char*)glewGetErrorString(err);
+  }
   if (needsInitialize) {
-    initializeOpenGLFunctions();
     initialize();
   }
   render();
-  _context->swapBuffers(this);
+  show();
   if (_animating)
     renderLater();
 }

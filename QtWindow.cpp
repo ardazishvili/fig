@@ -1,6 +1,10 @@
+#include <QDebug>
 #include <QVBoxLayout>
 
+#include "Core.h"
 #include "QtWindow.h"
+
+#include <QOpenGLContext>
 
 namespace fig
 {
@@ -9,6 +13,10 @@ QtWindow::QtWindow(fig::Window::Param param) : fig::Window(param)
 
   QSurfaceFormat format;
   format.setSamples(16);
+  format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
+  format.setProfile(QSurfaceFormat::CoreProfile);
+  format.setVersion(4, 5);
+  format.setRenderableType(QSurfaceFormat::OpenGL);
 
   setFormat(format);
   resize(param.width, param.height);
@@ -43,10 +51,19 @@ void QtWindow::setOnEvent(
 
 void QtWindow::update()
 {
+  FG_CORE_DEBUG("update window")
+
+  int display_w, display_h;
+  const qreal retinaScale = devicePixelRatio();
+  glViewport(0, 0, width() * retinaScale, height() * retinaScale);
+  glClearColor(_color.r, _color.g, _color.b, _color.alfa);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 }
 
 void QtWindow::show()
 {
+  _context->swapBuffers(this);
 }
 
 bool QtWindow::shouldClose()
@@ -63,8 +80,9 @@ void QtWindow::initialize()
 
 void QtWindow::render()
 {
-  const qreal retinaScale = devicePixelRatio();
-  glViewport(0, 0, width() * retinaScale, height() * retinaScale);
-  glClear(GL_COLOR_BUFFER_BIT);
+  update();
+  /* const qreal retinaScale = devicePixelRatio(); */
+  /* glViewport(0, 0, width() * retinaScale, height() * retinaScale); */
+  /* glClear(GL_COLOR_BUFFER_BIT); */
 }
 }
