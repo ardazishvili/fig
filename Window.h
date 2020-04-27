@@ -103,11 +103,6 @@ public:
   virtual void close() = 0;
 
   /**
-   * @brief Window post init
-   */
-  virtual void init() = 0;
-
-  /**
    * @brief Set background color
    *
    * @param color

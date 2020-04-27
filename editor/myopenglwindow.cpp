@@ -1,11 +1,13 @@
 #include "myopenglwindow.h"
+#include "globals.h"
 
 #include <GL/glew.h>
 #include <QDebug>
+#include <QMouseEvent>
 #include <QOpenGLContext>
+#include <memory>
 
-OpenGLWindow::OpenGLWindow(QWindow* parent) :
-  QWindow(parent), _animating(false), _context(0)
+OpenGLWindow::OpenGLWindow(QWindow* parent) : QWindow(parent), _animating(false)
 {
   setSurfaceType(QWindow::OpenGLSurface);
 }
@@ -41,7 +43,7 @@ void OpenGLWindow::renderNow()
   bool needsInitialize = false;
 
   if (!_context) {
-    _context = new QOpenGLContext(this);
+    _context = std::make_unique<QOpenGLContext>(this);
     _context->setFormat(requestedFormat());
     auto f = requestedFormat();
     _context->create();
@@ -68,4 +70,17 @@ void OpenGLWindow::setAnimating(bool animating)
   _animating = animating;
   if (animating)
     renderLater();
+}
+
+void OpenGLWindow::mouseMoveEvent(QMouseEvent* e)
+{
+  std::cout << "mouse x ix = " << e->x() << std::endl;
+  std::cout << "mouse y ix = " << e->y() << std::endl;
+  /* std::cout << "mouse global x ix = " << e->globalX() << std::endl; */
+  /* std::cout << "mouse global y ix = " << e->globalY() << std::endl; */
+}
+
+void OpenGLWindow::mousePressEvent(QMouseEvent* e)
+{
+  std::cout << "mousePressEvent" << std::endl;
 }

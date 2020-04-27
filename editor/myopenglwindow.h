@@ -1,7 +1,12 @@
 #ifndef GL_WINDOW_H
 #define GL_WINDOW_H
 
+#include <GL/glew.h>
+
+#include <QOpenGLContext>
 #include <QWindow>
+
+#include <memory>
 
 class OpenGLWindow : public QWindow
 {
@@ -14,19 +19,20 @@ public:
   virtual void show() = 0;
   void setAnimating(bool animating);
 
+  void mouseMoveEvent(QMouseEvent* e) override;
+  void mousePressEvent(QMouseEvent* e) override;
+
 public slots:
   void renderLater();
   void renderNow();
 
 protected:
   bool event(QEvent* event) override;
-  QOpenGLContext* _context;
+  std::unique_ptr<QOpenGLContext> _context;
   void exposeEvent(QExposeEvent* event) override;
 
 private:
   bool _animating;
-
-  /* QOpenGLPaintDevice* _device; */
 };
 
 #endif

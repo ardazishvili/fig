@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "editor/myopenglwindow.h"
 #include "mainwindow.h"
+#include <functional>
 
 namespace fig
 {
@@ -12,7 +13,7 @@ class QtWindow
   , public OpenGLWindow
 {
 public:
-  QtWindow(Window::Param param);
+  QtWindow(Window::Param param, std::function<void(void)> appTickFn);
   float width() const override;
   float height() const override;
   void getCursorPos(double* xpos, double* ypos) const override;
@@ -25,10 +26,9 @@ public:
   void initialize() override;
   void render() override;
 
-  void init() override;
-
 private:
   MainWindow _mainWindow;
+  std::function<void(void)> _appTickFn;
 };
 }
 

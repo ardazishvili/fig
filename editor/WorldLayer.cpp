@@ -2,6 +2,7 @@
 #include "../Light.h"
 #include "../events/Event.h"
 #include "EditorEventManager.h"
+#include "globals.h"
 
 namespace fig
 {
@@ -24,19 +25,21 @@ void WorldLayer::init()
 
 void WorldLayer::update()
 {
+  FG_APP_INFO("WorldLayer update");
 }
 
 void WorldLayer::render()
 {
-  /* _camera->updateSpeed(); */
-  /* _view = glm::lookAt(_camera->eye(), _camera->reference(), _camera->up());
-   */
-  /* _projection = glm::perspective(glm::radians(_camera->fov()), */
-  /*                                _window->width() / _window->height(), */
-  /*                                0.01f, */
-  /*                                1000.0f); */
+  FG_APP_INFO("WorldLayer render");
+  _camera->updateSpeed();
+  _view = glm::lookAt(_camera->eye(), _camera->reference(), _camera->up());
+
+  _projection = glm::perspective(glm::radians(_camera->fov()),
+                                 _window->width() / _window->height(),
+                                 0.01f,
+                                 1000.0f);
   _background->render();
-  /* _eventManager->tick(); */
+  _eventManager->tick();
 }
 
 std::function<void(std::unique_ptr<Event> event)> WorldLayer::onEvent()

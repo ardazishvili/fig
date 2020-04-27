@@ -5,10 +5,14 @@
 #include "QtWindow.h"
 
 #include <QOpenGLContext>
+#include <functional>
 
 namespace fig
 {
-QtWindow::QtWindow(fig::Window::Param param) : fig::Window(param)
+QtWindow::QtWindow(fig::Window::Param param,
+                   std::function<void(void)> appTickFn) :
+  fig::Window(param),
+  _appTickFn(appTickFn)
 {
 
   QSurfaceFormat format;
@@ -21,23 +25,21 @@ QtWindow::QtWindow(fig::Window::Param param) : fig::Window(param)
   setFormat(format);
   resize(param.width, param.height);
   setAnimating(true);
-};
 
-void QtWindow::init()
-{
   _mainWindow.show();
-
   auto* container = QWidget::createWindowContainer(this);
   auto* layout = _mainWindow.findChild<QVBoxLayout*>("layout");
   layout->addWidget(container);
-}
+};
 
 float QtWindow::width() const
 {
+  return size().width();
 }
 
 float QtWindow::height() const
 {
+  return size().height();
 }
 
 void QtWindow::getCursorPos(double* xpos, double* ypos) const
@@ -53,7 +55,6 @@ void QtWindow::update()
 {
   FG_CORE_DEBUG("update window")
 
-  int display_w, display_h;
   const qreal retinaScale = devicePixelRatio();
   glViewport(0, 0, width() * retinaScale, height() * retinaScale);
   glClearColor(_color.r, _color.g, _color.b, _color.alfa);
@@ -80,9 +81,7 @@ void QtWindow::initialize()
 
 void QtWindow::render()
 {
+  _appTickFn();
   update();
-  /* const qreal retinaScale = devicePixelRatio(); */
-  /* glViewport(0, 0, width() * retinaScale, height() * retinaScale); */
-  /* glClear(GL_COLOR_BUFFER_BIT); */
 }
 }

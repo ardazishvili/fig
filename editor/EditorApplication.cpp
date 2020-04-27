@@ -19,11 +19,9 @@ EditorApplication<T>::EditorApplication(std::unique_ptr<QApplication> app) :
   _qapp(std::move(app))
 {
   _eventFabric = std::make_unique<EditorEventFabric>();
-  int screenWidth = 640;
-  int screenHeight = 480;
-  Window::Param param = { screenWidth, screenHeight };
-  this->_window = std::make_unique<QtWindow>(param);
-  this->_window->init();
+  this->_window = std::make_unique<QtWindow>(Window::Param{ 640, 480 }, [this] {
+    tick();
+  });
 
   Color c = { 194.0f / 255, 194.0f / 255, 214.0f / 255, 1 };
   auto worldLayer =
@@ -45,20 +43,14 @@ EditorApplication<T>::EditorApplication(std::unique_ptr<QApplication> app) :
 template<typename T>
 void EditorApplication<T>::run()
 {
-  /* while (!this->_window->shouldClose()) { */
-  /*   tick(); */
-  /* } */
   _qapp->exec();
 }
 
 template<typename T>
 void EditorApplication<T>::tick()
 {
-  /* this->_window->update(); */
-
-  /* this->update(); */
-  /* this->render(); */
-  /* this->_window->show(); */
+  this->update();
+  this->render();
 }
 
 template class EditorApplication<SpdBackend>;
