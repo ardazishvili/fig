@@ -10,7 +10,7 @@
 #include "../events/EventFabric.h"
 #include "QtOpenGLWindow.h"
 
-#include "mainwindow.h"
+#include "../Timer.h"
 
 namespace fig
 {

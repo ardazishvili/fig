@@ -1,9 +1,9 @@
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include "Camera.h"
 #include "globals.h"
 
+#include <chrono>
 #include <iostream>
 
 namespace fig
@@ -17,7 +17,8 @@ Camera::Camera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) :
 
 void Camera::updateSpeed()
 {
-  float currentFrame = glfwGetTime();
+  float currentFrame =
+    std::chrono::duration_cast<std::chrono::seconds>(_timer.elapsed()).count();
   _deltaTime = currentFrame - _lastFrame;
   _lastFrame = currentFrame;
   _speed = 10.5f * _deltaTime; // adjust accordingly

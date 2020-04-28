@@ -3,14 +3,17 @@
 
 #include <chrono>
 
-class Timer {
+class Timer
+{
 public:
   Timer();
-  std::chrono::milliseconds elapsed();
+  std::chrono::milliseconds elapsed() const;
   void reload();
 
 private:
-  std::chrono::time_point<std::chrono::system_clock> _start { std::chrono::system_clock::now() };
+  std::chrono::time_point<std::chrono::system_clock> _start{
+    std::chrono::system_clock::now()
+  };
 };
 
 #endif

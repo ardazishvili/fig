@@ -31,11 +31,6 @@ EditorApplication<T>::EditorApplication(std::unique_ptr<QApplication> app) :
   worldLayer->init();
   this->_window->setOnEvent(worldLayer->onEvent());
   this->addLayer(std::move(worldLayer));
-
-  /* auto guiLayer = std::make_unique<EditorGuiLayer>( */
-  /*   param, this->_window.get(), _view, _projection); */
-  /* guiLayer->init(); */
-  /* this->addLayer(std::move(guiLayer)); */
 }
 
 template<typename T>

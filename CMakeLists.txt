@@ -27,7 +27,6 @@ target_sources(imgui
 
 add_library(fig)
 target_link_libraries(fig PRIVATE imgui spdlog::spdlog GLEW)
-# target_link_libraries(fig PRIVATE imgui spdlog::spdlog)
 target_sources(fig
   PRIVATE
   Layer.h
@@ -44,8 +43,8 @@ target_sources(fig
   Application.cpp
   Window.h
   Window.cpp
-  # GlfwWindow.h
-  # GlfwWindow.cpp
+  GlfwWindow.h
+  GlfwWindow.cpp
   GuiBackend.h
   ImGuiBackend.h
   ImGuiBackend.cpp
@@ -159,4 +158,4 @@ add_executable(editor
   editor/QtOpenGLWindow.cpp
   )
 target_include_directories(editor PRIVATE editor)
-target_link_libraries(editor PRIVATE spdlog::spdlog fig glfw dl GL assimp pthread Qt5::Widgets)
+target_link_libraries(editor PRIVATE spdlog::spdlog fig dl GL assimp pthread Qt5::Widgets)

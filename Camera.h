@@ -1,6 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "Timer.h"
 #include <glm/glm.hpp>
 
 namespace fig
@@ -51,6 +52,8 @@ private:
   float _camRadius;
   float _rotationSpeed{ 1.0 };
   float _moveSpeed{ 1.0f };
+
+  Timer _timer;
 };
 }
 
