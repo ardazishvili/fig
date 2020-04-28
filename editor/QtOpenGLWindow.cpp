@@ -78,6 +78,8 @@ void OpenGLWindow::mouseMoveEvent(QMouseEvent* e)
   std::cout << "mouse y ix = " << e->y() << std::endl;
   /* std::cout << "mouse global x ix = " << e->globalX() << std::endl; */
   /* std::cout << "mouse global y ix = " << e->globalY() << std::endl; */
+  emit addToLog(QString("Mouse at the position: (") + QString::number(e->x()) +
+                QString(", ") + QString::number(e->y()) + QString(")"));
 }
 
 void OpenGLWindow::mousePressEvent(QMouseEvent* e)

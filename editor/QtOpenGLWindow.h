@@ -26,6 +26,9 @@ public slots:
   void renderLater();
   void renderNow();
 
+signals:
+  void addToLog(const QString& text);
+
 protected:
   bool event(QEvent* event) override;
   std::unique_ptr<QOpenGLContext> _context;

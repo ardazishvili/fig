@@ -1,4 +1,6 @@
 #include <QDebug>
+#include <QFrame>
+#include <QPlainTextEdit>
 #include <QVBoxLayout>
 
 #include "Core.h"
@@ -6,6 +8,7 @@
 
 #include <QOpenGLContext>
 #include <functional>
+#include <qnamespace.h>
 
 namespace fig
 {
@@ -27,10 +30,17 @@ QtWindow::QtWindow(fig::Window::Param param,
 
   _mainWindow.setFixedSize(1920, 1200);
   _mainWindow.show();
+  auto* layout = _mainWindow.findChild<QLayout*>("layout");
   auto* container = QWidget::createWindowContainer(this);
-  auto* layout = _mainWindow.findChild<QVBoxLayout*>("layout");
-  layout->addWidget(container);
   container->setFixedSize(param.width, param.height);
+  layout->addWidget(container);
+  layout->setAlignment(container, Qt::AlignRight);
+
+  auto* log = _mainWindow.findChild<QPlainTextEdit*>("log");
+  QObject::connect(
+    this, &OpenGLWindow::addToLog, log, &QPlainTextEdit::appendPlainText);
+
+  container->show();
 };
 
 float QtWindow::width() const
