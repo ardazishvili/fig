@@ -1,4 +1,4 @@
-#include "myopenglwindow.h"
+#include "QtOpenGLWindow.h"
 #include "globals.h"
 
 #include <GL/glew.h>

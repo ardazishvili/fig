@@ -1,9 +1,7 @@
 #include "EditorApplication.h"
 #include "../ColorBackground.h"
-/* #include "../GlfwWindow.h" */
 #include "../QtWindow.h"
 #include "EditorEventFabric.h"
-/* #include "EditorGuiLayer.h" */
 #include "WorldLayer.h"
 
 #include "globals.h"

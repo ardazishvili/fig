@@ -153,16 +153,10 @@ add_executable(editor
   editor/EditorEventFabric.cpp
   editor/EditorKeyReleaseEvent.h
   editor/EditorKeyReleaseEvent.cpp
-  # editor/EditorGuiLayer.h
-  # editor/EditorGuiLayer.cpp
   editor/mainwindow.h
   editor/mainwindow.cpp
-  # editor/myglwidget.h
-  # editor/myglwidget.cpp
-  # editor/TriangleWindow.h
-  # editor/TriangleWindow.cpp
-  editor/myopenglwindow.h
-  editor/myopenglwindow.cpp
+  editor/QtOpenGLWindow.h
+  editor/QtOpenGLWindow.cpp
   )
 target_include_directories(editor PRIVATE editor)
 target_link_libraries(editor PRIVATE spdlog::spdlog fig glfw dl GL assimp pthread Qt5::Widgets)

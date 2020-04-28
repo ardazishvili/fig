@@ -2,7 +2,7 @@
 #define QT_WINDOW_H
 
 #include "Window.h"
-#include "editor/myopenglwindow.h"
+#include "editor/QtOpenGLWindow.h"
 #include "mainwindow.h"
 #include <functional>
 

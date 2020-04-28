@@ -8,7 +8,7 @@
 #include "../Camera.h"
 #include "../Light.h"
 #include "../events/EventFabric.h"
-#include "myopenglwindow.h"
+#include "QtOpenGLWindow.h"
 
 #include "mainwindow.h"
 
