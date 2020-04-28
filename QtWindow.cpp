@@ -23,13 +23,14 @@ QtWindow::QtWindow(fig::Window::Param param,
   format.setRenderableType(QSurfaceFormat::OpenGL);
 
   setFormat(format);
-  resize(param.width, param.height);
   setAnimating(true);
 
+  _mainWindow.setFixedSize(1920, 1200);
   _mainWindow.show();
   auto* container = QWidget::createWindowContainer(this);
   auto* layout = _mainWindow.findChild<QVBoxLayout*>("layout");
   layout->addWidget(container);
+  container->setFixedSize(param.width, param.height);
 };
 
 float QtWindow::width() const

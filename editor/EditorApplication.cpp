@@ -17,9 +17,10 @@ EditorApplication<T>::EditorApplication(std::unique_ptr<QApplication> app) :
   _qapp(std::move(app))
 {
   _eventFabric = std::make_unique<EditorEventFabric>();
-  this->_window = std::make_unique<QtWindow>(Window::Param{ 640, 480 }, [this] {
-    tick();
-  });
+  this->_window =
+    std::make_unique<QtWindow>(Window::Param{ 1500, 1000 }, [this] {
+      tick();
+    });
 
   Color c = { 194.0f / 255, 194.0f / 255, 214.0f / 255, 1 };
   auto worldLayer =
