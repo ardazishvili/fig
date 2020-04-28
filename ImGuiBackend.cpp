@@ -1,6 +1,6 @@
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
+#include "third//gui/imgui/imgui.h"
+#include "third//gui/imgui/imgui_impl_glfw.h"
+#include "third//gui/imgui/imgui_impl_opengl3.h"
 
 #include "GlfwWindow.h"
 #include "ImGuiBackend.h"

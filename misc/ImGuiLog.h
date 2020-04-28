@@ -1,7 +1,7 @@
 #ifndef IMGUI_LOG_H
 #define IMGUI_LOG_H
 
-#include "../imgui/imgui.h"
+#include "../third/gui/imgui/imgui.h"
 
 struct ImGuiLog
 {

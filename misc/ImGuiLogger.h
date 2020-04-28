@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../imgui/imgui.h"
+#include "../third/gui/imgui/imgui.h"
 #include "ImGuiLog.h"
 
 class ImGuiLogger

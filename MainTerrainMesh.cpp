@@ -3,8 +3,6 @@
 #include <map>
 #include <string>
 
-#include "imgui/imgui.h"
-
 #include "MainTerrainMesh.h"
 #include "TerrainMeshSegment.h"
 #include "math/Noise.h"
@@ -40,13 +38,6 @@ void MainTerrainMesh::calculateHeights(unsigned int width,
   static float frequency_plain = 0.077;
   static float frequencyFactor_plain = 4.0;
   static float amplitudeFactor_plain = 0.366;
-  /* ImGui::Begin("nonPlain"); */
-  /* ImGui::SetWindowPos(ImVec2(0, 610)); */
-  /* ImGui::SetWindowSize(ImVec2(300, 100)); */
-  /* ImGui::SliderFloat("frequency", &frequency, 0.0f, 1.0f); */
-  /* ImGui::SliderFloat("frequencyFactor", &frequencyFactor, 0.0f, 3.0f); */
-  /* ImGui::SliderFloat("amplitudeFactor", &amplitudeFactor, 0.0f, 1.0f); */
-  /* ImGui::End(); */
   auto noise = Noise(777);
   std::vector<float> plainZ;
   float x, y;
@@ -85,12 +76,6 @@ void MainTerrainMesh::calculateHeights(unsigned int width,
       vertex.p.x = bottomLeftX + static_cast<float>(i) * _xStep;
       vertex.p.y = bottomLeftY + static_cast<float>(j) * _yStep;
       glm::vec2 derivs;
-      /* ImGui::Begin("R"); */
-      /* ImGui::SetWindowPos(ImVec2(0, 350)); */
-      /* ImGui::SetWindowSize(ImVec2(200, 80)); */
-      /* ImGui::SliderFloat("R", &R, 0.0f, 100.0f * M_PI); */
-      /* ImGui::SliderFloat("S", &S, 0.0f, 100.0f * M_PI); */
-      /* ImGui::End(); */
       auto a = (vertex.p.x - bottomLeftX) / _width;
       auto topRightX = bottomLeftX + _width;
       auto b = (topRightX - vertex.p.x) / _width;

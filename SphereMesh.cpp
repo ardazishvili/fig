@@ -1,4 +1,3 @@
-#include "imgui/imgui.h"
 
 #include "SphereMesh.h"
 #include "math/Noise.h"
@@ -16,24 +15,9 @@ void SphereMesh::render()
 
 void SphereMesh::init(float r, unsigned int divisions)
 {
-  ImGui::Begin("sphere noise");
   static float frequency_plain = 1.5;
   static float frequencyFactor_plain = 3.0;
   static float amplitudeFactor_plain = 0.325;
-  ImGui::SetWindowPos(ImVec2(0, 340));
-  ImGui::SetWindowSize(ImVec2(500, 110));
-  ImGui::SliderFloat("frequency slider", &frequency_plain, 1.0f, 2.5f);
-  ImGui::SliderFloat(
-    "frequencyFactor slider", &frequencyFactor_plain, 0.0f, 3.0f);
-  ImGui::SliderFloat(
-    "amplitudeFactor slider", &amplitudeFactor_plain, 0.1f, 1.5f);
-  ImGui::End();
-
-  ImGui::Begin("sphere color");
-  ImGui::SetWindowPos(ImVec2(0, 560));
-  ImGui::SetWindowSize(ImVec2(200, 50));
-  ImGui::ColorEdit3("color", color);
-  ImGui::End();
 
   auto noise = Noise(777);
   unsigned int stacksNum = divisions;
