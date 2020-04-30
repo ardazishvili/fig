@@ -4,11 +4,16 @@
 #include <GL/glew.h>
 
 #include <QOpenGLContext>
+#include <QOpenGLFunctions_4_5_Core>
+/* #include <QOpenGLFunctions> */
 #include <QWindow>
 
 #include <memory>
 
-class OpenGLWindow : public QWindow
+class OpenGLWindow
+  : public QWindow
+  , protected QOpenGLFunctions_4_5_Core
+/* , protected QOpenGLFunctions */
 {
   Q_OBJECT
 public:
@@ -16,11 +21,11 @@ public:
 
   virtual void render() = 0;
   virtual void initialize() = 0;
-  virtual void show() = 0;
-  void setAnimating(bool animating);
+  /* virtual void show() = 0; */
 
   void mouseMoveEvent(QMouseEvent* e) final;
   void mousePressEvent(QMouseEvent* e) final;
+  void setAnimating(bool animating);
 
 public slots:
   void renderLater();
@@ -35,7 +40,8 @@ protected:
   void exposeEvent(QExposeEvent* event) override;
 
 private:
-  bool _animating;
+  bool _animating{ false };
+  bool _initialized{ false };
 };
 
 #endif

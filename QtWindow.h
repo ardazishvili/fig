@@ -6,6 +6,8 @@
 #include "mainwindow.h"
 #include <functional>
 
+#include <QOpenGLShaderProgram>
+
 namespace fig
 {
 class QtWindow
@@ -20,15 +22,21 @@ public:
   void setOnEvent(
     std::function<void(std::unique_ptr<Event> event)> onEvent) override;
   void update() override;
-  void show() override;
+  /* void show() override; */
   bool shouldClose() override;
   void close() override;
-  void initialize() override;
+  /* void prepareGlewContext(); */
   void render() override;
+  void initialize() override;
 
 private:
   MainWindow _mainWindow;
   std::function<void(void)> _appTickFn;
+
+  GLuint m_posAttr;
+
+  QOpenGLShaderProgram* m_program;
+  int m_frame;
 };
 }
 

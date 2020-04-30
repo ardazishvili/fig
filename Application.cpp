@@ -21,14 +21,14 @@ void Application<T>::removeLayer()
 template<typename T>
 void Application<T>::render()
 {
-  FG_CORE_DEBUG("rendering layers")
+  /* FG_CORE_DEBUG("rendering layers") */
   _layers.render();
 }
 
 template<typename T>
 void Application<T>::update()
 {
-  FG_CORE_DEBUG("updating layers")
+  /* FG_CORE_DEBUG("updating layers") */
   _layers.update();
 }
 

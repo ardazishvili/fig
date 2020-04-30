@@ -4,9 +4,10 @@
 #include "../Camera.h"
 #include "../EventManager.h"
 #include "../Layer.h"
-/* #include "../PhongShader.h" */
+#include "../PhongShader.h"
 /* #include "../Skybox.h" */
 /* #include "../SkyboxShader.h" */
+#include "../Sphere.h"
 #include "../Window.h"
 #include "../WindowBackground.h"
 
@@ -32,11 +33,20 @@ private:
   glm::mat4& _view;
   glm::mat4& _projection;
   std::unique_ptr<WindowBackground> _background;
+  std::unique_ptr<PhongShader> _colorShader;
+  std::unique_ptr<Light> _light;
   /* std::unique_ptr<Skybox> _skybox; */
-  /* std::unique_ptr<Light> _light; */
   /* std::unique_ptr<PhongShader> _lampShader; */
   /* std::unique_ptr<SkyboxShader> _skyboxShader; */
   std::shared_ptr<EventManager> _eventManager;
+  std::unique_ptr<Sphere> _sphere;
+
+  /* GLuint m_posAttr; */
+  /* GLuint m_colAttr; */
+  /* GLuint m_matrixUniform; */
+
+  /* QOpenGLShaderProgram* m_program; */
+  /* int m_frame; */
 };
 }
 

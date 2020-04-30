@@ -10,7 +10,9 @@
 #include "../events/EventFabric.h"
 #include "QtOpenGLWindow.h"
 
+#include "../QtWindow.h"
 #include "../Timer.h"
+#include "mainwindow.h"
 
 namespace fig
 {
@@ -30,6 +32,8 @@ private:
   glm::mat4 _view;
   glm::mat4 _projection;
 
+  /* MainWindow _mainWindow; */
+  /* QtWindow _qtWindow; */
   std::unique_ptr<QApplication> _qapp;
 };
 }

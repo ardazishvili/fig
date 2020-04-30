@@ -21,7 +21,7 @@ public:
   void setOnEvent(
     std::function<void(std::unique_ptr<Event> event)> onEvent) override;
   void update() override;
-  void show() override;
+  /* void show() override; */
   float width() const override;
   float height() const override;
   void getCursorPos(double* xpos, double* ypos) const override;
