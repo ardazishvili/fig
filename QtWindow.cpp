@@ -1,5 +1,7 @@
+#include <QApplication>
 #include <QDebug>
 #include <QFrame>
+#include <QMenu>
 #include <QPlainTextEdit>
 #include <QVBoxLayout>
 
@@ -37,6 +39,12 @@ QtWindow::QtWindow(fig::Window::Param param,
   auto* log = _mainWindow.findChild<QPlainTextEdit*>("console");
   QObject::connect(
     this, &OpenGLWindow::addToLog, log, &QPlainTextEdit::appendPlainText);
+
+  auto* menuFile = _mainWindow.findChild<QMenu*>("menuFile");
+  assert(menuFile);
+  auto aList = menuFile->actions();
+  auto quitAction = aList.at(1);
+  connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
 
   container->show();
 };
