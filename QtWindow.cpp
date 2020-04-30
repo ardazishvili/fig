@@ -30,13 +30,11 @@ QtWindow::QtWindow(fig::Window::Param param,
 
   _mainWindow.setFixedSize(1920, 1200);
   _mainWindow.show();
-  auto* layout = _mainWindow.findChild<QLayout*>("layout");
-  auto* container = QWidget::createWindowContainer(this);
-  container->setFixedSize(param.width, param.height);
-  layout->addWidget(container);
-  layout->setAlignment(container, Qt::AlignRight);
+  auto* console = _mainWindow.findChild<QFrame*>("frame");
+  auto* container = QWidget::createWindowContainer(this, console);
+  container->setFixedSize(console->size());
 
-  auto* log = _mainWindow.findChild<QPlainTextEdit*>("log");
+  auto* log = _mainWindow.findChild<QPlainTextEdit*>("console");
   QObject::connect(
     this, &OpenGLWindow::addToLog, log, &QPlainTextEdit::appendPlainText);
 

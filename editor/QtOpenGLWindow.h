@@ -19,8 +19,8 @@ public:
   virtual void show() = 0;
   void setAnimating(bool animating);
 
-  void mouseMoveEvent(QMouseEvent* e) override;
-  void mousePressEvent(QMouseEvent* e) override;
+  void mouseMoveEvent(QMouseEvent* e) final;
+  void mousePressEvent(QMouseEvent* e) final;
 
 public slots:
   void renderLater();
