@@ -32,8 +32,6 @@ private:
   glm::mat4 _view;
   glm::mat4 _projection;
 
-  /* MainWindow _mainWindow; */
-  /* QtWindow _qtWindow; */
   std::unique_ptr<QApplication> _qapp;
 };
 }

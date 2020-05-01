@@ -88,7 +88,7 @@ public:
    * @brief Code that must be called to show updated window, e.g. just swap
    * buffers
    */
-  /* virtual void show() = 0; */
+  virtual void show() = 0;
 
   /**
    * @brief Check if the window should be closed, e.g. at shutdown

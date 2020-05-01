@@ -47,12 +47,6 @@ void WorldLayer::init()
 void WorldLayer::update()
 {
   FG_APP_INFO("updating world layer");
-}
-
-void WorldLayer::render()
-{
-  FG_APP_INFO("rendering world layer");
-
   _camera->updateSpeed();
   _view = glm::lookAt(_camera->eye(), _camera->reference(), _camera->up());
 
@@ -60,9 +54,13 @@ void WorldLayer::render()
                                  _window->width() / _window->height(),
                                  0.01f,
                                  1000.0f);
-  _background->render();
   _eventManager->tick();
+}
 
+void WorldLayer::render()
+{
+  FG_APP_INFO("rendering world layer");
+  _background->render();
   _sphere->render();
 }
 

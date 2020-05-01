@@ -4,9 +4,6 @@
 #include "Window.h"
 #include "editor/QtOpenGLWindow.h"
 #include "mainwindow.h"
-#include <functional>
-
-#include <QOpenGLShaderProgram>
 
 namespace fig
 {
@@ -24,7 +21,7 @@ public:
   void setOnEvent(
     std::function<void(std::unique_ptr<Event> event)> onEvent) override;
   void update() override;
-  /* void show() override; */
+  void show() override;
   bool shouldClose() override;
   void close() override;
   void render() override;
@@ -34,9 +31,6 @@ private:
   MainWindow _mainWindow;
   std::function<void(void)> _appTickFn;
   std::function<void(void)> _appInitFn;
-
-  QOpenGLShaderProgram* m_program;
-  int m_frame;
 };
 }
 

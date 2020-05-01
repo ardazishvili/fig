@@ -4,11 +4,6 @@
 #include "EditorEventFabric.h"
 #include "WorldLayer.h"
 
-#include "globals.h"
-#include <QDebug>
-#include <QFrame>
-#include <memory>
-
 namespace fig
 {
 template<typename T>

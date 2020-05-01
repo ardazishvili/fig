@@ -5,7 +5,6 @@
 
 #include <QOpenGLContext>
 #include <QOpenGLFunctions_4_5_Core>
-/* #include <QOpenGLFunctions> */
 #include <QWindow>
 
 #include <memory>
@@ -20,7 +19,7 @@ public:
 
   virtual void render() = 0;
   virtual void initialize() = 0;
-  /* virtual void show() = 0; */
+  virtual void show() = 0;
 
   void mouseMoveEvent(QMouseEvent* e) final;
   void mousePressEvent(QMouseEvent* e) final;

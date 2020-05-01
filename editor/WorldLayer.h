@@ -40,13 +40,6 @@ private:
   /* std::unique_ptr<SkyboxShader> _skyboxShader; */
   std::shared_ptr<EventManager> _eventManager;
   std::unique_ptr<Sphere> _sphere;
-
-  /* GLuint m_posAttr; */
-  /* GLuint m_colAttr; */
-  /* GLuint m_matrixUniform; */
-
-  /* QOpenGLShaderProgram* m_program; */
-  /* int m_frame; */
 };
 }
 

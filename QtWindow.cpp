@@ -1,31 +1,10 @@
 #include <QApplication>
-#include <QDebug>
 #include <QFrame>
 #include <QMenu>
 #include <QPlainTextEdit>
-#include <QScreen>
-#include <QVBoxLayout>
 
 #include "Core.h"
 #include "QtWindow.h"
-
-#include <QOpenGLContext>
-#include <functional>
-#include <qnamespace.h>
-
-static const char* vertexShaderSource = "#version 330 core\n"
-                                        "layout(location = 0) in vec3 aPos;\n"
-                                        "void main() {\n"
-                                        "   gl_Position.xyz = aPos;\n"
-                                        "   gl_Position.w = 1.0;\n"
-                                        "}\n";
-
-static const char* fragmentShaderSource =
-  "#version 330 core\n"
-  "out vec4 FragColor;\n"
-  "void main(){\n"
-  "  FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-  "}\n";
 
 namespace fig
 {
@@ -33,7 +12,7 @@ QtWindow::QtWindow(fig::Window::Param param,
                    std::function<void(void)> appInitFn,
                    std::function<void(void)> appTickFn) :
   fig::Window(param),
-  _appInitFn(appInitFn), _appTickFn(appTickFn), m_program(0), m_frame(0)
+  _appInitFn(appInitFn), _appTickFn(appTickFn)
 {
   setAnimating(true);
   _mainWindow.setFixedSize(1920, 1200);
@@ -56,11 +35,6 @@ QtWindow::QtWindow(fig::Window::Param param,
 
 void QtWindow::initialize()
 {
-  m_program = new QOpenGLShaderProgram();
-  m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-  m_program->addShaderFromSourceCode(QOpenGLShader::Fragment,
-                                     fragmentShaderSource);
-  auto res = m_program->link();
 
   _appInitFn();
 }
@@ -95,10 +69,10 @@ void QtWindow::update()
   glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 }
 
-/* void QtWindow::show() */
-/* { */
-/*   _context->swapBuffers(this); */
-/* } */
+void QtWindow::show()
+{
+  _context->swapBuffers(this);
+}
 
 bool QtWindow::shouldClose()
 {
@@ -111,37 +85,6 @@ void QtWindow::close()
 void QtWindow::render()
 {
   update();
-  /* _context->makeCurrent(this); */
   _appTickFn();
-
-  /* glViewport(0, 0, 1763, 941); */
-  /* glClear(GL_COLOR_BUFFER_BIT); */
-  /* auto res = m_program->bind(); */
-
-  /* GLfloat vertices[] = { */
-  /*   -0.5f, -0.5f, 0.0f, // left */
-  /*   0.5f,  -0.5f, 0.0f, // right */
-  /*   0.0f,  0.5f,  0.0f  // top */
-  /* }; */
-  /* unsigned int VBO, VAO; */
-  /* glGenVertexArrays(1, &VAO); */
-  /* glGenBuffers(1, &VBO); */
-  /* glBindVertexArray(VAO); */
-  /* glBindBuffer(GL_ARRAY_BUFFER, VBO); */
-  /* glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-   */
-
-  /* glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-   * (void*)0); */
-  /* glEnableVertexAttribArray(0); */
-  /* glBindBuffer(GL_ARRAY_BUFFER, 0); */
-  /* glBindVertexArray(0); */
-
-  /* glBindVertexArray(VAO); */
-  /* glDrawArrays(GL_TRIANGLES, 0, 3); */
-
-  /* m_program->release(); */
-
-  /* ++m_frame; */
 }
 }

@@ -1,11 +1,7 @@
 #include "QtOpenGLWindow.h"
-#include "globals.h"
+#include "../Core.h"
 
-/* #include <GL/glew.h> */
-#include <QDebug>
 #include <QMouseEvent>
-#include <QOpenGLContext>
-#include <memory>
 
 OpenGLWindow::OpenGLWindow(QWindow* parent) : QWindow(parent)
 {
@@ -53,18 +49,15 @@ void OpenGLWindow::renderNow()
     return;
   _context->makeCurrent(this);
   GLenum err = glewInit();
-  if (GLEW_OK != err) {
-    qDebug() << "[Error] GLEW failed to initialize. "
-             << (const char*)glewGetErrorString(err);
-  }
+  if (GLEW_OK != err)
+    FG_CORE_DEBUG("[Error] GLEW failed to initialize");
   if (!_initialized) {
-    auto res = initializeOpenGLFunctions();
-    std::cout << "res= " << res << std::endl;
+    initializeOpenGLFunctions();
     initialize();
     _initialized = true;
   }
   render();
-  _context->swapBuffers(this);
+  show();
   if (_animating)
     renderLater();
 }

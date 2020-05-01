@@ -126,10 +126,10 @@ void GlfwWindow::update()
   glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 }
 
-/* void GlfwWindow::show() */
-/* { */
-/*   glfwSwapBuffers(_window); */
-/* } */
+void GlfwWindow::show()
+{
+  glfwSwapBuffers(_window);
+}
 
 void GlfwWindow::getCursorPos(double* xpos, double* ypos) const
 {
