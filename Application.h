@@ -69,6 +69,11 @@ public:
   void render();
 
   /**
+   * @brief Initialize application
+   */
+  void init();
+
+  /**
    * @brief Run application
    */
   virtual void run() = 0;

@@ -13,7 +13,6 @@
 class OpenGLWindow
   : public QWindow
   , protected QOpenGLFunctions_4_5_Core
-/* , protected QOpenGLFunctions */
 {
   Q_OBJECT
 public:

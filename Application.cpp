@@ -32,5 +32,12 @@ void Application<T>::update()
   _layers.update();
 }
 
+template<typename T>
+void Application<T>::init()
+{
+  FG_CORE_DEBUG("initiating layers")
+  _layers.init();
+}
+
 template class Application<SpdBackend>;
 }

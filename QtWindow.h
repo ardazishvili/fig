@@ -15,7 +15,9 @@ class QtWindow
   , public OpenGLWindow
 {
 public:
-  QtWindow(Window::Param param, std::function<void(void)> appTickFn);
+  QtWindow(Window::Param param,
+           std::function<void(void)> appInitFn,
+           std::function<void(void)> appTickFn);
   float width() const override;
   float height() const override;
   void getCursorPos(double* xpos, double* ypos) const override;
@@ -25,15 +27,13 @@ public:
   /* void show() override; */
   bool shouldClose() override;
   void close() override;
-  /* void prepareGlewContext(); */
   void render() override;
   void initialize() override;
 
 private:
   MainWindow _mainWindow;
   std::function<void(void)> _appTickFn;
-
-  GLuint m_posAttr;
+  std::function<void(void)> _appInitFn;
 
   QOpenGLShaderProgram* m_program;
   int m_frame;

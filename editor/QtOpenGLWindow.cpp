@@ -12,17 +12,15 @@ OpenGLWindow::OpenGLWindow(QWindow* parent) : QWindow(parent)
   setSurfaceType(QWindow::OpenGLSurface);
   QSurfaceFormat format;
   format.setSamples(16);
-  /* format.setSwapBehavior(QSurfaceFormat::DoubleBuffer); */
-  /* format.setProfile(QSurfaceFormat::CoreProfile); */
+  format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
+  format.setProfile(QSurfaceFormat::CoreProfile);
   format.setVersion(4, 5);
-  /* format.setRenderableType(QSurfaceFormat::OpenGL); */
+  format.setRenderableType(QSurfaceFormat::OpenGL);
   setFormat(format);
 
   _context = std::make_unique<QOpenGLContext>(this);
   _context->setFormat(requestedFormat());
   _context->create();
-  /* auto f = requestedFormat(); */
-  /* qDebug() << " The requestedFormat is : " << f.version(); */
 }
 
 void OpenGLWindow::renderLater()
@@ -54,11 +52,11 @@ void OpenGLWindow::renderNow()
   if (!isExposed())
     return;
   _context->makeCurrent(this);
-  /*   GLenum err = glewInit(); */
-  /*   if (GLEW_OK != err) { */
-  /*     qDebug() << "[Error] GLEW failed to initialize. " */
-  /*              << (const char*)glewGetErrorString(err); */
-  /*   } */
+  GLenum err = glewInit();
+  if (GLEW_OK != err) {
+    qDebug() << "[Error] GLEW failed to initialize. "
+             << (const char*)glewGetErrorString(err);
+  }
   if (!_initialized) {
     auto res = initializeOpenGLFunctions();
     std::cout << "res= " << res << std::endl;

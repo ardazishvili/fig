@@ -27,6 +27,7 @@ target_sources(imgui
 
 add_library(fig)
 target_link_libraries(fig PRIVATE imgui spdlog::spdlog GLEW)
+# target_link_libraries(fig PRIVATE imgui spdlog::spdlog)
 target_sources(fig
   PRIVATE
   Layer.h

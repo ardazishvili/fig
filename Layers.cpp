@@ -24,3 +24,9 @@ void Layers::render()
   }
 }
 
+void Layers::init()
+{
+  for (auto& l : _layers) {
+    l->init();
+  }
+}

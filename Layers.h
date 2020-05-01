@@ -13,6 +13,7 @@ public:
   void remove();
   void update();
   void render();
+  void init();
 
 private:
   std::vector<std::unique_ptr<Layer>> _layers;

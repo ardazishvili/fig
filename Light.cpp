@@ -52,7 +52,7 @@ Light::Light(glm::vec3 position,
 {
   init();
   _view = view;
-  _projection = _projection;
+  _projection = projection;
   _model = glm::mat4(1.0f);
 }
 

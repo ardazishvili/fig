@@ -30,9 +30,10 @@ static const char* fragmentShaderSource =
 namespace fig
 {
 QtWindow::QtWindow(fig::Window::Param param,
+                   std::function<void(void)> appInitFn,
                    std::function<void(void)> appTickFn) :
   fig::Window(param),
-  _appTickFn(appTickFn), m_program(0), m_frame(0)
+  _appInitFn(appInitFn), _appTickFn(appTickFn), m_program(0), m_frame(0)
 {
   setAnimating(true);
   _mainWindow.setFixedSize(1920, 1200);
@@ -51,10 +52,6 @@ QtWindow::QtWindow(fig::Window::Param param,
   auto aList = menuFile->actions();
   auto quitAction = aList.at(1);
   connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
-
-  /* QSurfaceFormat format; */
-  /* format.setSamples(16); */
-  /* setFormat(format); */
 };
 
 void QtWindow::initialize()
@@ -64,8 +61,8 @@ void QtWindow::initialize()
   m_program->addShaderFromSourceCode(QOpenGLShader::Fragment,
                                      fragmentShaderSource);
   auto res = m_program->link();
-  std::cout << "shader link= " << res << std::endl;
-  /* m_posAttr = m_program->attributeLocation("aPos"); */
+
+  _appInitFn();
 }
 
 float QtWindow::width() const
@@ -89,17 +86,13 @@ void QtWindow::setOnEvent(
 
 void QtWindow::update()
 {
-  /* FG_CORE_DEBUG("update window") */
+  FG_CORE_DEBUG("updating QtWindow window")
 
-  /* const qreal retinaScale = devicePixelRatio(); */
-  /* glViewport(0, 0, width() * retinaScale, height() * retinaScale); */
-  /* std::cout << "width() * retinaScale= " << width() * retinaScale <<
-   * std::endl; */
-  /* std::cout << "height() * retinaScale= " << height() * retinaScale */
-  /*           << std::endl; */
-  /* glClearColor(_color.r, _color.g, _color.b, _color.alfa); */
-  /* glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); */
-  /* glProvokingVertex(GL_FIRST_VERTEX_CONVENTION); */
+  const qreal retinaScale = devicePixelRatio();
+  glViewport(0, 0, width() * retinaScale, height() * retinaScale);
+  glClearColor(_color.r, _color.g, _color.b, _color.alfa);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 }
 
 /* void QtWindow::show() */
@@ -115,46 +108,40 @@ void QtWindow::close()
 {
 }
 
-/* void QtWindow::prepareGlewContext() */
-/* { */
-/*   _context->makeCurrent(this); */
-/*   GLenum err = glewInit(); */
-/*   if (GLEW_OK != err) { */
-/*     qDebug() << "[Error] GLEW failed to initialize. " */
-/*              << (const char*)glewGetErrorString(err); */
-/*   } */
-/* } */
-
 void QtWindow::render()
 {
+  update();
   /* _context->makeCurrent(this); */
-  /* _appTickFn(); */
-  /* update(); */
-  glViewport(0, 0, 1763, 941);
-  glClear(GL_COLOR_BUFFER_BIT);
-  auto res = m_program->bind();
+  _appTickFn();
 
-  GLfloat vertices[] = {
-    -0.5f, -0.5f, 0.0f, // left
-    0.5f,  -0.5f, 0.0f, // right
-    0.0f,  0.5f,  0.0f  // top
-  };
-  unsigned int VBO, VAO;
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
-  glBindVertexArray(VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  /* glViewport(0, 0, 1763, 941); */
+  /* glClear(GL_COLOR_BUFFER_BIT); */
+  /* auto res = m_program->bind(); */
 
-  glBindVertexArray(VAO);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  /* GLfloat vertices[] = { */
+  /*   -0.5f, -0.5f, 0.0f, // left */
+  /*   0.5f,  -0.5f, 0.0f, // right */
+  /*   0.0f,  0.5f,  0.0f  // top */
+  /* }; */
+  /* unsigned int VBO, VAO; */
+  /* glGenVertexArrays(1, &VAO); */
+  /* glGenBuffers(1, &VBO); */
+  /* glBindVertexArray(VAO); */
+  /* glBindBuffer(GL_ARRAY_BUFFER, VBO); */
+  /* glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+   */
 
-  m_program->release();
+  /* glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+   * (void*)0); */
+  /* glEnableVertexAttribArray(0); */
+  /* glBindBuffer(GL_ARRAY_BUFFER, 0); */
+  /* glBindVertexArray(0); */
 
-  ++m_frame;
+  /* glBindVertexArray(VAO); */
+  /* glDrawArrays(GL_TRIANGLES, 0, 3); */
+
+  /* m_program->release(); */
+
+  /* ++m_frame; */
 }
 }
