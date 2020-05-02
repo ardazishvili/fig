@@ -27,7 +27,6 @@ target_sources(imgui
 
 add_library(fig)
 target_link_libraries(fig PRIVATE imgui spdlog::spdlog GLEW)
-# target_link_libraries(fig PRIVATE imgui spdlog::spdlog)
 target_sources(fig
   PRIVATE
   Layer.h
@@ -149,14 +148,20 @@ add_executable(editor
   editor/WorldLayer.cpp
   editor/EditorEventManager.h
   editor/EditorEventManager.cpp
-  editor/EditorEventFabric.h
-  editor/EditorEventFabric.cpp
-  editor/EditorKeyReleaseEvent.h
-  editor/EditorKeyReleaseEvent.cpp
   editor/mainwindow.h
   editor/mainwindow.cpp
   editor/QtOpenGLWindow.h
   editor/QtOpenGLWindow.cpp
+  editor/events/EditorEventFabric.h
+  editor/events/EditorEventFabric.cpp
+  editor/events/EditorKeyReleaseEvent.h
+  editor/events/EditorKeyReleaseEvent.cpp
+  editor/events/EditorMouseMoveEvent.h
+  editor/events/EditorMouseMoveEvent.cpp
+  editor/events/EditorMousePressEvent.h
+  editor/events/EditorMousePressEvent.cpp
+  editor/events/EditorMouseReleaseEvent.h
+  editor/events/EditorMouseReleaseEvent.cpp
   )
 target_include_directories(editor PRIVATE editor)
 target_link_libraries(editor PRIVATE spdlog::spdlog fig dl GL assimp pthread Qt5::Widgets)

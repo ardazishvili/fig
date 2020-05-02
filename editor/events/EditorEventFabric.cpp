@@ -1,6 +1,9 @@
 #include "EditorEventFabric.h"
 #include "../Application.h"
 #include "EditorKeyReleaseEvent.h"
+#include "EditorMouseMoveEvent.h"
+#include "EditorMousePressEvent.h"
+#include "EditorMouseReleaseEvent.h"
 #include "globals.h"
 
 namespace fig
@@ -44,7 +47,7 @@ std::unique_ptr<Event> EditorEventFabric::getMouseScrollEvent(double xoffset,
 std::unique_ptr<Event> EditorEventFabric::getMouseMoveEvent(double xpos,
                                                             double ypos)
 {
-  return std::make_unique<StubEvent>();
+  return std::make_unique<EditorMouseMoveEvent>(xpos, ypos);
 }
 
 std::unique_ptr<Event> EditorEventFabric::getMousePressedEvent(int button,
@@ -59,5 +62,17 @@ std::unique_ptr<Event> EditorEventFabric::getMouseReleasedEvent(int button,
                                                                 int mods)
 {
   return std::make_unique<StubEvent>();
+}
+
+std::unique_ptr<Event> EditorEventFabric::getMousePressedEvent(
+  QMouseEvent* event)
+{
+  return std::make_unique<EditorMousePressEvent>(event);
+}
+
+std::unique_ptr<Event> EditorEventFabric::getMouseReleasedEvent(
+  QMouseEvent* event)
+{
+  return std::make_unique<EditorMouseReleaseEvent>(event);
 }
 }

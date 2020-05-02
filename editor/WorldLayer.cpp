@@ -20,7 +20,7 @@ WorldLayer::WorldLayer(Window* w,
 
 void WorldLayer::init()
 {
-  FG_APP_INFO("initiating world layer");
+  /* FG_APP_INFO("initiating world layer"); */
   assert(_camera);
   _view = glm::lookAt(_camera->eye(), _camera->reference(), _camera->up());
 
@@ -46,7 +46,7 @@ void WorldLayer::init()
 
 void WorldLayer::update()
 {
-  FG_APP_INFO("updating world layer");
+  /* FG_APP_INFO("updating world layer"); */
   _camera->updateSpeed();
   _view = glm::lookAt(_camera->eye(), _camera->reference(), _camera->up());
 
@@ -59,7 +59,7 @@ void WorldLayer::update()
 
 void WorldLayer::render()
 {
-  FG_APP_INFO("rendering world layer");
+  /* FG_APP_INFO("rendering world layer"); */
   _background->render();
   _sphere->render();
 }

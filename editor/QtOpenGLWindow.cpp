@@ -1,7 +1,9 @@
 #include "QtOpenGLWindow.h"
-#include "../Core.h"
+#include <QGuiApplication>
 
 #include <QMouseEvent>
+
+#include "../Core.h"
 
 OpenGLWindow::OpenGLWindow(QWindow* parent) : QWindow(parent)
 {
@@ -68,15 +70,4 @@ void OpenGLWindow::setAnimating(bool animating)
 
   if (animating)
     renderLater();
-}
-
-void OpenGLWindow::mouseMoveEvent(QMouseEvent* e)
-{
-  emit addToLog(QString("Mouse at the position: (") + QString::number(e->x()) +
-                QString(", ") + QString::number(e->y()) + QString(")"));
-}
-
-void OpenGLWindow::mousePressEvent(QMouseEvent* e)
-{
-  std::cout << "mousePressEvent" << std::endl;
 }

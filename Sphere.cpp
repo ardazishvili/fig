@@ -18,7 +18,6 @@ Sphere::Sphere(Shader& shader,
 
 void Sphere::render()
 {
-  std::cout << "rendering the sphere" << std::endl;
   _shader.use();
   _shader.configure();
   glEnable(GL_BLEND);

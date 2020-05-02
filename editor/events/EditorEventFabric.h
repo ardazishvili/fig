@@ -3,6 +3,8 @@
 
 #include "../events/EventFabric.h"
 
+#include <QMouseEvent>
+
 namespace fig
 {
 class EditorEventFabric : public EventFabric
@@ -23,9 +25,11 @@ public:
   std::unique_ptr<Event> getMousePressedEvent(int button,
                                               int action,
                                               int mods) override;
+  std::unique_ptr<Event> getMousePressedEvent(QMouseEvent* event);
   std::unique_ptr<Event> getMouseReleasedEvent(int button,
                                                int action,
                                                int mods) override;
+  std::unique_ptr<Event> getMouseReleasedEvent(QMouseEvent* event);
 };
 }
 

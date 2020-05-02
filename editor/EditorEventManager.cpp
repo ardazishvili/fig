@@ -10,6 +10,6 @@ EditorEventManager::EditorEventManager(Window* window) : _window(window)
 
 void EditorEventManager::tick()
 {
-  FG_APP_INFO("EditorEventManager tick")
+  /* FG_APP_INFO("EditorEventManager tick") */
 }
 }

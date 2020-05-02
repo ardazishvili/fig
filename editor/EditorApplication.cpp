@@ -1,8 +1,8 @@
 #include "EditorApplication.h"
 #include "../ColorBackground.h"
 #include "../QtWindow.h"
-#include "EditorEventFabric.h"
 #include "WorldLayer.h"
+#include "events/EditorEventFabric.h"
 
 namespace fig
 {
@@ -16,6 +16,7 @@ EditorApplication<T>::EditorApplication(std::unique_ptr<QApplication> app) :
   _eventFabric = std::make_unique<EditorEventFabric>();
   this->_window = std::make_unique<QtWindow>(
     Window::Param{ 1500, 1000 },
+    _eventFabric.get(),
     [this] {
       this->init();
     },
@@ -30,7 +31,7 @@ EditorApplication<T>::EditorApplication(std::unique_ptr<QApplication> app) :
                                  _view,
                                  _projection,
                                  std::make_unique<ColorBackground>(c));
-  /* this->_window->setOnEvent(worldLayer->onEvent()); */
+  this->_window->setOnEvent(worldLayer->onEvent());
   this->addLayer(std::move(worldLayer));
 }
 

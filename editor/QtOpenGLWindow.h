@@ -21,8 +21,6 @@ public:
   virtual void initialize() = 0;
   virtual void show() = 0;
 
-  void mouseMoveEvent(QMouseEvent* e) final;
-  void mousePressEvent(QMouseEvent* e) final;
   void setAnimating(bool animating);
 
 public slots:
