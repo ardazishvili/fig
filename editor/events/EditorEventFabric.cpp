@@ -1,10 +1,13 @@
 #include "EditorEventFabric.h"
 #include "../Application.h"
+#include "EditorKeyPressEvent.h"
 #include "EditorKeyReleaseEvent.h"
+#include "EditorKeyRepeatEvent.h"
 #include "EditorMouseMoveEvent.h"
 #include "EditorMousePressEvent.h"
 #include "EditorMouseReleaseEvent.h"
 #include "globals.h"
+#include <memory>
 
 namespace fig
 {
@@ -28,7 +31,22 @@ std::unique_ptr<Event> EditorEventFabric::getKeyReleaseEvent(int key,
                                                              int scancode,
                                                              int mods)
 {
-  return std::make_unique<EditorKeyReleaseEvent>(key, scancode, mods);
+  return std::make_unique<StubEvent>();
+}
+
+std::unique_ptr<Event> EditorEventFabric::getKeyPressEvent(QKeyEvent* event)
+{
+  return std::make_unique<EditorKeyPressEvent>(event);
+}
+
+std::unique_ptr<Event> EditorEventFabric::getKeyReleaseEvent(QKeyEvent* event)
+{
+  return std::make_unique<EditorKeyReleaseEvent>(event);
+}
+
+std::unique_ptr<Event> EditorEventFabric::getKeyRepeatEvent(QKeyEvent* event)
+{
+  return std::make_unique<EditorKeyRepeatEvent>(event);
 }
 
 std::unique_ptr<Event> EditorEventFabric::getKeyRepeatEvent(int key,

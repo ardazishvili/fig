@@ -1,7 +1,6 @@
 #include <QApplication>
 #include <QFrame>
 #include <QMenu>
-#include <QMouseEvent>
 #include <QPlainTextEdit>
 
 #include "Core.h"
@@ -129,5 +128,29 @@ void QtWindow::mouseReleaseEvent(QMouseEvent* e)
   // TODO downcast
   auto f = dynamic_cast<EditorEventFabric*>(_eventFabric);
   _onEvent(f->getMouseReleasedEvent(e));
+}
+
+void QtWindow::keyPressEvent(QKeyEvent* e)
+{
+  // TODO downcast
+  auto f = dynamic_cast<EditorEventFabric*>(_eventFabric);
+  if (!e->isAutoRepeat()) {
+    emit addToLog(QString("Key is pressed: ") +
+                  QKeySequence(e->key()).toString());
+    _onEvent(f->getKeyPressEvent(e));
+  } else {
+    emit addToLog(QString("Key is repeated: ") +
+                  QKeySequence(e->key()).toString());
+    _onEvent(f->getKeyRepeatEvent(e));
+  }
+}
+
+void QtWindow::keyReleaseEvent(QKeyEvent* e)
+{
+  emit addToLog(QString("Key is released: ") +
+                QKeySequence(e->key()).toString());
+  // TODO downcast
+  auto f = dynamic_cast<EditorEventFabric*>(_eventFabric);
+  _onEvent(f->getKeyReleaseEvent(e));
 }
 }

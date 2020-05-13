@@ -29,6 +29,10 @@ public:
   {
   }
 
+  KeyboardEvent(int key, int mods) : _key(key), _scancode(), _mods(mods)
+  {
+  }
+
 protected:
   int _key;
   int _scancode;
@@ -39,7 +43,10 @@ class KeyboardPressEvent : public KeyboardEvent
 {
 public:
   KeyboardPressEvent(int key, int scancode, int mods) :
-    KeyboardEvent(key, scancode, mods)
+    KeyboardEvent(key, scancode, mods){ FG_CORE_TRACE("key pressed") }
+
+    KeyboardPressEvent(int key, int mods) :
+    KeyboardEvent(key, mods)
   {
     FG_CORE_TRACE("key pressed")
   }
@@ -49,7 +56,10 @@ class KeyboardReleaseEvent : public KeyboardEvent
 {
 public:
   KeyboardReleaseEvent(int key, int scancode, int mods) :
-    KeyboardEvent(key, scancode, mods)
+    KeyboardEvent(key, scancode, mods){ FG_CORE_TRACE("key released") }
+
+    KeyboardReleaseEvent(int key, int mods) :
+    KeyboardEvent(key, mods)
   {
     FG_CORE_TRACE("key released")
   }
@@ -59,7 +69,11 @@ class KeyboardRepeatEvent : public KeyboardEvent
 {
 public:
   KeyboardRepeatEvent(int key, int scancode, int mods) :
-    KeyboardEvent(key, scancode, mods)
+    KeyboardEvent(key, scancode, mods){ FG_CORE_TRACE(
+      "key repeatedly pressed") }
+
+    KeyboardRepeatEvent(int key, int mods) :
+    KeyboardEvent(key, mods)
   {
     FG_CORE_TRACE("key repeatedly pressed")
   }

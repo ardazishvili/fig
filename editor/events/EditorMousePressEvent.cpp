@@ -40,4 +40,5 @@ void EditorMousePressEvent::handleMousePressedMiddle(
 
   m->pressMouse(fig::MouseButton::MIDDLE);
   m->_middleLastPressed = glm::vec2(_qtEvent->x(), _qtEvent->y());
+  std::cout << "variable" << std::endl;
 }

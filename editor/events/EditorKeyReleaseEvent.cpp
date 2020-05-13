@@ -1,23 +1,27 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include "EditorEventManager.h"
 #include "EditorKeyReleaseEvent.h"
+#include "EditorEventManager.h"
+#include <qnamespace.h>
 
-namespace fig
-{
-EditorKeyReleaseEvent::EditorKeyReleaseEvent(int key, int scancode, int mods) :
-  KeyboardReleaseEvent(key, scancode, mods)
+EditorKeyReleaseEvent::EditorKeyReleaseEvent(QKeyEvent* event) :
+  KeyboardReleaseEvent(event->key(), event->modifiers()), _event(event)
 {
 }
 
-void EditorKeyReleaseEvent::process(Camera* camera, EventManager* eventManager)
+void EditorKeyReleaseEvent::process(fig::Camera* camera,
+                                    fig::EventManager* eventManager)
 {
   // TODO downcast
-  auto em = dynamic_cast<EditorEventManager*>(eventManager);
+  auto em = dynamic_cast<fig::EditorEventManager*>(eventManager);
 
-  if (_key == GLFW_KEY_ESCAPE) {
-    em->_window->close();
+  switch (_event->key()) {
+    case Qt::Key_Escape:
+      em->_window->close();
+      break;
+    case Qt::Key_Shift:
+      em->releaseKey(fig::KeyButton::LEFT_SHIFT);
+      std::cout << "shift is released" << std::endl;
+      break;
+    default:
+      break;
   }
-}
 }

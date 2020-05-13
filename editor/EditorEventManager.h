@@ -1,4 +1,5 @@
 #include "../EventManager.h"
+#include "events/EditorKeyReleaseEvent.h"
 #include "events/EditorMouseMoveEvent.h"
 #include "events/EditorMousePressEvent.h"
 #include "events/EditorMouseReleaseEvent.h"
@@ -12,7 +13,7 @@ class EditorEventManager : public EventManager
   friend class ::EditorMousePressEvent;
   friend class ::EditorMouseReleaseEvent;
   friend class ::EditorMouseMoveEvent;
-  friend class EditorKeyReleaseEvent;
+  friend class ::EditorKeyReleaseEvent;
 
 public:
   EditorEventManager(Window* window);

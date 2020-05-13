@@ -19,6 +19,9 @@ public:
   std::unique_ptr<Event> getKeyRepeatEvent(int key,
                                            int scancode,
                                            int mods) override;
+  std::unique_ptr<Event> getKeyPressEvent(QKeyEvent* event);
+  std::unique_ptr<Event> getKeyReleaseEvent(QKeyEvent* event);
+  std::unique_ptr<Event> getKeyRepeatEvent(QKeyEvent* event);
   std::unique_ptr<Event> getMouseScrollEvent(double xoffset,
                                              double yoffset) override;
   std::unique_ptr<Event> getMouseMoveEvent(double xpos, double ypos) override;

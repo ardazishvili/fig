@@ -12,7 +12,25 @@ void EditorMouseMoveEvent::process(fig::Camera* camera,
 {
   // TODO downcast
   auto m = dynamic_cast<fig::EditorEventManager*>(eventManager);
-  if (m->isMousePressed(fig::MouseButton::MIDDLE)) {
+  if (m->isKeyPressed(fig::KeyButton::LEFT_SHIFT) &&
+      m->isMousePressed(fig::MouseButton::MIDDLE)) {
+
+    auto deltaX = _xpos - m->_middleLastPressed.x;
+    auto deltaY = _ypos - m->_middleLastPressed.y;
+
+    if (deltaY < 0) {
+      camera->moveBackward();
+    } else if (deltaY > 0) {
+      camera->moveForward();
+    }
+    if (deltaX > 0) {
+      camera->moveLeft();
+    } else if (deltaX < 0) {
+      camera->moveRight();
+    }
+    m->_middleLastPressed = glm::vec2(_xpos, _ypos);
+
+  } else if (m->isMousePressed(fig::MouseButton::MIDDLE)) {
     auto deltaX = _xpos - m->_middleLastPressed.x;
     auto deltaY = _ypos - m->_middleLastPressed.y;
 

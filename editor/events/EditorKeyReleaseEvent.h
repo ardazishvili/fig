@@ -2,15 +2,16 @@
 #define EDITOR_KEY_RELEASE_EVENT_H
 
 #include "../events/Event.h"
+#include <QKeyEvent>
 
-namespace fig
-{
-class EditorKeyReleaseEvent : public KeyboardReleaseEvent
+class EditorKeyReleaseEvent : public fig::KeyboardReleaseEvent
 {
 public:
-  EditorKeyReleaseEvent(int key, int scancode, int mods);
-  void process(Camera* camera, EventManager* eventManager);
+  EditorKeyReleaseEvent(QKeyEvent* event);
+  void process(fig::Camera* camera, fig::EventManager* eventManager) override;
+
+private:
+  QKeyEvent* _event;
 };
-}
 
 #endif

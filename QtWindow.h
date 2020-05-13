@@ -32,6 +32,8 @@ public:
   void mouseMoveEvent(QMouseEvent* e) final;
   void mousePressEvent(QMouseEvent* e) final;
   void mouseReleaseEvent(QMouseEvent* e) final;
+  void keyPressEvent(QKeyEvent* e) final;
+  void keyReleaseEvent(QKeyEvent* e) final;
 
 private:
   static EventFabric* _eventFabric;

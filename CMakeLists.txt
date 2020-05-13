@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.16)
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(Fig)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
@@ -156,6 +157,10 @@ add_executable(editor
   editor/events/EditorEventFabric.cpp
   editor/events/EditorKeyReleaseEvent.h
   editor/events/EditorKeyReleaseEvent.cpp
+  editor/events/EditorKeyPressEvent.h
+  editor/events/EditorKeyPressEvent.cpp
+  editor/events/EditorKeyRepeatEvent.h
+  editor/events/EditorKeyRepeatEvent.cpp
   editor/events/EditorMouseMoveEvent.h
   editor/events/EditorMouseMoveEvent.cpp
   editor/events/EditorMousePressEvent.h
