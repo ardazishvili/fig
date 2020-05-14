@@ -1,4 +1,5 @@
 cbuild/**
-doc/**
-.directory
-*.swp
+        doc/**
+        .directory
+       *.swp
+       .clangd/**

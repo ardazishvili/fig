@@ -60,14 +60,18 @@ void Camera::rotateDown()
 
 void Camera::moveForward()
 {
-  _position += _front * _moveSpeed;
-  _lookAt += _front * _moveSpeed;
+  _position.x += _front.x * _moveSpeed;
+  _position.y += _front.y * _moveSpeed;
+  _lookAt.x += _front.x * _moveSpeed;
+  _lookAt.y += _front.y * _moveSpeed;
 }
 
 void Camera::moveBackward()
 {
-  _position -= _front * _moveSpeed;
-  _lookAt -= _front * _moveSpeed;
+  _position.x -= _front.x * _moveSpeed;
+  _position.y -= _front.y * _moveSpeed;
+  _lookAt.x -= _front.x * _moveSpeed;
+  _lookAt.y -= _front.y * _moveSpeed;
 }
 
 void Camera::moveLeft()
