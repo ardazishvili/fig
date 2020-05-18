@@ -38,8 +38,6 @@ void WorldLayer::init()
     _projection,
     "/home/roman/repos/colony/shaders/vertex_color.vs",
     "/home/roman/repos/colony/shaders/fragment_color.fs");
-  _sphere = std::make_unique<Sphere>(
-    *_colorShader, glm::vec3(0.0f, 0.0f, 0.0f), 2.0f, 40);
   _eventManager = std::make_shared<EditorEventManager>(_window);
   _background->bind(_window);
 }
@@ -61,7 +59,10 @@ void WorldLayer::render()
 {
   /* FG_APP_INFO("rendering world layer"); */
   _background->render();
-  _sphere->render();
+  /* _sphere->render(); */
+  for (auto& obj : _objects) {
+    obj->render();
+  }
 }
 
 std::function<void(std::unique_ptr<Event> event)> WorldLayer::onEvent()
@@ -69,5 +70,11 @@ std::function<void(std::unique_ptr<Event> event)> WorldLayer::onEvent()
   return [this](std::unique_ptr<Event> event) {
     event->process(_camera, _eventManager.get());
   };
+}
+
+void WorldLayer::addSphere(glm::vec3 pos, float radius, int divisions)
+{
+  _objects.emplace_back(
+    std::make_unique<Sphere>(*_colorShader, pos, radius, divisions));
 }
 }

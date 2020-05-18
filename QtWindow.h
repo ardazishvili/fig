@@ -2,6 +2,7 @@
 #define QT_WINDOW_H
 
 #include "Window.h"
+#include "WorldLayer.h"
 #include "editor/QtOpenGLWindow.h"
 #include "events/EventFabric.h"
 #include "mainwindow.h"
@@ -22,6 +23,7 @@ public:
   void getCursorPos(double* xpos, double* ypos) const override;
   void setOnEvent(
     std::function<void(std::unique_ptr<Event> event)> onEvent) override;
+  void setWorldLayer(WorldLayer* l);
   void update() override;
   void show() override;
   bool shouldClose() override;
@@ -39,6 +41,7 @@ private:
   static EventFabric* _eventFabric;
   static std::function<void(std::unique_ptr<Event> event)> _onEvent;
   MainWindow _mainWindow;
+  WorldLayer* _worldLayer;
   std::function<void(void)> _appTickFn;
   std::function<void(void)> _appInitFn;
 };

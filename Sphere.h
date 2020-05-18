@@ -1,20 +1,20 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
+#include "FObject.h"
 #include "Shader.h"
 #include "SphereMesh.h"
 
 namespace fig
 {
-class Sphere
+class Sphere : public FObject
 {
-
 public:
   Sphere(Shader& shader,
          glm::vec3 center,
          float radius,
          unsigned int divisions);
-  void render();
+  void render() override;
 
 private:
   Shader& _shader;

@@ -27,7 +27,7 @@
        <number>6</number>
       </property>
       <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="newSphereButton">
         <property name="text">
          <string>Sphere</string>
         </property>
@@ -41,7 +41,7 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="newBeamButton">
         <property name="text">
          <string>Beam</string>
         </property>
@@ -55,7 +55,7 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="newTerrainButton">
         <property name="text">
          <string>Terrain</string>
         </property>
@@ -69,7 +69,7 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="newPlainButton">
         <property name="text">
          <string>Plain</string>
         </property>

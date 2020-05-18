@@ -32,6 +32,8 @@ EditorApplication<T>::EditorApplication(std::unique_ptr<QApplication> app) :
                                  _projection,
                                  std::make_unique<ColorBackground>(c));
   this->_window->setOnEvent(worldLayer->onEvent());
+  auto* qtWindow = static_cast<QtWindow*>(this->_window.get());
+  qtWindow->setWorldLayer(worldLayer.get());
   this->addLayer(std::move(worldLayer));
 }
 

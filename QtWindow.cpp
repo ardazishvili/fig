@@ -2,6 +2,7 @@
 #include <QFrame>
 #include <QMenu>
 #include <QPlainTextEdit>
+#include <qpushbutton.h>
 
 #include "Core.h"
 #include "QtWindow.h"
@@ -41,6 +42,12 @@ QtWindow::QtWindow(fig::Window::Param param,
   auto aList = menuFile->actions();
   auto quitAction = aList.at(1);
   connect(quitAction, &QAction::triggered, qApp, &QApplication::quit);
+
+  /* auto* newSphere = _mainWindow.findChild<QPushButton*>("newSphereButton");
+   */
+  /* QObject::connect(newSphere, &QPushButton::clicked, [log] { */
+  /* log->appendPlainText("clicked"); */
+  /* }); */
 };
 
 void QtWindow::initialize()
@@ -152,5 +159,16 @@ void QtWindow::keyReleaseEvent(QKeyEvent* e)
   // TODO downcast
   auto f = dynamic_cast<EditorEventFabric*>(_eventFabric);
   _onEvent(f->getKeyReleaseEvent(e));
+}
+
+void QtWindow::setWorldLayer(WorldLayer* l)
+{
+  _worldLayer = l;
+
+  auto* newSphere = _mainWindow.findChild<QPushButton*>("newSphereButton");
+  QObject::connect(newSphere, &QPushButton::clicked, [this] {
+    _worldLayer->addSphere(glm::vec3(0.0f, 0.0f, 0.0f), 2.0f, 40);
+    std::cout << "sdfsdf" << std::endl;
+  });
 }
 }

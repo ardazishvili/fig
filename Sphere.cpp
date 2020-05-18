@@ -1,5 +1,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
+#include "FObject.h"
 #include "Sphere.h"
 
 namespace fig
@@ -8,6 +9,7 @@ Sphere::Sphere(Shader& shader,
                glm::vec3 center,
                float radius,
                unsigned int divisions) :
+  FObject(),
   _shader(shader)
 {
   _mesh.init(radius, divisions);
