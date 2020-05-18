@@ -10,6 +10,7 @@
 #include "../Sphere.h"
 #include "../Window.h"
 #include "../WindowBackground.h"
+#include <qgridlayout.h>
 
 namespace fig
 {
@@ -27,7 +28,7 @@ public:
 
   std::function<void(std::unique_ptr<Event> event)> onEvent();
 
-  void addSphere(glm::vec3 pos, float radius, int divisions);
+  Sphere* addSphere(glm::vec3 pos, float radius, int divisions);
 
 private:
   Window* _window;
@@ -41,7 +42,7 @@ private:
   /* std::unique_ptr<PhongShader> _lampShader; */
   /* std::unique_ptr<SkyboxShader> _skyboxShader; */
   std::shared_ptr<EventManager> _eventManager;
-  std::unique_ptr<Sphere> _sphere;
+  /* std::unique_ptr<Sphere> _sphere; */
   std::vector<std::unique_ptr<FObject>> _objects;
 };
 }

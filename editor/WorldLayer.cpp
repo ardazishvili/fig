@@ -4,6 +4,8 @@
 #include "EditorEventManager.h"
 #include "globals.h"
 #include <memory>
+#include <qgridlayout.h>
+#include <qline.h>
 
 namespace fig
 {
@@ -72,9 +74,10 @@ std::function<void(std::unique_ptr<Event> event)> WorldLayer::onEvent()
   };
 }
 
-void WorldLayer::addSphere(glm::vec3 pos, float radius, int divisions)
+Sphere* WorldLayer::addSphere(glm::vec3 pos, float radius, int divisions)
 {
   _objects.emplace_back(
     std::make_unique<Sphere>(*_colorShader, pos, radius, divisions));
+  return dynamic_cast<Sphere*>(_objects.back().get());
 }
 }

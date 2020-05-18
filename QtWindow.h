@@ -6,6 +6,7 @@
 #include "editor/QtOpenGLWindow.h"
 #include "events/EventFabric.h"
 #include "mainwindow.h"
+#include <qgridlayout.h>
 
 namespace fig
 {
@@ -36,6 +37,8 @@ public:
   void mouseReleaseEvent(QMouseEvent* e) final;
   void keyPressEvent(QKeyEvent* e) final;
   void keyReleaseEvent(QKeyEvent* e) final;
+
+  void getWidgets(Sphere* sphere);
 
 private:
   static EventFabric* _eventFabric;

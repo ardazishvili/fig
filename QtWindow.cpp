@@ -1,8 +1,22 @@
 #include <QApplication>
+#include <QFormLayout>
 #include <QFrame>
+#include <QLineEdit>
 #include <QMenu>
 #include <QPlainTextEdit>
+#include <QPushButton>
+#include <QSlider>
+#include <qgridlayout.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qline.h>
+#include <qlineedit.h>
+#include <qnamespace.h>
+#include <qobject.h>
 #include <qpushbutton.h>
+#include <qsizepolicy.h>
+#include <qslider.h>
+#include <qwidget.h>
 
 #include "Core.h"
 #include "QtWindow.h"
@@ -167,8 +181,107 @@ void QtWindow::setWorldLayer(WorldLayer* l)
 
   auto* newSphere = _mainWindow.findChild<QPushButton*>("newSphereButton");
   QObject::connect(newSphere, &QPushButton::clicked, [this] {
-    _worldLayer->addSphere(glm::vec3(0.0f, 0.0f, 0.0f), 2.0f, 40);
-    std::cout << "sdfsdf" << std::endl;
+    auto* s = _worldLayer->addSphere(glm::vec3(0.0f, 0.0f, 0.0f), 2.0f, 40);
+    getWidgets(s);
   });
+}
+
+void addControl(QGridLayout* l,
+                int row,
+                QString label,
+                float value,
+                std::function<void(QLineEdit*)> f,
+                std::function<void(QSlider*)> g)
+{
+  auto* xEdit = new QLineEdit();
+  xEdit->setText(QString::number(value));
+  auto* xSlider = new QSlider(Qt::Orientation::Horizontal);
+  xSlider->setRange(-30, 30);
+  auto* xLabel = new QLabel(label);
+  QObject::connect(xEdit, &QLineEdit::returnPressed, [f, xSlider, xEdit] {
+    f(xEdit);
+    xSlider->setValue(static_cast<int>(xEdit->text().toFloat()));
+  });
+  QObject::connect(xSlider, &QSlider::valueChanged, [g, xSlider, xEdit](int i) {
+    g(xSlider);
+    xEdit->setText(QString::number(i));
+  });
+  l->addWidget(xEdit, row, 0);
+  l->addWidget(xSlider, row, 1);
+  l->addWidget(xLabel, row, 2);
+}
+
+void QtWindow::getWidgets(Sphere* sphere)
+{
+  auto* properties = _mainWindow.findChild<QFrame*>("properties");
+  assert(properties != nullptr);
+  auto l = new QGridLayout();
+  l->setColumnStretch(0, 3);
+  l->setColumnStretch(1, 16);
+  l->setColumnStretch(2, 1);
+
+  auto pos = sphere->position();
+  addControl(
+    l,
+    0,
+    "x",
+    pos.x,
+    [sphere](QLineEdit* le) {
+      auto pos = sphere->position();
+      pos.x = le->text().toFloat();
+      sphere->setPosition(pos);
+    },
+    [sphere](QSlider* slider) {
+      auto pos = sphere->position();
+      pos.x = slider->value();
+      sphere->setPosition(pos);
+    });
+  addControl(
+    l,
+    1,
+    "y",
+    pos.y,
+    [sphere](QLineEdit* le) {
+      auto pos = sphere->position();
+      pos.y = le->text().toFloat();
+      sphere->setPosition(pos);
+    },
+    [sphere](QSlider* slider) {
+      auto pos = sphere->position();
+      pos.y = slider->value();
+      sphere->setPosition(pos);
+    });
+  addControl(
+    l,
+    2,
+    "z",
+    pos.z,
+    [sphere](QLineEdit* le) {
+      auto pos = sphere->position();
+      pos.z = le->text().toFloat();
+      sphere->setPosition(pos);
+    },
+    [sphere](QSlider* slider) {
+      auto pos = sphere->position();
+      pos.z = slider->value();
+      sphere->setPosition(pos);
+    });
+  QWidget* empty = new QWidget();
+  empty->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  l->addWidget(empty, 3, 0, 3, 3);
+
+  auto prevLayout = properties->layout();
+  if (prevLayout != 0) {
+    QLayoutItem* item;
+    QWidget* widget;
+    while ((item = prevLayout->takeAt(0)) != 0) {
+      if ((widget = item->widget()) != 0) {
+        widget->hide();
+        delete widget;
+      }
+    }
+  }
+  delete prevLayout;
+  properties->setLayout(l);
 }
 }

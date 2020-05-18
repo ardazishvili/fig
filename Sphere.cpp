@@ -34,4 +34,15 @@ void Sphere::render()
   glDisable(GL_BLEND);
   glDepthMask(GL_TRUE);
 }
+
+void Sphere::setPosition(glm::vec3 pos)
+{
+  _offset = pos;
+}
+
+glm::vec3 Sphere::position() const
+{
+  return _offset;
+}
+
 }

@@ -4,6 +4,7 @@
 #include "FObject.h"
 #include "Shader.h"
 #include "SphereMesh.h"
+#include <glm/fwd.hpp>
 
 namespace fig
 {
@@ -15,6 +16,8 @@ public:
          float radius,
          unsigned int divisions);
   void render() override;
+  void setPosition(glm::vec3 pos);
+  glm::vec3 position() const;
 
 private:
   Shader& _shader;
