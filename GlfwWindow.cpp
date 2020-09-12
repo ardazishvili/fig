@@ -115,7 +115,7 @@ float GlfwWindow::height() const
 
 void GlfwWindow::update()
 {
-  FG_CORE_DEBUG("update window")
+  /* FG_CORE_DEBUG("update window") */
   glfwPollEvents();
 
   int display_w, display_h;

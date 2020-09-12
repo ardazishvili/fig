@@ -1,13 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(Fig)
-
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_subdirectory(third/logging/spdlog)
 
@@ -137,36 +132,3 @@ target_sources(fig
   Vertex.h
   )
 
-add_executable(editor
-  QtWindow.h
-  QtWindow.cpp
-  editor/editor.cpp
-  editor/EditorApplication.h
-  editor/EditorApplication.cpp
-  editor/globals.h
-  editor/globals.cpp
-  editor/WorldLayer.h
-  editor/WorldLayer.cpp
-  editor/EditorEventManager.h
-  editor/EditorEventManager.cpp
-  editor/mainwindow.h
-  editor/mainwindow.cpp
-  editor/QtOpenGLWindow.h
-  editor/QtOpenGLWindow.cpp
-  editor/events/EditorEventFabric.h
-  editor/events/EditorEventFabric.cpp
-  editor/events/EditorKeyReleaseEvent.h
-  editor/events/EditorKeyReleaseEvent.cpp
-  editor/events/EditorKeyPressEvent.h
-  editor/events/EditorKeyPressEvent.cpp
-  editor/events/EditorKeyRepeatEvent.h
-  editor/events/EditorKeyRepeatEvent.cpp
-  editor/events/EditorMouseMoveEvent.h
-  editor/events/EditorMouseMoveEvent.cpp
-  editor/events/EditorMousePressEvent.h
-  editor/events/EditorMousePressEvent.cpp
-  editor/events/EditorMouseReleaseEvent.h
-  editor/events/EditorMouseReleaseEvent.cpp
-  )
-target_include_directories(editor PRIVATE editor)
-target_link_libraries(editor PRIVATE spdlog::spdlog fig dl GL assimp pthread Qt5::Widgets)
