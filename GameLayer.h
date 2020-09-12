@@ -3,8 +3,11 @@
 
 #include "Layer.h"
 
+namespace fig
+{
 class GameLayer : public Layer
 {
 };
+}
 
 #endif

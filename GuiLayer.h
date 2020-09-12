@@ -5,6 +5,8 @@
 #include "Layer.h"
 #include "Window.h"
 
+namespace fig
+{
 class GuiLayer : public Layer
 {
 public:
@@ -17,5 +19,6 @@ protected:
   Window* _window;
   std::unique_ptr<GuiBackend> _guiBack;
 };
+}
 
 #endif

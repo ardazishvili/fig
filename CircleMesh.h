@@ -3,6 +3,8 @@
 
 #include "TerrainMesh.h"
 
+namespace fig
+{
 class CircleMesh
 {
 public:
@@ -20,5 +22,6 @@ private:
   GLuint _vertexVbo;
   GLuint _indicesEbo;
 };
+}
 
 #endif

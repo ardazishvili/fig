@@ -4,6 +4,8 @@
 #include "CircleMesh.h"
 #include "Shader.h"
 
+namespace fig
+{
 class Circle
 {
 public:
@@ -18,5 +20,6 @@ private:
   CircleMesh _mesh;
   glm::vec3 _offset{ glm::vec3(0.0f) };
 };
+}
 
 #endif
