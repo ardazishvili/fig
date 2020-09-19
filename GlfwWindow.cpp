@@ -14,12 +14,8 @@ std::function<void(std::unique_ptr<Event> event)> GlfwWindow::_onEvent =
   };
 EventFabric* GlfwWindow::_eventFabric = nullptr;
 
-GlfwWindow::GlfwWindow(glm::mat4& view,
-                       glm::mat4& projection,
-                       EventFabric* eventFabric,
-                       const Window::Param& param) :
-  Window(param),
-  _view(view), _projection(projection)
+GlfwWindow::GlfwWindow(EventFabric* eventFabric, const Window::Param& param) :
+  Window(param)
 {
   FG_CORE_TRACE("create GLFW window")
   _eventFabric = eventFabric;

@@ -10,6 +10,40 @@
 
 namespace fig
 {
+
+struct AppEnv
+{
+  fig::Window* window;
+  fig::Camera* camera;
+  fig::Light* light;
+  glm::mat4& view;
+  glm::mat4& projection;
+};
+
+class AppEnvPrivate
+{
+public:
+  AppEnvPrivate(std::unique_ptr<Window> window) :
+    window(std::move(window)), camera(glm::vec3(0.0f, -45.0f, 60.0f),
+                                      glm::vec3(0.0f, 0.0f, 0.0f),
+                                      glm::vec3(0.0f, 0.0f, 1.0f))
+  {
+    view = glm::lookAt(camera.eye(), camera.reference(), camera.up());
+    projection =
+      glm::perspective(glm::radians(camera.fov()),
+                       this->window->width() / this->window->height(),
+                       0.01f,
+                       1000.0f);
+    light = std::make_unique<fig::Light>(
+      glm::vec3(1.2f, 0.0f, 5.0f), camera, view, projection);
+  }
+
+  fig::Camera camera;
+  std::unique_ptr<Window> window;
+  std::unique_ptr<Light> light;
+  glm::mat4 view;
+  glm::mat4 projection;
+};
 /**
  * @brief Application abstraction
  *
@@ -96,11 +130,20 @@ public:
     _log.print(l, params...);
   }
 
+  AppEnv getEnv()
+  {
+    return AppEnv{ _appEnv->window.get(),
+                   &_appEnv->camera,
+                   _appEnv->light.get(),
+                   _appEnv->view,
+                   _appEnv->projection };
+  }
+
 protected:
   /**
-   * @brief Window
+   * @brief App environment
    */
-  std::unique_ptr<Window> _window;
+  std::unique_ptr<AppEnvPrivate> _appEnv;
 
   /**
    * @brief Log parametrized with log backend

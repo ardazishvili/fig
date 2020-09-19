@@ -13,10 +13,7 @@ class EventFabric;
 class GlfwWindow : public Window
 {
 public:
-  GlfwWindow(glm::mat4& view,
-             glm::mat4& projection,
-             EventFabric* eventFabric,
-             const Window::Param& param);
+  GlfwWindow(EventFabric* eventFabric, const Window::Param& param);
   ~GlfwWindow() override;
   void setOnEvent(
     std::function<void(std::unique_ptr<Event> event)> onEvent) override;
@@ -29,9 +26,6 @@ public:
   void close() override;
 
 private:
-  glm::mat4& _view;
-  glm::mat4& _projection;
-
   static EventFabric* _eventFabric;
   static std::function<void(std::unique_ptr<Event> event)> _onEvent;
   GLFWwindow* _window;
