@@ -1,12 +1,15 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+#include "Camera.h"
 #include "Layers.h"
+#include "Light.h"
 #include "Log.h"
 #include "SpdBackend.h"
 #include "Window.h"
 
 #include <memory>
+#include <vector>
 
 namespace fig
 {
@@ -23,24 +26,39 @@ struct AppEnv
 class AppEnvPrivate
 {
 public:
-  AppEnvPrivate(std::unique_ptr<Window> window) :
-    window(std::move(window)), camera(glm::vec3(0.0f, -45.0f, 60.0f),
-                                      glm::vec3(0.0f, 0.0f, 0.0f),
-                                      glm::vec3(0.0f, 0.0f, 1.0f))
+  AppEnvPrivate(std::unique_ptr<Window> window,
+                std::vector<std::unique_ptr<Camera>> cameras,
+                std::vector<glm::vec3> lightsCoords) :
+    window(std::move(window)),
+    cameras(std::move(cameras))
   {
-    view = glm::lookAt(camera.eye(), camera.reference(), camera.up());
+    view = glm::lookAt(getCurrentCamera().eye(),
+                       getCurrentCamera().reference(),
+                       getCurrentCamera().up());
     projection =
-      glm::perspective(glm::radians(camera.fov()),
+      glm::perspective(glm::radians(getCurrentCamera().fov()),
                        this->window->width() / this->window->height(),
                        0.01f,
                        1000.0f);
-    light = std::make_unique<fig::Light>(
-      glm::vec3(1.2f, 0.0f, 5.0f), camera, view, projection);
+    for (const auto lightCoord : lightsCoords) {
+      lights.push_back(std::make_unique<Light>(
+        lightCoord, getCurrentCamera(), view, projection));
+    }
   }
 
-  fig::Camera camera;
+  Light& getCurrentLight()
+  {
+    return *lights.at(0);
+  }
+
+  Camera& getCurrentCamera()
+  {
+    return *cameras.at(0);
+  }
+
+  std::vector<std::unique_ptr<fig::Camera>> cameras;
+  std::vector<std::unique_ptr<fig::Light>> lights;
   std::unique_ptr<Window> window;
-  std::unique_ptr<Light> light;
   glm::mat4 view;
   glm::mat4 projection;
 };
@@ -133,8 +151,8 @@ public:
   AppEnv getEnv()
   {
     return AppEnv{ _appEnv->window.get(),
-                   &_appEnv->camera,
-                   _appEnv->light.get(),
+                   &_appEnv->getCurrentCamera(),
+                   &_appEnv->getCurrentLight(),
                    _appEnv->view,
                    _appEnv->projection };
   }
