@@ -1,4 +1,5 @@
 #include "TerrainMesh.h"
+#include "Core.h"
 #include "TerrainMeshSegment.h"
 #include "globals.h"
 
@@ -117,24 +118,27 @@ void TerrainMesh::calculateNormals(int width, unsigned int latticeWidth)
       glm::vec3 p1(0);
       glm::vec3 p2(0);
       auto rectangleTypeNum = ((i % 2) * 2 + j) % 4;
-      if (rectangleTypeNum == 0) {
-        p1 = _v.at(latticeWidth * i + j + 1 + latticeWidth).p;
-        p2 = _v.at(latticeWidth * i + j).p;
-        p0 = _v.at(latticeWidth * i + j + latticeWidth).p;
-      } else if (rectangleTypeNum == 1) {
-        p1 = _v.at(latticeWidth * i + j - 1).p;
-        p2 = _v.at(latticeWidth * i + j + latticeWidth).p;
-        p0 = _v.at(latticeWidth * i + j).p;
-      } else if (rectangleTypeNum == 2) {
-        p1 = _v.at(latticeWidth * i + j + latticeWidth).p;
-        p2 = _v.at(latticeWidth * i + j + 1).p;
-        p0 = _v.at(latticeWidth * i + j).p;
-      } else if (rectangleTypeNum == 3) {
-        p1 = _v.at(latticeWidth * i + j).p;
-        p2 = _v.at(latticeWidth * i + j - 1 + latticeWidth).p;
-        p0 = _v.at(latticeWidth * i + j + latticeWidth).p;
+      try {
+        if (rectangleTypeNum == 0) {
+          p1 = _v.at(latticeWidth * i + j + 1 + latticeWidth).p;
+          p2 = _v.at(latticeWidth * i + j).p;
+          p0 = _v.at(latticeWidth * i + j + latticeWidth).p;
+        } else if (rectangleTypeNum == 1) {
+          p1 = _v.at(latticeWidth * i + j - 1).p;
+          p2 = _v.at(latticeWidth * i + j + latticeWidth).p;
+          p0 = _v.at(latticeWidth * i + j).p;
+        } else if (rectangleTypeNum == 2) {
+          p1 = _v.at(latticeWidth * i + j + latticeWidth).p;
+          p2 = _v.at(latticeWidth * i + j + 1).p;
+          p0 = _v.at(latticeWidth * i + j).p;
+        } else if (rectangleTypeNum == 3) {
+          p1 = _v.at(latticeWidth * i + j).p;
+          p2 = _v.at(latticeWidth * i + j - 1 + latticeWidth).p;
+          p0 = _v.at(latticeWidth * i + j + latticeWidth).p;
+        }
+      } catch (const std::out_of_range& e) {
+        FG_CORE_DEBUG("Out of range while calculating normals");
       }
-
       _v[latticeWidth * i + j].normal = glm::cross(p1 - p0, p2 - p0);
     }
   }

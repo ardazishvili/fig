@@ -191,6 +191,7 @@ float MainTerrainMesh::getZ(float x, float y) const
   auto i = ::floor(x / _xStep);
   auto j = ::floor(y / _yStep);
   auto mappedJ = (j == 0) ? 0 : 2 * j - 1;
+  assert(_v.size() >= i * _latticeAugmentedWidth + mappedJ);
   return _v.at(i * _latticeAugmentedWidth + mappedJ).p.z;
 }
 
@@ -201,6 +202,7 @@ glm::vec3 MainTerrainMesh::getRgbColor(float x, float y) const
   auto i = ::floor(x / _xStep);
   auto j = ::floor(y / _yStep);
   auto mappedJ = (j == 0) ? 0 : 2 * j - 1;
+  assert(_v.size() >= i * _latticeAugmentedWidth + mappedJ);
   auto c = _v.at(i * _latticeAugmentedWidth + mappedJ).color;
   return glm::vec3(c.x, c.y, c.z);
 }

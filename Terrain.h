@@ -25,7 +25,7 @@ public:
                                             glm::vec4 rgba);
   void updateLivingArea(std::shared_ptr<LivingArea> area);
   void growLivingArea(std::shared_ptr<LivingArea> area, float radius);
-  float getMaxXy() const;
+  std::pair<float, float> getMaxXy() const;
   void getSegmentVertices(glm::vec2 bottomLeft,
                           glm::vec2 topRight,
                           std::vector<VertexColor>& v,
@@ -43,7 +43,8 @@ private:
   Camera& _camera;
   MainTerrainMesh _mainMesh;
   SubTerrainMesh _subMesh;
-  float _maxXy;
+  float _maxX;
+  float _maxY;
   float _zScale;
 };
 }

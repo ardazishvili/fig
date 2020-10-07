@@ -31,7 +31,8 @@ Terrain::Terrain(Shader& shader,
                 divisions * 3,
                 zScale,
                 TerrainType::Sub);
-  _maxXy = std::max(topRightX, bottomLeftY);
+  _maxX = topRightX;
+  _maxY = topRightY;
 }
 
 void Terrain::render()
@@ -80,9 +81,9 @@ void Terrain::updateLivingArea(std::shared_ptr<LivingArea> area)
   _subMesh.updateLivingArea(area);
 }
 
-float Terrain::getMaxXy() const
+std::pair<float, float> Terrain::getMaxXy() const
 {
-  return _maxXy;
+  return { _maxX, _maxY };
 }
 
 void Terrain::growLivingArea(std::shared_ptr<LivingArea> area, float radius)

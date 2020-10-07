@@ -1,5 +1,6 @@
 #include "Path.h"
 #include "../fig/globals.h"
+#include "Core.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -21,17 +22,21 @@ bool Path::init(glm::vec3 s, glm::vec3 e)
     return false;
   }
   _route = *route;
-  std::cout << "_route.size()= " << _route.size() << std::endl;
-  for (unsigned int i = 0; i < _route.size() - 1; ++i) {
-    glm::vec3 start{ _route.at(i).x, _route.at(i).y, s.z + Z_OFFSET };
+  /* std::cout << "_route.size()= " << _route.size() << std::endl; */
+  try {
+    for (unsigned int i = 0; i < _route.size() - 1; ++i) {
+      glm::vec3 start{ _route.at(i).x, _route.at(i).y, s.z + Z_OFFSET };
+      _v.push_back(start);
+      _i.push_back(i);
+      _i.push_back(i + 1);
+    }
+    glm::vec3 start{ _route.at(_route.size() - 1).x,
+                     _route.at(_route.size() - 1).y,
+                     s.z + Z_OFFSET };
     _v.push_back(start);
-    _i.push_back(i);
-    _i.push_back(i + 1);
+  } catch (const std::out_of_range& e) {
+    FG_CORE_DEBUG("Out of range at path init");
   }
-  glm::vec3 start{ _route.at(_route.size() - 1).x,
-                   _route.at(_route.size() - 1).y,
-                   s.z + Z_OFFSET };
-  _v.push_back(start);
 
   _indicesToRender = _i.size();
   LinesObject::initBuffers();
