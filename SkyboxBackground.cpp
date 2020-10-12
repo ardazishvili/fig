@@ -6,7 +6,8 @@ namespace fig
 {
 SkyboxBackground::SkyboxBackground(Camera* camera,
                                    glm::mat4& view,
-                                   glm::mat4& projection)
+                                   glm::mat4& projection,
+                                   bool& flatView)
 {
   auto shaders_dir = std::filesystem::current_path().string() + "/shaders";
   _light = std::make_unique<Light>(
@@ -17,7 +18,8 @@ SkyboxBackground::SkyboxBackground(Camera* camera,
                                   view,
                                   projection,
                                   shaders_dir + "/vertex_light.vs",
-                                  shaders_dir + "/fragment_light.fs");
+                                  shaders_dir + "/fragment_light.fs",
+                                  flatView);
   _light->setShader(_lampShader.get());
   _skyboxShader =
     std::make_unique<SkyboxShader>(_light.get(),

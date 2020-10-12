@@ -13,7 +13,10 @@ namespace fig
 class SkyboxBackground : public WindowBackground
 {
 public:
-  SkyboxBackground(Camera* camera, glm::mat4& view, glm::mat4& projection);
+  SkyboxBackground(Camera* camera,
+                   glm::mat4& view,
+                   glm::mat4& projection,
+                   bool& flatView);
 
   void render() override;
   void bind(Window* window) override;

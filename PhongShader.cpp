@@ -13,8 +13,10 @@ PhongShader::PhongShader(Light* light,
                          glm::mat4& view,
                          glm::mat4& projection,
                          const std::string& vertexPath,
-                         const std::string& fragmentPath) :
-  Shader(light, camera, view, projection, vertexPath, fragmentPath)
+                         const std::string& fragmentPath,
+                         bool& flatView) :
+  Shader(light, camera, view, projection, vertexPath, fragmentPath),
+  _flatView(flatView)
 {
 }
 
@@ -50,7 +52,7 @@ void PhongShader::configure()
   setFloat("water_e", water_e);
   setFloat("water_h", water_h);
 
-  setBool("flatView", flatView);
+  setBool("flatView", _flatView);
 
   setTransformation("view", glm::value_ptr(_view));
   setTransformation("projection", glm::value_ptr(_projection));

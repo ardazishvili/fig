@@ -15,8 +15,10 @@ public:
               glm::mat4& view,
               glm::mat4& projection,
               const std::string& vertexPath,
-              const std::string& fragmentPath);
+              const std::string& fragmentPath,
+              bool& flatView);
   void configure() override;
+  bool& _flatView;
 };
 }
 
