@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "PlainMesh.h"
 #include "Shader.h"
+#include "globals.h"
 
 namespace fig
 {
@@ -17,7 +18,7 @@ public:
           float topRightX,
           float topRightY,
           int divisions,
-          std::string texturePath = "/home/roman/repos/colony/assets/grey.png");
+          std::string texturePath = assets_dir + "/grey.png");
   void render();
   void setOffsetZ(float offset);
   void setOffsetXY(float x, float y);

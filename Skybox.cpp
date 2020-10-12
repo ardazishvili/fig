@@ -1,7 +1,9 @@
 #include <GL/glew.h> // Initialize with glewInit()
+#include <filesystem>
 #include <iostream>
 
 #include "Skybox.h"
+#include "globals.h"
 #include "stb_image.h"
 
 namespace fig
@@ -28,12 +30,9 @@ float skyVertices[] = {
 };
 
 std::vector<std::string> faces{
-  "/home/roman/repos/colony/assets/skybox/right.png",
-  "/home/roman/repos/colony/assets/skybox/left.png",
-  "/home/roman/repos/colony/assets/skybox/top.png",
-  "/home/roman/repos/colony/assets/skybox/bottom.png",
-  "/home/roman/repos/colony/assets/skybox/front.png",
-  "/home/roman/repos/colony/assets/skybox/back.png"
+  assets_dir + "/skybox/right.png", assets_dir + "/skybox/left.png",
+  assets_dir + "/skybox/top.png",   assets_dir + "/skybox/bottom.png",
+  assets_dir + "/skybox/front.png", assets_dir + "/skybox/back.png"
 };
 
 Skybox::Skybox(Shader& shader) : _shader(shader)

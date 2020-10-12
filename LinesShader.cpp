@@ -10,8 +10,8 @@ LinesShader::LinesShader(Light* light,
                          Camera& camera,
                          glm::mat4& view,
                          glm::mat4& projection,
-                         const GLchar* vertexPath,
-                         const GLchar* fragmentPath) :
+                         const std::string& vertexPath,
+                         const std::string& fragmentPath) :
   Shader(light, camera, view, projection, vertexPath, fragmentPath)
 {
 }

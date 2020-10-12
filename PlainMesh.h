@@ -5,6 +5,7 @@
 
 #include "Mesh.h"
 #include "ModelMesh.h"
+#include "globals.h"
 
 namespace fig
 {
@@ -12,13 +13,12 @@ class PlainMesh : public Mesh
 {
 public:
   void render();
-  void initSurface(
-    float bottomLeftX,
-    float bottomLeftY,
-    float topRightX,
-    float topRightY,
-    int divisions,
-    std::string texturePath = "/home/roman/repos/colony/assets/grey.png");
+  void initSurface(float bottomLeftX,
+                   float bottomLeftY,
+                   float topRightX,
+                   float topRightY,
+                   int divisions,
+                   std::string texturePath = assets_dir + "/grey.png");
   void loadTexture(const std::string& filename, TexturePackType type);
 
 private:

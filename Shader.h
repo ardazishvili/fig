@@ -22,8 +22,8 @@ public:
          Camera& camera,
          glm::mat4& view,
          glm::mat4& projection,
-         const GLchar* vertexPath,
-         const GLchar* fragmentPath);
+         const std::string& vertexPath,
+         const std::string& fragmentPath);
   virtual ~Shader() = default;
   Shader(const Shader&) = delete;
   Shader(Shader&&) = delete;
