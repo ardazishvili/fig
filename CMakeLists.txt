@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(JSON_BuildTests OFF CACHE INTERNAL "")
 project(Fig)
 
 add_subdirectory(third/logging/spdlog)
+add_subdirectory(third/json/json)
 
 add_library(imgui)
 target_sources(imgui
@@ -22,7 +24,7 @@ target_sources(imgui
   )
 
 add_library(fig)
-target_link_libraries(fig PRIVATE imgui spdlog::spdlog GLEW)
+target_link_libraries(fig PRIVATE imgui spdlog::spdlog nlohmann_json::nlohmann_json GLEW)
 target_sources(fig
   PRIVATE
   Layer.h
