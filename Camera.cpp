@@ -11,6 +11,9 @@ namespace fig
 Camera::Camera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) :
   _position(position), _lookAt(lookAt), _up(up)
 {
+  auto config = CONFIG.get();
+  _moveSpeed = config.moveSpeed;
+  _rotationSpeed = config.rotationSpeed;
   initAngles();
   updateFront();
 }

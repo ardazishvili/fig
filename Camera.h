@@ -50,8 +50,8 @@ private:
   float _lastY{ 300 };
   bool _firstMouse{ true };
   float _camRadius;
-  float _rotationSpeed{ 1.0 };
-  float _moveSpeed{ 1.0f };
+  float _rotationSpeed;
+  float _moveSpeed;
 
   Timer _timer;
 };
