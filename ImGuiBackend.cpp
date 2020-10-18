@@ -1,9 +1,5 @@
-#include "third//gui/imgui/imgui.h"
-#include "third//gui/imgui/imgui_impl_glfw.h"
-#include "third//gui/imgui/imgui_impl_opengl3.h"
-
-#include "GlfwWindow.h"
 #include "ImGuiBackend.h"
+#include "GlfwWindow.h"
 
 namespace fig
 {

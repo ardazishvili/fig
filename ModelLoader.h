@@ -29,7 +29,8 @@ enum class MenuTextures {
   Plant,
   Tree,
   Barrier,
-  Turbine
+  Turbine,
+  Wheel
 };
 
 using ModelsMapping = std::map<Models, std::shared_ptr<Model>>;

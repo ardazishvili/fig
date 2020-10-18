@@ -111,6 +111,11 @@ void ModelLoader::load()
     std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Turbine.png");
   turbineTexture->load();
   _menuTextures.emplace(MenuTextures::Turbine, std::move(turbineTexture));
+
+  auto wheelTexture =
+    std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/wheel.png");
+  wheelTexture->load();
+  _menuTextures.emplace(MenuTextures::Wheel, std::move(wheelTexture));
 }
 
 ModelsMapping ModelLoader::models()

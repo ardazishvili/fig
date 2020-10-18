@@ -14,7 +14,8 @@ struct CoreConfig
   int window_width;
   int window_height;
   int panel_width;
-  int icon_size;
+  int panel_icon_size;
+  int settings_icon_size;
   bool show_log;
   double moveSpeed;
   double rotationSpeed;
@@ -30,7 +31,8 @@ public:
     _coreConfig = { .window_width = _json["window_width"],
                     .window_height = _json["window_height"],
                     .panel_width = _json["panel_width"],
-                    .icon_size = _json["icon_size"],
+                    .panel_icon_size = _json["panel_icon_size"],
+                    .settings_icon_size = _json["settings_icon_size"],
                     .show_log = _json["show_log"],
                     .moveSpeed = _json["move_speed"],
                     .rotationSpeed = _json["rotation_speed"] };

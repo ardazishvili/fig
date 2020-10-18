@@ -117,7 +117,7 @@ class MouseMoveEvent : public MouseEvent
 public:
   MouseMoveEvent(double xpos, double ypos) : _xpos(xpos), _ypos(ypos)
   {
-    FG_CORE_TRACE("mouse moved")
+    /* FG_CORE_TRACE("mouse moved") */
   }
 
 protected:
