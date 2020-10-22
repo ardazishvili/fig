@@ -99,7 +99,7 @@ class MousePressEvent : public MouseButtonEvent
 public:
   MousePressEvent(int button) : MouseButtonEvent(button)
   {
-    FG_CORE_TRACE("mouse pressed")
+    /* FG_CORE_TRACE("mouse pressed") */
   }
 };
 
@@ -108,7 +108,7 @@ class MouseReleaseEvent : public MouseButtonEvent
 public:
   MouseReleaseEvent(int button) : MouseButtonEvent(button)
   {
-    FG_CORE_TRACE("mouse released")
+    /* FG_CORE_TRACE("mouse released") */
   }
 };
 
@@ -131,7 +131,7 @@ public:
   MouseScrollEvent(double xoffset, double yoffset) :
     _xoffset(xoffset), _yoffset(yoffset)
   {
-    FG_CORE_TRACE("mouse scrolled")
+    /* FG_CORE_TRACE("mouse scrolled") */
   }
 
 protected:
