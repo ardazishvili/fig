@@ -14,10 +14,6 @@ void SphereMesh::render()
 
 void SphereMesh::init(float r, unsigned int divisions)
 {
-  static float frequency_plain = 1.5;
-  static float frequencyFactor_plain = 3.0;
-  static float amplitudeFactor_plain = 0.325;
-
   auto noise = Noise(777);
   unsigned int stacksNum = divisions;
   unsigned int sectorNum = divisions;
@@ -33,9 +29,8 @@ void SphereMesh::init(float r, unsigned int divisions)
       auto v = VertexColor();
       v.p.x = tmp * ::cos(sectorAngle);
       v.p.y = tmp * ::sin(sectorAngle);
-      auto dummy = glm::vec2();
-      auto nv_plain =
-        noise.fractal(glm::vec2(v.p.x, v.p.y), dummy, frequency_plain, frequencyFactor_plain, amplitudeFactor_plain, 5);
+      auto nv_plain = noise.fractal(
+        glm::vec2(v.p.x, v.p.y), Noise::Params{ .frequency = 1.5, .frequencyFactor = 3.0, .amplitudeFactor = 0.325 });
       v.p.z = r * ::sin(stackAngle) + nv_plain;
 
       v.normal.x = v.p.x / r;

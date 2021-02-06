@@ -27,8 +27,6 @@ public:
   std::pair<float, float> getMaxXy() const;
   void getSegmentVertices(glm::vec2 bottomLeft, glm::vec2 topRight, std::vector<VertexColor>& v, SegmentDimensions* sd);
   void getSegmentObstaclesMap(glm::vec2 bottomLeft, glm::vec2 topRight, std::vector<bool>& m, SegmentDimensions* sd);
-  float halfWidth() const;
-  float halfHeight() const;
   static const float SUBTERRAIN_OFFSET;
 
 private:

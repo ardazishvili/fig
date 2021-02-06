@@ -1,5 +1,7 @@
-#include "TerrainMesh.h"
+#include <algorithm>
+
 #include "Core.h"
+#include "TerrainMesh.h"
 #include "TerrainMeshSegment.h"
 #include "globals.h"
 
@@ -23,14 +25,15 @@ void TerrainMesh::init(float bottomLeftX,
   _v.reserve((divisions + 1) * 2 * divisions);
   _width = topRightX - bottomLeftX;
   _height = topRightY - bottomLeftY;
+  _halfWidth = _width / 2;
+  _halfHeight = _height / 2;
   _xStep = (topRightX - bottomLeftX) / divisions;
   _yStep = (topRightY - bottomLeftY) / divisions;
   _zScale = zScale;
   int width = divisions + 1;
 
-  float min = 0.0f;
-  float max = 0.0f;
-  calculateHeights(width, bottomLeftX, bottomLeftY, min, max);
+  calculateHeights(width, bottomLeftX, bottomLeftY);
+
   _latticeWidth = width;
   _latticeHeight = width;
   unsigned int w;
@@ -41,7 +44,7 @@ void TerrainMesh::init(float bottomLeftX,
   }
   _latticeAugmentedWidth = w;
   calculateNormals(width, w);
-  calculateColors(min, max, width, w);
+  calculateColors(width, w);
   calculateIndices(divisions, divisions, w);
 
   glBindVertexArray(_vao);
@@ -60,33 +63,6 @@ void TerrainMesh::init(float bottomLeftX,
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _indices.size(), &_indices[0], GL_STATIC_DRAW);
 
   glBindVertexArray(0);
-}
-
-void TerrainMesh::calculateIndices(int divisionsX, int divisionsY, unsigned int latticeWidth)
-{
-  _indices.reserve(divisionsX * divisionsY * 2 * 3);
-  for (int i = 0; i < divisionsX; ++i) {
-    for (int j = 0; j < divisionsY; ++j) {
-      auto j2 = j * 2;
-      if (((i % 2) + j) % 2 == 0) {
-        _indices.push_back(i * latticeWidth + j2);
-        _indices.push_back(i * latticeWidth + j2 + latticeWidth);
-        _indices.push_back(i * latticeWidth + j2 + latticeWidth + 1);
-
-        _indices.push_back(i * latticeWidth + j2 + 1);
-        _indices.push_back(i * latticeWidth + j2);
-        _indices.push_back(i * latticeWidth + j2 + latticeWidth + 1);
-      } else {
-        _indices.push_back(i * latticeWidth + j2);
-        _indices.push_back(i * latticeWidth + j2 + latticeWidth);
-        _indices.push_back(i * latticeWidth + j2 + 1);
-
-        _indices.push_back(i * latticeWidth + j2 + 1);
-        _indices.push_back(i * latticeWidth + j2 + latticeWidth);
-        _indices.push_back(i * latticeWidth + j2 + latticeWidth + 1);
-      }
-    }
-  }
 }
 
 void TerrainMesh::calculateNormals(int width, unsigned int latticeWidth)
@@ -134,10 +110,10 @@ void TerrainMesh::getSegmentVertices(glm::vec2 bottomLeft,
   sd->xStep = _xStep;
   sd->yStep = _yStep;
 
-  bottomLeft.x += _width / 2;
-  topRight.x += _width / 2;
-  bottomLeft.y += _height / 2;
-  topRight.y += _height / 2;
+  bottomLeft.x += _halfWidth;
+  topRight.x += _halfWidth;
+  bottomLeft.y += _halfHeight;
+  topRight.y += _halfHeight;
 
   float startI = _latticeHeight * bottomLeft.x / _width;
   float startJ = _latticeAugmentedWidth * bottomLeft.y / _height;
@@ -146,15 +122,5 @@ void TerrainMesh::getSegmentVertices(glm::vec2 bottomLeft,
       v.push_back(_v.at(_latticeAugmentedWidth * i + j));
     }
   }
-}
-
-float TerrainMesh::halfWidth() const
-{
-  return _width / 2;
-}
-
-float TerrainMesh::halfHeight() const
-{
-  return _height / 2;
 }
 }

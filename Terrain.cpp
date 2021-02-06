@@ -85,16 +85,6 @@ void Terrain::getSegmentVertices(glm::vec2 bottomLeft,
   _mainMesh.getSegmentVertices(bottomLeft, topRight, v, sd);
 }
 
-float Terrain::halfWidth() const
-{
-  return _mainMesh.halfWidth();
-}
-
-float Terrain::halfHeight() const
-{
-  return _mainMesh.halfHeight();
-}
-
 void Terrain::getSegmentObstaclesMap(glm::vec2 bottomLeft,
                                      glm::vec2 topRight,
                                      std::vector<bool>& m,

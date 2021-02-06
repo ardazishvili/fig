@@ -135,25 +135,20 @@ void SubTerrainMesh::updateLivingArea(std::shared_ptr<LivingArea> area)
   logger.log("end area update");
 }
 
-void SubTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, float bottomLeftY, float& min, float& max)
+void SubTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, float bottomLeftY)
 {
-  static float frequency = 0.077;
-  static float frequencyFactor = 4.0;
-  static float amplitudeFactor = 0.366;
   auto noise = Noise(777);
-  std::vector<float> plainZ;
+  std::cout << " SubTerrainMesh width: " << width << "\n";
   for (unsigned int i = 0; i < width; ++i) {
     for (unsigned int j = 0; j < width; ++j) {
       VertexColor vertex;
-      vertex.p.x = bottomLeftX + static_cast<float>(i) * _xStep;
-      vertex.p.y = bottomLeftY + static_cast<float>(j) * _yStep;
-      glm::vec2 derivs;
-      auto nv =
-        noise.fractal(glm::vec2(vertex.p.x, vertex.p.y), derivs, frequency, frequencyFactor, amplitudeFactor, 5);
-      vertex.p.x -= _width / 2.0f;
-      vertex.p.y -= _height / 2.0f;
+      vertex.p.x = bottomLeftX + i * _xStep;
+      vertex.p.y = bottomLeftY + j * _yStep;
+      auto nv = noise.fractal(glm::vec2(vertex.p.x, vertex.p.y),
+                              Noise::Params{ .frequency = 0.077, .frequencyFactor = 4.0, .amplitudeFactor = 0.366 });
+      vertex.p.x -= _halfWidth;
+      vertex.p.y -= _halfHeight;
       vertex.p.z = nv + 0.1;
-      /* vertex.color = glm::vec4(0, 0, 1, 1); */
       _v.push_back(vertex);
     }
   }
@@ -175,7 +170,7 @@ void SubTerrainMesh::calculateIndices(int divisionsX, int divisionsY, unsigned i
   }
 }
 
-void SubTerrainMesh::calculateColors(float min, float max, unsigned int width, unsigned int augmentedWidth)
+void SubTerrainMesh::calculateColors(unsigned int width, unsigned int augmentedWidth)
 {
 }
 }

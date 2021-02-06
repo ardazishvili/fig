@@ -4,14 +4,9 @@
 
 #include "Noise.h"
 
-float smoothstep(float t)
+static float smoothstep(float t)
 {
   return t * t * (3 - 2 * t);
-}
-
-float smoothstepDeriv(float t)
-{
-  return 6 * t * (1 - t);
 }
 
 Noise::Noise(unsigned int seed) : _mask(PERIOD - 1)
@@ -36,17 +31,15 @@ Noise::Noise(unsigned int seed) : _mask(PERIOD - 1)
   }
 }
 
-float Noise::eval(glm::vec2 p, glm::vec2& derivs)
+float Noise::eval(glm::vec2 p)
 {
   int xi = std::floor(p.x);
   float deltaX = p.x - xi;
   float u = smoothstep(deltaX);
-  float du = smoothstepDeriv(deltaX);
 
   int yi = std::floor(p.y);
   float deltaY = p.y - yi;
   float v = smoothstep(deltaY);
-  float dv = smoothstepDeriv(deltaY);
 
   int x0 = xi & _mask;
   int x1 = (x0 + 1) & _mask;
@@ -72,31 +65,20 @@ float Noise::eval(glm::vec2 p, glm::vec2& derivs)
   float k1 = c - a;
   float k2 = a + d - b - c;
 
-  derivs.x = du * k0 + du * v * k2;
-  derivs.y = dv * k1 + u * dv * k2;
-
   return a + u * k0 + v * k1 + u * v * k2;
 }
 
-float Noise::fractal(glm::vec2 p,
-                     glm::vec2& derivs,
-                     float frequency,
-                     float frequencyFactor,
-                     float amplitudeFactor,
-                     unsigned int numLayers)
+float Noise::fractal(glm::vec2 p, Noise::Params parameters, unsigned int numLayers)
 {
-  derivs = glm::vec2(0.0f, 0.0f);
   auto res = 0.0f;
-  auto fp = p * frequency;
+  auto fp = p * parameters.frequency;
   float amplitude = 1.0f;
   for (unsigned int l = 0; l < numLayers; ++l) {
     glm::vec2 d(0.0f);
-    res += eval(fp, d) * amplitude;
-    derivs += d;
-    fp *= frequencyFactor;
-    amplitude *= amplitudeFactor;
+    res += eval(fp) * amplitude;
+    fp *= parameters.frequencyFactor;
+    amplitude *= parameters.amplitudeFactor;
   }
 
-  /* derivs = glm::normalize(derivs); */
   return res;
 }

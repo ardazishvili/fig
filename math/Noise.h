@@ -6,17 +6,18 @@
 class Noise
 {
 public:
+  struct Params
+  {
+    float frequency;
+    float frequencyFactor;
+    float amplitudeFactor;
+  };
+
   Noise(unsigned int seed);
-  float eval(glm::vec2 p, glm::vec2& derivs);
-  float fractal(glm::vec2 p,
-                glm::vec2& derivs,
-                float frequency,
-                float frequencyFactor,
-                float amplitudeFactor,
-                unsigned int numLayers = 1);
+  float fractal(glm::vec2 p, Params parameters, unsigned int numLayers = 5);
 
 private:
-  uint8_t hash(const int& x, const int& y) const;
+  float eval(glm::vec2 p);
 
   static const unsigned int PERIOD{ 256 };
   unsigned int _mask;
