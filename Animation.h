@@ -30,31 +30,20 @@ public:
   enum class Type { Permanent, OneShot };
 
   Animation() = delete;
-  Animation(BonesData& boneInfos,
-            BoneMapping& boneMapping,
-            unsigned int& numBones);
+  Animation(BonesData& boneInfos, BoneMapping& boneMapping, unsigned int& numBones);
 
   void setScene(const aiScene* scene);
   void animate(Shader& shader, Type type, float percent);
 
 private:
-  void readNodes(float time,
-                 const aiNode* node,
-                 const glm::mat4& parentTransform);
-  void calcInterpolatedScaling(aiVector3D& Out,
-                               float time,
-                               const aiNodeAnim* node);
-  void calcInterpolatedRotation(aiQuaternion& Out,
-                                float time,
-                                const aiNodeAnim* node);
-  void calcInterpolatedPosition(aiVector3D& Out,
-                                float time,
-                                const aiNodeAnim* node);
+  void readNodes(float time, const aiNode* node, const glm::mat4& parentTransform);
+  void calcInterpolatedScaling(aiVector3D& Out, float time, const aiNodeAnim* node);
+  void calcInterpolatedRotation(aiQuaternion& Out, float time, const aiNodeAnim* node);
+  void calcInterpolatedPosition(aiVector3D& Out, float time, const aiNodeAnim* node);
   uint findScaling(float time, const aiNodeAnim* node);
   uint findRotation(float time, const aiNodeAnim* node);
   uint findPosition(float time, const aiNodeAnim* node);
-  const aiNodeAnim* findNodeAnim(const aiAnimation* animation,
-                                 const std::string nodeName);
+  const aiNodeAnim* findNodeAnim(const aiAnimation* animation, const std::string nodeName);
 
   const aiScene* _scene;
   BonesData& _bonesData;

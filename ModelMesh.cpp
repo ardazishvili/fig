@@ -2,7 +2,7 @@
 
 namespace fig
 {
-bool ModelMesh::initModel(const aiScene* scene, const string& Filename)
+bool ModelMesh::initModel(const aiScene* scene, const std::string& Filename)
 {
   _meshesData.resize(scene->mNumMeshes);
   _initialTextures.resize(scene->mNumMaterials);
@@ -37,38 +37,24 @@ bool ModelMesh::initModel(const aiScene* scene, const string& Filename)
   _hasAnimation = scene->HasAnimations();
 
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferData(GL_ARRAY_BUFFER,
-               sizeof(Vertex) * _vertices.size(),
-               &_vertices[0],
-               GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * _vertices.size(), &_vertices[0], GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(
-    2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1,
-                        2,
-                        GL_FLOAT,
-                        GL_FALSE,
-                        sizeof(Vertex),
-                        (void*)offsetof(Vertex, texCoords));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
 
   glEnableVertexAttribArray(3);
-  glVertexAttribIPointer(
-    3, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, IDs));
+  glVertexAttribIPointer(3, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, IDs));
 
   glEnableVertexAttribArray(4);
-  glVertexAttribPointer(
-    4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Weights));
+  glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Weights));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-               sizeof(_indices[0]) * _indices.size(),
-               &_indices[0],
-               GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _indices.size(), &_indices[0], GL_STATIC_DRAW);
 
   glBindVertexArray(0);
   return (glGetError() == GL_NO_ERROR);
@@ -81,8 +67,7 @@ void ModelMesh::initMesh(unsigned int meshIndex, const aiMesh* mesh)
   for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
     const aiVector3D* pos = &(mesh->mVertices[i]);
     const aiVector3D* normal = &(mesh->mNormals[i]);
-    const aiVector3D* texCoord =
-      mesh->HasTextureCoords(0) ? &(mesh->mTextureCoords[0][i]) : &zeroes;
+    const aiVector3D* texCoord = mesh->HasTextureCoords(0) ? &(mesh->mTextureCoords[0][i]) : &zeroes;
 
     auto vertex = Vertex();
     vertex.position = glm::vec3(pos->x, pos->y, pos->z);
@@ -105,7 +90,7 @@ void ModelMesh::loadBones(unsigned int meshIndex, const aiMesh* mesh)
 {
   for (unsigned int i = 0; i < mesh->mNumBones; i++) {
     unsigned int index = 0;
-    string BoneName(mesh->mBones[i]->mName.data);
+    std::string BoneName(mesh->mBones[i]->mName.data);
 
     if (_boneMapping.find(BoneName) == _boneMapping.end()) {
       index = _numBones;
@@ -119,20 +104,19 @@ void ModelMesh::loadBones(unsigned int meshIndex, const aiMesh* mesh)
     }
 
     for (unsigned int j = 0; j < mesh->mBones[i]->mNumWeights; j++) {
-      unsigned int VertexID = _meshesData[meshIndex].baseVertex +
-                              mesh->mBones[i]->mWeights[j].mVertexId;
+      unsigned int VertexID = _meshesData[meshIndex].baseVertex + mesh->mBones[i]->mWeights[j].mVertexId;
       float Weight = mesh->mBones[i]->mWeights[j].mWeight;
       _vertices[VertexID].AddBoneData(index, Weight);
     }
   }
 }
 
-bool ModelMesh::initMaterials(const aiScene* pScene, const string& Filename)
+bool ModelMesh::initMaterials(const aiScene* pScene, const std::string& Filename)
 {
-  string::size_type SlashIndex = Filename.find_last_of("/");
-  string Dir;
+  std::string::size_type SlashIndex = Filename.find_last_of("/");
+  std::string Dir;
 
-  if (SlashIndex == string::npos) {
+  if (SlashIndex == std::string::npos) {
     Dir = ".";
   } else if (SlashIndex == 0) {
     Dir = "/";
@@ -148,19 +132,16 @@ bool ModelMesh::initMaterials(const aiScene* pScene, const string& Filename)
     if (material->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
       aiString Path;
 
-      if (material->GetTexture(
-            aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) ==
-          AI_SUCCESS) {
-        string p(Path.data);
+      if (material->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS) {
+        std::string p(Path.data);
 
         if (p.substr(0, 2) == ".\\") {
           p = p.substr(2, p.size() - 2);
         }
 
-        string FullPath = Dir + "/" + p;
+        std::string FullPath = Dir + "/" + p;
 
-        _initialTextures[i] =
-          std::make_shared<Texture>(GL_TEXTURE_2D, FullPath.c_str());
+        _initialTextures[i] = std::make_shared<Texture>(GL_TEXTURE_2D, FullPath.c_str());
 
         if (!_initialTextures[i]->load()) {
           printf("Error loading texture '%s'\n", FullPath.c_str());
@@ -198,12 +179,11 @@ void ModelMesh::render()
       }
     }
 
-    glDrawElementsBaseVertex(
-      GL_TRIANGLES,
-      _meshesData[i].numIndices,
-      GL_UNSIGNED_INT,
-      (void*)(sizeof(unsigned int) * _meshesData[i].baseIndex),
-      _meshesData[i].baseVertex);
+    glDrawElementsBaseVertex(GL_TRIANGLES,
+                             _meshesData[i].numIndices,
+                             GL_UNSIGNED_INT,
+                             (void*)(sizeof(unsigned int) * _meshesData[i].baseIndex),
+                             _meshesData[i].baseVertex);
   }
 
   glBindVertexArray(0);
@@ -219,40 +199,35 @@ void ModelMesh::loadTexture(const std::string& filename, TexturePackType type)
   if (type == TexturePackType::OnSelection) {
     _onSelectionTextures.clear();
     for (unsigned long i = 0; i < _initialTextures.size(); ++i) {
-      _onSelectionTextures.push_back(
-        std::make_shared<Texture>(GL_TEXTURE_2D, filename));
+      _onSelectionTextures.push_back(std::make_shared<Texture>(GL_TEXTURE_2D, filename));
       _onSelectionTextures[i]->load();
     }
   } else if (type == TexturePackType::Initial) {
     auto s = _initialTextures.size();
     _initialTextures.clear();
     for (unsigned long i = 0; i < s; ++i) {
-      _initialTextures.push_back(
-        std::make_shared<Texture>(GL_TEXTURE_2D, filename));
+      _initialTextures.push_back(std::make_shared<Texture>(GL_TEXTURE_2D, filename));
       _initialTextures[i]->load();
     }
   } else if (type == TexturePackType::PreBuild) {
     auto s = _initialTextures.size();
     _preBuildTextures.clear();
     for (unsigned long i = 0; i < s; ++i) {
-      _preBuildTextures.push_back(
-        std::make_shared<Texture>(GL_TEXTURE_2D, filename));
+      _preBuildTextures.push_back(std::make_shared<Texture>(GL_TEXTURE_2D, filename));
       _preBuildTextures[i]->load();
     }
   } else if (type == TexturePackType::UnderFire) {
     auto s = _initialTextures.size();
     _underFireTextures.clear();
     for (unsigned long i = 0; i < s; ++i) {
-      _underFireTextures.push_back(
-        std::make_shared<Texture>(GL_TEXTURE_2D, filename));
+      _underFireTextures.push_back(std::make_shared<Texture>(GL_TEXTURE_2D, filename));
       _underFireTextures[i]->load();
     }
   } else if (type == TexturePackType::Destroyed) {
     auto s = _initialTextures.size();
     _destroyedTextures.clear();
     for (unsigned long i = 0; i < s; ++i) {
-      _destroyedTextures.push_back(
-        std::make_shared<Texture>(GL_TEXTURE_2D, filename));
+      _destroyedTextures.push_back(std::make_shared<Texture>(GL_TEXTURE_2D, filename));
       _destroyedTextures[i]->load();
     }
   }

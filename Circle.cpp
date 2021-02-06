@@ -2,11 +2,7 @@
 
 #include "Circle.h"
 
-Circle::Circle(Shader& shader,
-               glm::vec3 center,
-               float radius,
-               unsigned int divisions) :
-  _shader(shader)
+Circle::Circle(Shader& shader, glm::vec3 center, float radius, unsigned int divisions) : _shader(shader)
 {
   _mesh.init(radius, divisions);
   _offset.x = center.x;

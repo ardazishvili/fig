@@ -1,7 +1,6 @@
 #ifndef SKYBOX_H
 #define SKYBOX_H
 
-#include <string>
 #include <vector>
 
 #include "Shader.h"

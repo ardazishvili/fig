@@ -2,10 +2,7 @@
 
 namespace fig
 {
-HeightsSegment::HeightsSegment(Shader& colorShader,
-                               Terrain* terrain,
-                               glm::vec2 bottomLeft,
-                               glm::vec2 topRight) :
+HeightsSegment::HeightsSegment(Shader& colorShader, Terrain* terrain, glm::vec2 bottomLeft, glm::vec2 topRight) :
   TerrainMeshSegment(colorShader, terrain, bottomLeft, topRight, 4.0f)
 {
 }
@@ -28,8 +25,7 @@ std::shared_ptr<HeightsSegment> makeHeightsSegment(Shader& colorShader,
                                                    glm::vec2 bottomLeft,
                                                    glm::vec2 topRight)
 {
-  auto hs = std::make_shared<HeightsSegment>(
-    colorShader, terrain, bottomLeft, topRight);
+  auto hs = std::make_shared<HeightsSegment>(colorShader, terrain, bottomLeft, topRight);
   hs->init();
   return hs;
 }

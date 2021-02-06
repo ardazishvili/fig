@@ -42,9 +42,7 @@ using APath = std::vector<glm::vec2>;
 class AStar
 {
 public:
-  AStar(const std::vector<VertexColor>& v,
-        const std::vector<bool>& o,
-        SegmentDimensions sd);
+  AStar(const std::vector<VertexColor>& v, const std::vector<bool>& o, SegmentDimensions sd);
   // Get path from start to end
   std::optional<APath> getPath(glm::vec2 s, glm::vec2 e);
 

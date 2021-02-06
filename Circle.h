@@ -9,10 +9,7 @@ namespace fig
 class Circle
 {
 public:
-  Circle(Shader& shader,
-         glm::vec3 center,
-         float radius,
-         unsigned int divisions);
+  Circle(Shader& shader, glm::vec3 center, float radius, unsigned int divisions);
   void render();
 
 private:

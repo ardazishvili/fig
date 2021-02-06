@@ -30,26 +30,14 @@ public:
             int divisions,
             float zScale,
             TerrainType type);
-  virtual void calculateHeights(unsigned int width,
-                                float bottomLeftX,
-                                float bottomLeftY,
-                                float& min,
-                                float& max) = 0;
-  virtual void calculateColors(float min,
-                               float max,
-                               unsigned int width,
-                               unsigned int augmentedWidth) = 0;
-  void getSegmentVertices(glm::vec2 bottomLeft,
-                          glm::vec2 topRight,
-                          std::vector<VertexColor>& v,
-                          SegmentDimensions* sd);
+  virtual void calculateHeights(unsigned int width, float bottomLeftX, float bottomLeftY, float& min, float& max) = 0;
+  virtual void calculateColors(float min, float max, unsigned int width, unsigned int augmentedWidth) = 0;
+  void getSegmentVertices(glm::vec2 bottomLeft, glm::vec2 topRight, std::vector<VertexColor>& v, SegmentDimensions* sd);
   float halfWidth() const;
   float halfHeight() const;
 
 protected:
-  virtual void calculateIndices(int divisionsX,
-                                int divisionsY,
-                                unsigned int latticeWidth);
+  virtual void calculateIndices(int divisionsX, int divisionsY, unsigned int latticeWidth);
   void calculateNormals(int width, unsigned int latticeWidth);
 
   std::vector<VertexColor> _v;

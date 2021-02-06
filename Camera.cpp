@@ -8,8 +8,7 @@
 
 namespace fig
 {
-Camera::Camera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) :
-  _position(position), _lookAt(lookAt), _up(up)
+Camera::Camera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) : _position(position), _lookAt(lookAt), _up(up)
 {
   auto config = CONFIG.get();
   _moveSpeed = config.moveSpeed;
@@ -20,8 +19,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 lookAt, glm::vec3 up) :
 
 void Camera::updateSpeed()
 {
-  float currentFrame =
-    std::chrono::duration_cast<std::chrono::seconds>(_timer.elapsed()).count();
+  float currentFrame = std::chrono::duration_cast<std::chrono::seconds>(_timer.elapsed()).count();
   _deltaTime = currentFrame - _lastFrame;
   _lastFrame = currentFrame;
   _speed = 10.5f * _deltaTime; // adjust accordingly

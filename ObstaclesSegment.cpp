@@ -2,10 +2,7 @@
 
 namespace fig
 {
-ObstaclesSegment::ObstaclesSegment(Shader& colorShader,
-                                   Terrain* terrain,
-                                   glm::vec2 bottomLeft,
-                                   glm::vec2 topRight) :
+ObstaclesSegment::ObstaclesSegment(Shader& colorShader, Terrain* terrain, glm::vec2 bottomLeft, glm::vec2 topRight) :
   TerrainMeshSegment(colorShader, terrain, bottomLeft, topRight, 8.0f)
 {
 }
@@ -31,8 +28,7 @@ std::shared_ptr<ObstaclesSegment> makeObstaclesSegment(Shader& colorShader,
                                                        glm::vec2 topRight)
 {
 
-  auto hs = std::make_shared<ObstaclesSegment>(
-    colorShader, terrain, bottomLeft, topRight);
+  auto hs = std::make_shared<ObstaclesSegment>(colorShader, terrain, bottomLeft, topRight);
   hs->init();
   return hs;
 }

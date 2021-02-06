@@ -12,12 +12,9 @@ float lerp(float a, float b, float f)
 const glm::vec4 SubTerrainMesh::SELECTION_COLOR{ 0.0f, 0.0f, 1.0f, 0.3f };
 const glm::vec4 SubTerrainMesh::DESELECTION_COLOR{ 0.0f, 0.0f, 1.0f, 0.0f };
 
-std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
-                                                          glm::vec4 rgba)
+std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region, glm::vec4 rgba)
 {
-  RectangleRegion rect = {
-    region.x - region.r, region.y - region.r, 2 * region.r, 2 * region.r
-  };
+  RectangleRegion rect = { region.x - region.r, region.y - region.r, 2 * region.r, 2 * region.r };
   auto x = region.x;
   auto y = region.y;
   auto r = region.r;
@@ -57,15 +54,12 @@ std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
   return livingArea;
 }
 
-void SubTerrainMesh::growLivingArea(std::shared_ptr<LivingArea> area,
-                                    float radius)
+void SubTerrainMesh::growLivingArea(std::shared_ptr<LivingArea> area, float radius)
 {
   auto prevRadius = area->region.r;
   area->region.r = radius;
   auto region = area->region;
-  RectangleRegion rect = {
-    region.x - region.r, region.y - region.r, 2 * region.r, 2 * region.r
-  };
+  RectangleRegion rect = { region.x - region.r, region.y - region.r, 2 * region.r, 2 * region.r };
   auto x = region.x;
   auto y = region.y;
   auto r = region.r;
@@ -109,10 +103,8 @@ void SubTerrainMesh::reloadLivingArea(std::shared_ptr<LivingArea> area)
 {
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
   for (auto& cell : area->cells) {
-    glBufferSubData(GL_ARRAY_BUFFER,
-                    sizeof(VertexColor) * (cell.first),
-                    sizeof(VertexColor) * cell.second,
-                    &_v[cell.first]);
+    glBufferSubData(
+      GL_ARRAY_BUFFER, sizeof(VertexColor) * (cell.first), sizeof(VertexColor) * cell.second, &_v[cell.first]);
   }
 }
 
@@ -143,11 +135,7 @@ void SubTerrainMesh::updateLivingArea(std::shared_ptr<LivingArea> area)
   logger.log("end area update");
 }
 
-void SubTerrainMesh::calculateHeights(unsigned int width,
-                                      float bottomLeftX,
-                                      float bottomLeftY,
-                                      float& min,
-                                      float& max)
+void SubTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, float bottomLeftY, float& min, float& max)
 {
   static float frequency = 0.077;
   static float frequencyFactor = 4.0;
@@ -160,12 +148,8 @@ void SubTerrainMesh::calculateHeights(unsigned int width,
       vertex.p.x = bottomLeftX + static_cast<float>(i) * _xStep;
       vertex.p.y = bottomLeftY + static_cast<float>(j) * _yStep;
       glm::vec2 derivs;
-      auto nv = noise.fractal(glm::vec2(vertex.p.x, vertex.p.y),
-                              derivs,
-                              frequency,
-                              frequencyFactor,
-                              amplitudeFactor,
-                              5);
+      auto nv =
+        noise.fractal(glm::vec2(vertex.p.x, vertex.p.y), derivs, frequency, frequencyFactor, amplitudeFactor, 5);
       vertex.p.x -= _width / 2.0f;
       vertex.p.y -= _height / 2.0f;
       vertex.p.z = nv + 0.1;
@@ -175,9 +159,7 @@ void SubTerrainMesh::calculateHeights(unsigned int width,
   }
 }
 
-void SubTerrainMesh::calculateIndices(int divisionsX,
-                                      int divisionsY,
-                                      unsigned int latticeWidth)
+void SubTerrainMesh::calculateIndices(int divisionsX, int divisionsY, unsigned int latticeWidth)
 {
   _indices.reserve(divisionsX * divisionsY * 2 * 3);
   for (int i = 0; i < divisionsX; ++i) {
@@ -193,10 +175,7 @@ void SubTerrainMesh::calculateIndices(int divisionsX,
   }
 }
 
-void SubTerrainMesh::calculateColors(float min,
-                                     float max,
-                                     unsigned int width,
-                                     unsigned int augmentedWidth)
+void SubTerrainMesh::calculateColors(float min, float max, unsigned int width, unsigned int augmentedWidth)
 {
 }
 }

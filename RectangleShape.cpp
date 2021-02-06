@@ -6,8 +6,7 @@
 
 namespace fig
 {
-RectangleShape::RectangleShape(Shader& shader, Camera& camera) :
-  LinesObject(shader), _camera(camera)
+RectangleShape::RectangleShape(Shader& shader, Camera& camera) : LinesObject(shader), _camera(camera)
 {
   for (int i = 0; i < 4; ++i) {
     _v.push_back(glm::vec3());
@@ -46,18 +45,13 @@ void RectangleShape::init(glm::vec3 s, glm::vec3 e)
   float sx = s.x * ::cos(a) + s.y * ::sin(a);
   float angle = ::atan((ey - sy) / ::abs(ex - sx));
   _v.at(0) = s;
-  _v.at(1) = glm::vec3(
-    s.x - ::sin(angle) * sin(a) * l, s.y + l * sin(angle) * cos(a), s.z);
+  _v.at(1) = glm::vec3(s.x - ::sin(angle) * sin(a) * l, s.y + l * sin(angle) * cos(a), s.z);
 
   _v.at(2) = e;
-  _v.at(3) = glm::vec3(
-    e.x + ::sin(angle) * sin(a) * l, e.y - l * sin(angle) * cos(a), e.z);
+  _v.at(3) = glm::vec3(e.x + ::sin(angle) * sin(a) * l, e.y - l * sin(angle) * cos(a), e.z);
 
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferSubData(GL_ARRAY_BUFFER,
-                  sizeof(glm::vec3) * 0,
-                  sizeof(glm::vec3) * _v.size(),
-                  &_v[0]);
+  glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * 0, sizeof(glm::vec3) * _v.size(), &_v[0]);
 }
 
 void RectangleShape::setStart(glm::vec3 start)

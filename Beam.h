@@ -8,11 +8,7 @@ namespace fig
 class Beam : public LinesObject
 {
 public:
-  Beam(Shader& shader,
-       glm::vec3 begin,
-       glm::vec3 end,
-       float r,
-       unsigned int numLines);
+  Beam(Shader& shader, glm::vec3 begin, glm::vec3 end, float r, unsigned int numLines);
   void render();
 
 private:

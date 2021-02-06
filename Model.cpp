@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
@@ -12,19 +14,17 @@ Model::Model(Shader& shader) : _shader(shader)
 {
 }
 
-bool Model::load(const string& file)
+bool Model::load(const std::string& file)
 {
-  _scene =
-    _importer.ReadFile(file.c_str(),
-                       aiProcess_Triangulate | aiProcess_GenSmoothNormals |
-                         aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices);
+  _scene = _importer.ReadFile(file.c_str(),
+                              aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs |
+                                aiProcess_JoinIdenticalVertices);
 
   bool res = false;
   if (_scene) {
     res = init(_scene, file);
   } else {
-    std::cout << "Error assimp file importer " << _importer.GetErrorString()
-              << std::endl;
+    std::cout << "Error assimp file importer " << _importer.GetErrorString() << std::endl;
   }
 
   return res;
@@ -35,7 +35,7 @@ void Model::animate(Shader& shader, Animation::Type type, float percent)
   _meshes.animate(shader, type, percent);
 }
 
-bool Model::init(const aiScene* pScene, const string& Filename)
+bool Model::init(const aiScene* pScene, const std::string& Filename)
 {
   return _meshes.initModel(pScene, Filename);
 }

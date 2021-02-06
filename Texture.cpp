@@ -17,8 +17,7 @@ Texture::~Texture()
 bool Texture::load()
 {
   int width, height, nrComponents;
-  unsigned char* data =
-    stbi_load(_filename.c_str(), &width, &height, &nrComponents, 0);
+  unsigned char* data = stbi_load(_filename.c_str(), &width, &height, &nrComponents, 0);
 
   if (data) {
 
@@ -31,15 +30,7 @@ bool Texture::load()
       format = GL_RGBA;
     glGenTextures(1, &_id);
     glBindTexture(_textureType, _id);
-    glTexImage2D(_textureType,
-                 0,
-                 format,
-                 width,
-                 height,
-                 0,
-                 format,
-                 GL_UNSIGNED_BYTE,
-                 data);
+    glTexImage2D(_textureType, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
     glTexParameterf(_textureType, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameterf(_textureType, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     stbi_image_free(data);

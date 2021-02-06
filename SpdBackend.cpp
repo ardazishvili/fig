@@ -22,4 +22,3 @@ void SpdBackend::init(Type t)
   }
   _logger->set_level(spdlog::level::trace);
 }
-

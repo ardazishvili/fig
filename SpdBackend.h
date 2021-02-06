@@ -1,7 +1,6 @@
 #ifndef SPD_BACKEND_H
 #define SPD_BACKEND_H
 
-#include <iostream>
 #include <memory>
 
 #include <spdlog/spdlog.h>

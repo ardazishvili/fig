@@ -52,8 +52,7 @@ void PlainMesh::initSurface(float bottomLeftX,
     }
   }
 
-  _initialTextures[0] =
-    std::make_shared<Texture>(GL_TEXTURE_2D, texturePath.c_str());
+  _initialTextures[0] = std::make_shared<Texture>(GL_TEXTURE_2D, texturePath.c_str());
 
   if (!_initialTextures[0]->load()) {
     printf("Error loading texture '%s'\n", texturePath.c_str());
@@ -62,38 +61,24 @@ void PlainMesh::initSurface(float bottomLeftX,
   }
 
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferData(GL_ARRAY_BUFFER,
-               sizeof(Vertex) * _vertices.size(),
-               &_vertices[0],
-               GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * _vertices.size(), &_vertices[0], GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(
-    2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1,
-                        2,
-                        GL_FLOAT,
-                        GL_FALSE,
-                        sizeof(Vertex),
-                        (void*)offsetof(Vertex, texCoords));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texCoords));
 
   glEnableVertexAttribArray(3);
-  glVertexAttribIPointer(
-    3, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, IDs));
+  glVertexAttribIPointer(3, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, IDs));
 
   glEnableVertexAttribArray(4);
-  glVertexAttribPointer(
-    4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Weights));
+  glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Weights));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-               sizeof(_indices[0]) * _indices.size(),
-               &_indices[0],
-               GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _indices.size(), &_indices[0], GL_STATIC_DRAW);
 
   glBindVertexArray(0);
 }
@@ -109,12 +94,11 @@ void PlainMesh::render()
 
     _initialTextures[materialIndex]->bind(GL_TEXTURE0);
 
-    glDrawElementsBaseVertex(
-      GL_TRIANGLES,
-      _meshesData[i].numIndices,
-      GL_UNSIGNED_INT,
-      (void*)(sizeof(unsigned int) * _meshesData[i].baseIndex),
-      _meshesData[i].baseVertex);
+    glDrawElementsBaseVertex(GL_TRIANGLES,
+                             _meshesData[i].numIndices,
+                             GL_UNSIGNED_INT,
+                             (void*)(sizeof(unsigned int) * _meshesData[i].baseIndex),
+                             _meshesData[i].baseVertex);
   }
 
   glBindVertexArray(0);
@@ -125,8 +109,7 @@ void PlainMesh::loadTexture(const std::string& filename, TexturePackType type)
   auto s = _initialTextures.size();
   _initialTextures.clear();
   for (unsigned long i = 0; i < s; ++i) {
-    _initialTextures.push_back(
-      std::make_shared<Texture>(GL_TEXTURE_2D, filename));
+    _initialTextures.push_back(std::make_shared<Texture>(GL_TEXTURE_2D, filename));
     _initialTextures[i]->load();
   }
 }

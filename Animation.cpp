@@ -4,11 +4,8 @@
 
 namespace fig
 {
-Animation::Animation(BonesData& bonesData,
-                     BoneMapping& boneMapping,
-                     unsigned int& numBones) :
-  _bonesData(bonesData),
-  _boneMapping(boneMapping), _numBones(numBones)
+Animation::Animation(BonesData& bonesData, BoneMapping& boneMapping, unsigned int& numBones) :
+  _bonesData(bonesData), _boneMapping(boneMapping), _numBones(numBones)
 {
 }
 
@@ -24,13 +21,9 @@ void Animation::setScene(const aiScene* scene)
 
 void Animation::animate(Shader& shader, Type type, float percent)
 {
-  float TimeInSeconds =
-    std::chrono::duration_cast<std::chrono::milliseconds>(_timer.elapsed())
-      .count() /
-    1000.0f;
+  float TimeInSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(_timer.elapsed()).count() / 1000.0f;
   if (type == Animation::Type::OneShot) {
-    TimeInSeconds =
-      std::min(TimeInSeconds, _duration * ::abs(percent) - 0.00001f);
+    TimeInSeconds = std::min(TimeInSeconds, _duration * ::abs(percent) - 0.00001f);
   }
   std::vector<glm::mat4> transforms;
   transforms.resize(_numBones);
@@ -97,9 +90,7 @@ unsigned int Animation::findScaling(float time, const aiNodeAnim* node)
   return 0;
 }
 
-void Animation::calcInterpolatedPosition(aiVector3D& out,
-                                         float time,
-                                         const aiNodeAnim* node)
+void Animation::calcInterpolatedPosition(aiVector3D& out, float time, const aiNodeAnim* node)
 {
   if (node->mNumPositionKeys == 1) {
     out = node->mPositionKeys[0].mValue;
@@ -109,8 +100,7 @@ void Animation::calcInterpolatedPosition(aiVector3D& out,
   unsigned int index = findPosition(time, node);
   unsigned int nextIndex = index + 1;
   assert(nextIndex < node->mNumPositionKeys);
-  float deltaTime = (float)(node->mPositionKeys[nextIndex].mTime -
-                            node->mPositionKeys[index].mTime);
+  float deltaTime = (float)(node->mPositionKeys[nextIndex].mTime - node->mPositionKeys[index].mTime);
   float factor = (time - (float)node->mPositionKeys[index].mTime) / deltaTime;
   assert(factor >= 0.0f && factor <= 1.0f);
   const aiVector3D& start = node->mPositionKeys[index].mValue;
@@ -119,9 +109,7 @@ void Animation::calcInterpolatedPosition(aiVector3D& out,
   out = start + factor * delta;
 }
 
-void Animation::calcInterpolatedRotation(aiQuaternion& out,
-                                         float time,
-                                         const aiNodeAnim* node)
+void Animation::calcInterpolatedRotation(aiQuaternion& out, float time, const aiNodeAnim* node)
 {
   if (node->mNumRotationKeys == 1) {
     out = node->mRotationKeys[0].mValue;
@@ -131,8 +119,7 @@ void Animation::calcInterpolatedRotation(aiQuaternion& out,
   unsigned int index = findRotation(time, node);
   unsigned int nextIndex = index + 1;
   assert(nextIndex < node->mNumRotationKeys);
-  float deltaTime = (float)(node->mRotationKeys[nextIndex].mTime -
-                            node->mRotationKeys[index].mTime);
+  float deltaTime = (float)(node->mRotationKeys[nextIndex].mTime - node->mRotationKeys[index].mTime);
   float factor = (time - (float)node->mRotationKeys[index].mTime) / deltaTime;
   assert(factor >= 0.0f && factor <= 1.0f);
   const aiQuaternion& startRotationQ = node->mRotationKeys[index].mValue;
@@ -141,9 +128,7 @@ void Animation::calcInterpolatedRotation(aiQuaternion& out,
   out = out.Normalize();
 }
 
-void Animation::calcInterpolatedScaling(aiVector3D& out,
-                                        float time,
-                                        const aiNodeAnim* node)
+void Animation::calcInterpolatedScaling(aiVector3D& out, float time, const aiNodeAnim* node)
 {
   if (node->mNumScalingKeys == 1) {
     out = node->mScalingKeys[0].mValue;
@@ -153,8 +138,7 @@ void Animation::calcInterpolatedScaling(aiVector3D& out,
   unsigned int index = findScaling(time, node);
   unsigned int nextIndex = index + 1;
   assert(nextIndex < node->mNumScalingKeys);
-  float deltaTime = (float)(node->mScalingKeys[nextIndex].mTime -
-                            node->mScalingKeys[index].mTime);
+  float deltaTime = (float)(node->mScalingKeys[nextIndex].mTime - node->mScalingKeys[index].mTime);
   auto t = (float)node->mScalingKeys[index].mTime;
   float factor = (time - t) / deltaTime;
   assert(factor >= 0.0f && factor <= 1.0f);
@@ -164,9 +148,7 @@ void Animation::calcInterpolatedScaling(aiVector3D& out,
   out = start + factor * delta;
 }
 
-void Animation::readNodes(float time,
-                          const aiNode* node,
-                          const glm::mat4& parentTransform)
+void Animation::readNodes(float time, const aiNode* node, const glm::mat4& parentTransform)
 {
   std::string nodeName(node->mName.data);
 
@@ -188,20 +170,17 @@ void Animation::readNodes(float time,
     calcInterpolatedPosition(translation, time, animationNode);
 
     auto mat = glm::mat4(1.0);
-    mat = glm::translate(
-      mat, glm::vec3(translation.x, translation.y, translation.z));
+    mat = glm::translate(mat, glm::vec3(translation.x, translation.y, translation.z));
     mat = mat * rotationMatrix;
-    mat =
-      glm::scale(mat, glm::vec3(scaleFactor.x, scaleFactor.y, scaleFactor.z));
+    mat = glm::scale(mat, glm::vec3(scaleFactor.x, scaleFactor.y, scaleFactor.z));
     nodeTransformation = mat;
   }
   glm::mat4 globalTransformation = parentTransform * nodeTransformation;
 
   if (_boneMapping.find(nodeName) != _boneMapping.end()) {
     unsigned int BoneIndex = _boneMapping[nodeName];
-    _bonesData[BoneIndex].transformation = _globalInverseTransform *
-                                           globalTransformation *
-                                           _bonesData[BoneIndex].offset;
+    _bonesData[BoneIndex].transformation =
+      _globalInverseTransform * globalTransformation * _bonesData[BoneIndex].offset;
   }
 
   for (unsigned int i = 0; i < node->mNumChildren; i++) {
@@ -209,8 +188,7 @@ void Animation::readNodes(float time,
   }
 }
 
-const aiNodeAnim* Animation::findNodeAnim(const aiAnimation* animation,
-                                          const std::string nodeName)
+const aiNodeAnim* Animation::findNodeAnim(const aiAnimation* animation, const std::string nodeName)
 {
   for (unsigned int i = 0; i < animation->mNumChannels; i++) {
     const aiNodeAnim* node = animation->mChannels[i];

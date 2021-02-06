@@ -1,9 +1,5 @@
 #include "Timer.h"
 
-Timer::Timer()
-{
-}
-
 std::chrono::milliseconds Timer::elapsed() const
 {
   auto now = std::chrono::system_clock::now();

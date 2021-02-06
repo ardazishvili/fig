@@ -1,4 +1,5 @@
 #include "ImGuiLog.h"
+
 ImGuiLog::ImGuiLog()
 {
   AutoScroll = true;
@@ -48,8 +49,7 @@ void ImGuiLog::Draw(const char* title, bool* p_open)
   Filter.Draw("Filter", -100.0f);
 
   ImGui::Separator();
-  ImGui::BeginChild(
-    "scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+  ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
   if (clear)
     Clear();
@@ -62,9 +62,7 @@ void ImGuiLog::Draw(const char* title, bool* p_open)
   if (Filter.IsActive()) {
     for (int line_no = 0; line_no < LineOffsets.Size; line_no++) {
       const char* line_start = buf + LineOffsets[line_no];
-      const char* line_end = (line_no + 1 < LineOffsets.Size)
-                               ? (buf + LineOffsets[line_no + 1] - 1)
-                               : buf_end;
+      const char* line_end = (line_no + 1 < LineOffsets.Size) ? (buf + LineOffsets[line_no + 1] - 1) : buf_end;
       if (Filter.PassFilter(line_start, line_end))
         ImGui::TextUnformatted(line_start, line_end);
     }
@@ -72,12 +70,9 @@ void ImGuiLog::Draw(const char* title, bool* p_open)
     ImGuiListClipper clipper;
     clipper.Begin(LineOffsets.Size);
     while (clipper.Step()) {
-      for (int line_no = clipper.DisplayStart; line_no < clipper.DisplayEnd;
-           line_no++) {
+      for (int line_no = clipper.DisplayStart; line_no < clipper.DisplayEnd; line_no++) {
         const char* line_start = buf + LineOffsets[line_no];
-        const char* line_end = (line_no + 1 < LineOffsets.Size)
-                                 ? (buf + LineOffsets[line_no + 1] - 1)
-                                 : buf_end;
+        const char* line_end = (line_no + 1 < LineOffsets.Size) ? (buf + LineOffsets[line_no + 1] - 1) : buf_end;
         ImGui::TextUnformatted(line_start, line_end);
       }
     }

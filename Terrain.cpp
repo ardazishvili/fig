@@ -17,20 +17,8 @@ Terrain::Terrain(Shader& shader,
   _shader(shader),
   _camera(camera), _zScale(zScale)
 {
-  _mainMesh.init(0,
-                 0,
-                 topRightX - bottomLeftX,
-                 topRightY - bottomLeftY,
-                 divisions,
-                 zScale,
-                 TerrainType::Main);
-  _subMesh.init(0,
-                0,
-                topRightX - bottomLeftX,
-                topRightY - bottomLeftY,
-                divisions * 3,
-                zScale,
-                TerrainType::Sub);
+  _mainMesh.init(0, 0, topRightX - bottomLeftX, topRightY - bottomLeftY, divisions, zScale, TerrainType::Main);
+  _subMesh.init(0, 0, topRightX - bottomLeftX, topRightY - bottomLeftY, divisions * 3, zScale, TerrainType::Sub);
   _maxX = topRightX;
   _maxY = topRightY;
 }
@@ -70,8 +58,7 @@ glm::vec3 Terrain::getRgbColor(float x, float y) const
   return _mainMesh.getRgbColor(x, y);
 }
 
-std::shared_ptr<LivingArea> Terrain::addLivingArea(CircularRegion region,
-                                                   glm::vec4 rgba)
+std::shared_ptr<LivingArea> Terrain::addLivingArea(CircularRegion region, glm::vec4 rgba)
 {
   return _subMesh.addLivingArea(region, rgba);
 }

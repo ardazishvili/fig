@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -59,8 +61,7 @@ Shader::Shader(Light* light,
   glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
   if (!success) {
     glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-    std::cout << "SHADER::FRAGMENT::COMPILATION_FAILED\n"
-              << infoLog << std::endl;
+    std::cout << "SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
   }
 
   _id = glCreateProgram();
@@ -95,8 +96,7 @@ void Shader::setInt(const std::string& name, int value) const
 
 void Shader::setFloat(const std::string& name, float value) const
 {
-  glUniform1f(glGetUniformLocation(_id, name.c_str()),
-              static_cast<float>(value));
+  glUniform1f(glGetUniformLocation(_id, name.c_str()), static_cast<float>(value));
 }
 
 void Shader::setColor(const std::string& name, float value) const
@@ -104,17 +104,12 @@ void Shader::setColor(const std::string& name, float value) const
   glUniform4f(glGetUniformLocation(_id, name.c_str()), 0.0, value, 0.0f, 1.0f);
 }
 
-void Shader::setTransformation(const std::string& name,
-                               const GLfloat* matrix) const
+void Shader::setTransformation(const std::string& name, const GLfloat* matrix) const
 {
-  glUniformMatrix4fv(
-    glGetUniformLocation(_id, name.c_str()), 1, GL_FALSE, matrix);
+  glUniformMatrix4fv(glGetUniformLocation(_id, name.c_str()), 1, GL_FALSE, matrix);
 }
 
-void Shader::setVec3(const std::string& name,
-                     float f1,
-                     float f2,
-                     float f3) const
+void Shader::setVec3(const std::string& name, float f1, float f2, float f3) const
 {
   glUniform3f(glGetUniformLocation(_id, name.c_str()), f1, f2, f3);
 }
@@ -136,8 +131,7 @@ void Shader::setVec2(const std::string& name, glm::vec2& value) const
 
 void Shader::setMat4(const std::string& name, const glm::mat4& mat) const
 {
-  glUniformMatrix4fv(
-    glGetUniformLocation(_id, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+  glUniformMatrix4fv(glGetUniformLocation(_id, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
 void Shader::init()

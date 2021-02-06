@@ -75,8 +75,7 @@ public:
    *
    * @param onEvent
    */
-  virtual void setOnEvent(
-    std::function<void(std::unique_ptr<Event> event)> onEvent) = 0;
+  virtual void setOnEvent(std::function<void(std::unique_ptr<Event> event)> onEvent) = 0;
 
   /**
    * @brief Code that must be called to update window, e.g. clear the window and

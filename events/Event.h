@@ -24,8 +24,7 @@ public:
 class KeyboardEvent : public Event
 {
 public:
-  KeyboardEvent(int key, int scancode, int mods) :
-    _key(key), _scancode(), _mods(mods)
+  KeyboardEvent(int key, int scancode, int mods) : _key(key), _scancode(), _mods(mods)
   {
   }
 
@@ -69,8 +68,7 @@ class KeyboardRepeatEvent : public KeyboardEvent
 {
 public:
   KeyboardRepeatEvent(int key, int scancode, int mods) :
-    KeyboardEvent(key, scancode, mods){ FG_CORE_TRACE(
-      "key repeatedly pressed") }
+    KeyboardEvent(key, scancode, mods){ FG_CORE_TRACE("key repeatedly pressed") }
 
     KeyboardRepeatEvent(int key, int mods) :
     KeyboardEvent(key, mods)
@@ -128,8 +126,7 @@ protected:
 class MouseScrollEvent : public MouseEvent
 {
 public:
-  MouseScrollEvent(double xoffset, double yoffset) :
-    _xoffset(xoffset), _yoffset(yoffset)
+  MouseScrollEvent(double xoffset, double yoffset) : _xoffset(xoffset), _yoffset(yoffset)
   {
     /* FG_CORE_TRACE("mouse scrolled") */
   }

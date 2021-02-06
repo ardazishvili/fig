@@ -5,12 +5,7 @@
 
 namespace fig
 {
-Sphere::Sphere(Shader& shader,
-               glm::vec3 center,
-               float radius,
-               unsigned int divisions) :
-  FObject(),
-  _shader(shader)
+Sphere::Sphere(Shader& shader, glm::vec3 center, float radius, unsigned int divisions) : FObject(), _shader(shader)
 {
   _mesh.init(radius, divisions);
   _offset.x = center.x;

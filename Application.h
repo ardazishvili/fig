@@ -32,17 +32,11 @@ public:
     window(std::move(window)),
     cameras(std::move(cameras))
   {
-    view = glm::lookAt(getCurrentCamera().eye(),
-                       getCurrentCamera().reference(),
-                       getCurrentCamera().up());
-    projection =
-      glm::perspective(glm::radians(getCurrentCamera().fov()),
-                       this->window->width() / this->window->height(),
-                       0.01f,
-                       1000.0f);
+    view = glm::lookAt(getCurrentCamera().eye(), getCurrentCamera().reference(), getCurrentCamera().up());
+    projection = glm::perspective(
+      glm::radians(getCurrentCamera().fov()), this->window->width() / this->window->height(), 0.01f, 1000.0f);
     for (const auto lightCoord : lightsCoords) {
-      lights.push_back(std::make_unique<Light>(
-        lightCoord, getCurrentCamera(), view, projection));
+      lights.push_back(std::make_unique<Light>(lightCoord, getCurrentCamera(), view, projection));
     }
   }
 
@@ -57,8 +51,8 @@ public:
   }
 
   std::vector<std::unique_ptr<fig::Camera>> cameras;
-  std::vector<std::unique_ptr<fig::Light>> lights;
   std::unique_ptr<Window> window;
+  std::vector<std::unique_ptr<fig::Light>> lights;
   glm::mat4 view;
   glm::mat4 projection;
 };

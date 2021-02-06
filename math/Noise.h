@@ -1,8 +1,6 @@
 #ifndef NOISE_H
 #define NOISE_H
 
-#include <vector>
-
 #include <glm/glm.hpp>
 
 class Noise

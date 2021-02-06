@@ -1,8 +1,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "Timer.h"
 #include <glm/glm.hpp>
+
+#include "Timer.h"
 
 namespace fig
 {

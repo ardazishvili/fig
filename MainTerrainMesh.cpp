@@ -20,17 +20,11 @@ struct RgbColor
 };
 
 using HeightPart = float;
-std::map<HeightPart, RgbColor> colorMapping = {
-  { 0.0f, { 113.0f / 255, 128.0f / 255, 143.0f / 255 } },
-  { 0.5f, { 237.0f / 255, 227.0f / 255, 143.0f / 255 } },
-  { 1.0f, { 242.0f / 255, 127.0f / 255, 115.0f / 255 } }
-};
+std::map<HeightPart, RgbColor> colorMapping = { { 0.0f, { 113.0f / 255, 128.0f / 255, 143.0f / 255 } },
+                                                { 0.5f, { 237.0f / 255, 227.0f / 255, 143.0f / 255 } },
+                                                { 1.0f, { 242.0f / 255, 127.0f / 255, 115.0f / 255 } } };
 
-void MainTerrainMesh::calculateHeights(unsigned int width,
-                                       float bottomLeftX,
-                                       float bottomLeftY,
-                                       float& min,
-                                       float& max)
+void MainTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, float bottomLeftY, float& min, float& max)
 {
   static float frequency = 0.204;
   static float frequencyFactor = 2.0;
@@ -46,12 +40,8 @@ void MainTerrainMesh::calculateHeights(unsigned int width,
       auto dummy = glm::vec2();
       x = bottomLeftX + static_cast<float>(i) * _xStep;
       y = bottomLeftY + static_cast<float>(j) * _yStep;
-      auto nv_plain = noise.fractal(glm::vec2(x, y),
-                                    dummy,
-                                    frequency_plain,
-                                    frequencyFactor_plain,
-                                    amplitudeFactor_plain,
-                                    5);
+      auto nv_plain =
+        noise.fractal(glm::vec2(x, y), dummy, frequency_plain, frequencyFactor_plain, amplitudeFactor_plain, 5);
       plainZ.push_back(nv_plain);
     }
   }
@@ -98,12 +88,8 @@ void MainTerrainMesh::calculateHeights(unsigned int width,
         t = func(d, coefLatitude);
       }
 
-      auto nv = noise.fractal(glm::vec2(vertex.p.x, vertex.p.y),
-                              derivs,
-                              frequency,
-                              frequencyFactor,
-                              amplitudeFactor,
-                              5);
+      auto nv =
+        noise.fractal(glm::vec2(vertex.p.x, vertex.p.y), derivs, frequency, frequencyFactor, amplitudeFactor, 5);
       auto nonPlain = nv * _zScale;
       auto plain = plainZ.at(i * width + j);
       auto water = waterZ.at(i * width + j);
@@ -146,10 +132,7 @@ void MainTerrainMesh::calculateHeights(unsigned int width,
   }
 }
 
-void MainTerrainMesh::calculateColors(float min,
-                                      float max,
-                                      unsigned int width,
-                                      unsigned int augmentedWidth)
+void MainTerrainMesh::calculateColors(float min, float max, unsigned int width, unsigned int augmentedWidth)
 {
   auto amplitude = max - min;
   for (unsigned int i = 0; i < width; ++i) {

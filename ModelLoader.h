@@ -8,30 +8,9 @@
 
 namespace fig
 {
-enum class Models {
-  Shell,
-  Tank,
-  TankFactory,
-  Hq,
-  Plant,
-  Tree,
-  Barrier,
-  Shroud,
-  Turbine
-};
+enum class Models { Shell, Tank, TankFactory, Hq, Plant, Tree, Barrier, Shroud, Turbine };
 
-enum class MenuTextures {
-  Hq,
-  TankFactory,
-  TankLight,
-  TankMedium,
-  TankHeavy,
-  Plant,
-  Tree,
-  Barrier,
-  Turbine,
-  Wheel
-};
+enum class MenuTextures { Hq, TankFactory, TankLight, TankMedium, TankHeavy, Plant, Tree, Barrier, Turbine, Wheel };
 
 using ModelsMapping = std::map<Models, std::shared_ptr<Model>>;
 using MenuTexturesMapping = std::map<MenuTextures, std::shared_ptr<Texture>>;

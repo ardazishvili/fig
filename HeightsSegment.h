@@ -8,10 +8,7 @@ namespace fig
 class HeightsSegment : public TerrainMeshSegment
 {
 public:
-  HeightsSegment(Shader& colorShader,
-                 Terrain* terrain,
-                 glm::vec2 bottomLeft,
-                 glm::vec2 topRight);
+  HeightsSegment(Shader& colorShader, Terrain* terrain, glm::vec2 bottomLeft, glm::vec2 topRight);
 
 protected:
   SegmentDimensions initVertices() override;

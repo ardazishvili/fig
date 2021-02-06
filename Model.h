@@ -16,8 +16,6 @@
 
 #include "ModelMesh.h"
 
-/* using namespace std; */
-
 namespace fig
 {
 class Model
@@ -25,7 +23,7 @@ class Model
 public:
   Model(Shader& shader);
 
-  bool load(const string& Filename);
+  bool load(const std::string& Filename);
 
   void render();
   void animate(Shader& shader, Animation::Type type, float percent);
@@ -34,7 +32,7 @@ public:
   void setActiveTexturesPack(TexturePackType type);
 
 private:
-  bool init(const aiScene* pScene, const string& Filename);
+  bool init(const aiScene* pScene, const std::string& Filename);
 
   const aiScene* _scene;
   Assimp::Importer _importer;

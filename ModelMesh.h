@@ -3,8 +3,6 @@
 
 #include <GL/glew.h>
 
-#include <iostream>
-#include <map>
 #include <memory>
 #include <vector>
 
@@ -20,15 +18,8 @@
 
 namespace fig
 {
-using namespace std;
 
-enum class TexturePackType {
-  PreBuild,
-  Initial,
-  OnSelection,
-  UnderFire,
-  Destroyed
-};
+enum class TexturePackType { PreBuild, Initial, OnSelection, UnderFire, Destroyed };
 
 using Textures = std::vector<std::shared_ptr<Texture>>;
 class ModelMesh : public Mesh
@@ -54,7 +45,7 @@ public:
   };
 
   void render();
-  bool initModel(const aiScene* pScene, const string& Filename);
+  bool initModel(const aiScene* pScene, const std::string& Filename);
   void loadTexture(const std::string& filename, TexturePackType type);
   void setActiveTexturesPack(TexturePackType type);
   void animate(Shader& shader, Animation::Type type, float percent);
@@ -62,7 +53,7 @@ public:
 private:
   void initMesh(unsigned int MeshIndex, const aiMesh* paiMesh);
   void loadBones(unsigned int MeshIndex, const aiMesh* pMesh);
-  bool initMaterials(const aiScene* pScene, const string& Filename);
+  bool initMaterials(const aiScene* pScene, const std::string& Filename);
 
   BoneMapping _boneMapping;
   std::vector<MeshMetadata> _meshesData;

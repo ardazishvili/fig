@@ -10,8 +10,7 @@ void ImGuiBackend::init(Window* rawWindow)
   ImGui::CreateContext();
   ImGui::StyleColorsDark();
   // TODO downcast
-  ImGui_ImplGlfw_InitForOpenGL(dynamic_cast<GlfwWindow*>(rawWindow)->_window,
-                               true);
+  ImGui_ImplGlfw_InitForOpenGL(dynamic_cast<GlfwWindow*>(rawWindow)->_window, true);
   ImGui_ImplOpenGL3_Init(glsl_version);
   ImGui::GetStyle().WindowRounding = 0.0f;
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));

@@ -10,8 +10,7 @@ namespace fig
 class GuiLayer : public Layer
 {
 public:
-  GuiLayer(Window* window, std::unique_ptr<GuiBackend> guiBack) :
-    _window(window), _guiBack(std::move(guiBack))
+  GuiLayer(Window* window, std::unique_ptr<GuiBackend> guiBack) : _window(window), _guiBack(std::move(guiBack))
   {
   }
 

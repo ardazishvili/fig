@@ -23,10 +23,7 @@ private:
   unsigned int _indicesToRender;
 };
 
-std::shared_ptr<Path> makePath(Shader& shader,
-                               AStar* router,
-                               glm::vec3 s,
-                               glm::vec3 e);
+std::shared_ptr<Path> makePath(Shader& shader, AStar* router, glm::vec3 s, glm::vec3 e);
 }
 
 #endif

@@ -15,8 +15,7 @@ class GlfwWindow : public Window
 public:
   GlfwWindow(EventFabric* eventFabric, const Window::Param& param);
   ~GlfwWindow() override;
-  void setOnEvent(
-    std::function<void(std::unique_ptr<Event> event)> onEvent) override;
+  void setOnEvent(std::function<void(std::unique_ptr<Event> event)> onEvent) override;
   void update() override;
   void show() override;
   float width() const override;

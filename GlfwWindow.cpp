@@ -1,5 +1,3 @@
-#include <cstdio>
-
 #include "events/ErrorEvent.h"
 #include "events/Event.h"
 #include "events/EventFabric.h"
@@ -9,13 +7,11 @@
 
 namespace fig
 {
-std::function<void(std::unique_ptr<Event> event)> GlfwWindow::_onEvent =
-  [](std::unique_ptr<Event> event) {
-  };
+std::function<void(std::unique_ptr<Event> event)> GlfwWindow::_onEvent = [](std::unique_ptr<Event> event) {
+};
 EventFabric* GlfwWindow::_eventFabric = nullptr;
 
-GlfwWindow::GlfwWindow(EventFabric* eventFabric, const Window::Param& param) :
-  Window(param)
+GlfwWindow::GlfwWindow(EventFabric* eventFabric, const Window::Param& param) : Window(param)
 {
   FG_CORE_TRACE("create GLFW window")
   _eventFabric = eventFabric;
@@ -23,8 +19,7 @@ GlfwWindow::GlfwWindow(EventFabric* eventFabric, const Window::Param& param) :
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 
-  _window =
-    glfwCreateWindow(_param.width, _param.height, "LearnOPenGl", NULL, NULL);
+  _window = glfwCreateWindow(_param.width, _param.height, "LearnOPenGl", NULL, NULL);
 
   if (_window == NULL) {
     glfwTerminate();
@@ -45,48 +40,42 @@ GlfwWindow::GlfwWindow(EventFabric* eventFabric, const Window::Param& param) :
     _onEvent(std::make_unique<ErrorEvent>());
   });
 
-  glfwSetFramebufferSizeCallback(_window,
-                                 [](GLFWwindow* window, int width, int height) {
-                                   glViewport(0, 0, width, height);
-                                 });
+  glfwSetFramebufferSizeCallback(_window, [](GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+  });
 
-  glfwSetCursorPosCallback(
-    _window, [](GLFWwindow* window, double xpos, double ypos) {
-      _onEvent(_eventFabric->getMouseMoveEvent(xpos, ypos));
-    });
+  glfwSetCursorPosCallback(_window, [](GLFWwindow* window, double xpos, double ypos) {
+    _onEvent(_eventFabric->getMouseMoveEvent(xpos, ypos));
+  });
 
-  glfwSetScrollCallback(
-    _window, [](GLFWwindow* window, double xoffset, double yoffset) {
-      _onEvent(_eventFabric->getMouseScrollEvent(xoffset, yoffset));
-    });
+  glfwSetScrollCallback(_window, [](GLFWwindow* window, double xoffset, double yoffset) {
+    _onEvent(_eventFabric->getMouseScrollEvent(xoffset, yoffset));
+  });
 
-  glfwSetMouseButtonCallback(
-    _window, [](GLFWwindow* window, int button, int action, int mods) {
-      switch (action) {
-        case GLFW_PRESS:
-          _onEvent(_eventFabric->getMousePressedEvent(button, action, mods));
-          break;
-        case GLFW_RELEASE:
-          _onEvent(_eventFabric->getMouseReleasedEvent(button, action, mods));
-          break;
-      }
-    });
+  glfwSetMouseButtonCallback(_window, [](GLFWwindow* window, int button, int action, int mods) {
+    switch (action) {
+      case GLFW_PRESS:
+        _onEvent(_eventFabric->getMousePressedEvent(button, action, mods));
+        break;
+      case GLFW_RELEASE:
+        _onEvent(_eventFabric->getMouseReleasedEvent(button, action, mods));
+        break;
+    }
+  });
 
-  glfwSetKeyCallback(
-    _window,
-    [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-      switch (action) {
-        case GLFW_PRESS:
-          _onEvent(_eventFabric->getKeyPressEvent(key, scancode, mods));
-          break;
-        case GLFW_RELEASE:
-          _onEvent(_eventFabric->getKeyReleaseEvent(key, scancode, mods));
-          break;
-        case GLFW_REPEAT:
-          _onEvent(_eventFabric->getKeyRepeatEvent(key, scancode, mods));
-          break;
-      }
-    });
+  glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+    switch (action) {
+      case GLFW_PRESS:
+        _onEvent(_eventFabric->getKeyPressEvent(key, scancode, mods));
+        break;
+      case GLFW_RELEASE:
+        _onEvent(_eventFabric->getKeyReleaseEvent(key, scancode, mods));
+        break;
+      case GLFW_REPEAT:
+        _onEvent(_eventFabric->getKeyRepeatEvent(key, scancode, mods));
+        break;
+    }
+  });
 
   glEnable(GL_DEPTH_TEST);
   /* glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); */
@@ -132,8 +121,7 @@ void GlfwWindow::getCursorPos(double* xpos, double* ypos) const
   glfwGetCursorPos(_window, xpos, ypos);
 }
 
-void GlfwWindow::setOnEvent(
-  std::function<void(std::unique_ptr<Event> event)> onEvent)
+void GlfwWindow::setOnEvent(std::function<void(std::unique_ptr<Event> event)> onEvent)
 {
   _onEvent = onEvent;
 }
