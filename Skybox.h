@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Shader.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

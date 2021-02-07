@@ -1,8 +1,8 @@
 #ifndef TERRAIN_H
 #define TERRAIN_H
 
-#include "MainTerrainMesh.h"
-#include "Shader.h"
+#include "mesh/MainTerrainMesh.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

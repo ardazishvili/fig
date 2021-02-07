@@ -5,7 +5,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Shader.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

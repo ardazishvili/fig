@@ -3,9 +3,9 @@
 #include <map>
 #include <string>
 
+#include "../math/Noise.h"
 #include "MainTerrainMesh.h"
 #include "TerrainMeshSegment.h"
-#include "math/Noise.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/compatibility.hpp>

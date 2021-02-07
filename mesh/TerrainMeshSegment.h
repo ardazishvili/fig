@@ -1,7 +1,7 @@
 #ifndef TERRAIN_MESH_SEGMENT_H
 #define TERRAIN_MESH_SEGMENT_H
 
-#include "Terrain.h"
+#include "../Terrain.h"
 
 namespace fig
 {
@@ -17,11 +17,7 @@ struct SegmentDimensions
 class TerrainMeshSegment : public Mesh
 {
 public:
-  TerrainMeshSegment(Shader& colorShader,
-                     Terrain* terrain,
-                     glm::vec2 bottomLeft,
-                     glm::vec2 topRight,
-                     float zOffset);
+  TerrainMeshSegment(Shader& colorShader, Terrain* terrain, glm::vec2 bottomLeft, glm::vec2 topRight, float zOffset);
   void init();
   void render();
   virtual SegmentDimensions initVertices() = 0;

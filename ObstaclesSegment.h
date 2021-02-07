@@ -1,7 +1,7 @@
 #ifndef OBSTACLES_SEGMENT_H
 #define OBSTACLES_SEGMENT_H
 
-#include "TerrainMeshSegment.h"
+#include "mesh/TerrainMeshSegment.h"
 
 namespace fig
 {

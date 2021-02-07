@@ -1,6 +1,6 @@
 #include "SubTerrainMesh.h"
-#include "globals.h"
-#include "math/Noise.h"
+#include "../globals.h"
+#include "../math/Noise.h"
 
 namespace fig
 {

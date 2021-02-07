@@ -1,8 +1,8 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
-#include "CircleMesh.h"
-#include "Shader.h"
+#include "mesh/CircleMesh.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

@@ -3,9 +3,9 @@
 
 #include <string>
 
+#include "../globals.h"
 #include "Mesh.h"
 #include "ModelMesh.h"
-#include "globals.h"
 
 namespace fig
 {

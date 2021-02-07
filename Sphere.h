@@ -4,8 +4,8 @@
 #include <glm/fwd.hpp>
 
 #include "FObject.h"
-#include "Shader.h"
-#include "SphereMesh.h"
+#include "mesh/SphereMesh.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

@@ -8,7 +8,7 @@
 #include <sstream>
 #include <string>
 
-#include "Camera.h"
+#include "../Camera.h"
 
 namespace fig
 {

@@ -2,9 +2,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Light.h"
+#include "../Light.h"
+#include "../globals.h"
 #include "PhongShader.h"
-#include "globals.h"
 
 namespace fig
 {

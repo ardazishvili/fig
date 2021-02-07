@@ -2,9 +2,9 @@
 #define SURFACE_H
 
 #include "Camera.h"
-#include "PlainMesh.h"
-#include "Shader.h"
 #include "globals.h"
+#include "mesh/PlainMesh.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

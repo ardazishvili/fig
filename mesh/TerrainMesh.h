@@ -5,7 +5,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Mesh.h"
+#include "../mesh/Mesh.h"
 
 namespace fig
 {

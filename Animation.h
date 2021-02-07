@@ -9,8 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Shader.h"
 #include "Timer.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

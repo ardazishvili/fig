@@ -10,10 +10,10 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include "Animation.h"
+#include "../Animation.h"
+#include "../Texture.h"
+#include "../Vertex.h"
 #include "Mesh.h"
-#include "Texture.h"
-#include "Vertex.h"
 #define INVALID_MATERIAL 0xFFFFFFFF
 
 namespace fig

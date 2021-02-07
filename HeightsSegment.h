@@ -1,7 +1,7 @@
 #ifndef HEIGHTS_SEGMENT_H
 #define HEIGHTS_SEGMENT_H
 
-#include "TerrainMeshSegment.h"
+#include "mesh/TerrainMeshSegment.h"
 
 namespace fig
 {

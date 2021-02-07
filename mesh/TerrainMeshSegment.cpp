@@ -1,5 +1,5 @@
 #include "TerrainMeshSegment.h"
-#include "globals.h"
+#include "../globals.h"
 
 namespace fig
 {
@@ -9,8 +9,7 @@ TerrainMeshSegment::TerrainMeshSegment(Shader& colorShader,
                                        glm::vec2 topRight,
                                        float zOffset) :
   _colorShader(colorShader),
-  _terrain(terrain), _bottomLeft(bottomLeft), _topRight(topRight),
-  _zOffset(zOffset)
+  _terrain(terrain), _bottomLeft(bottomLeft), _topRight(topRight), _zOffset(zOffset)
 {
 }
 void TerrainMeshSegment::init()
@@ -20,31 +19,18 @@ void TerrainMeshSegment::init()
 
   glBindVertexArray(_vao);
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferData(
-    GL_ARRAY_BUFFER, sizeof(VertexColor) * _v.size(), &_v[0], GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(VertexColor) * _v.size(), &_v[0], GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(
-    0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)0);
 
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1,
-                        4,
-                        GL_FLOAT,
-                        GL_FALSE,
-                        sizeof(VertexColor),
-                        (void*)offsetof(VertexColor, color));
+  glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)offsetof(VertexColor, color));
 
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2,
-                        3,
-                        GL_FLOAT,
-                        GL_FALSE,
-                        sizeof(VertexColor),
-                        (void*)offsetof(VertexColor, normal));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)offsetof(VertexColor, normal));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-  glBufferData(
-    GL_ELEMENT_ARRAY_BUFFER, sizeof(_i[0]) * _i.size(), &_i[0], GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_i[0]) * _i.size(), &_i[0], GL_STATIC_DRAW);
 
   glBindVertexArray(0);
 }

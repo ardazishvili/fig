@@ -1,9 +1,9 @@
 #include <algorithm>
 
-#include "Core.h"
+#include "../Core.h"
+#include "../globals.h"
 #include "TerrainMesh.h"
 #include "TerrainMeshSegment.h"
-#include "globals.h"
 
 namespace fig
 {

@@ -11,10 +11,9 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include "Shader.h"
 #include "Texture.h"
-
-#include "ModelMesh.h"
+#include "mesh/ModelMesh.h"
+#include "shader/Shader.h"
 
 namespace fig
 {

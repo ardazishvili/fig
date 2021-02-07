@@ -3,10 +3,10 @@
 
 #include <memory>
 
-#include "PhongShader.h"
 #include "Skybox.h"
-#include "SkyboxShader.h"
 #include "WindowBackground.h"
+#include "shader/PhongShader.h"
+#include "shader/SkyboxShader.h"
 
 namespace fig
 {

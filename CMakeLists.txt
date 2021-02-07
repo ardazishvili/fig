@@ -54,18 +54,8 @@ target_sources(fig
   SkyboxBackground.cpp
   ColorBackground.h
   ColorBackground.cpp
-  events/Event.h
-  events/EventFabric.h
-  math/AStar.cpp
-  math/AStar.h
-  math/Noise.cpp
-  math/Noise.h
   SpdBackend.h
   SpdBackend.cpp
-  misc/ImGuiLog.cpp
-  misc/ImGuiLog.h
-  misc/ImGuiLogger.cpp
-  misc/ImGuiLogger.h
   Timer.cpp
   Timer.h
   Animation.cpp
@@ -78,12 +68,6 @@ target_sources(fig
   Model.h
   ModelLoader.cpp
   ModelLoader.h
-  ModelMesh.cpp
-  ModelMesh.h
-  PhongShader.cpp
-  PhongShader.h
-  Shader.cpp
-  Shader.h
   Terrain.cpp
   Terrain.h
   Texture.cpp
@@ -92,45 +76,61 @@ target_sources(fig
   globals.h
   # Circle.cpp
   # Circle.h
-  # CircleMesh.cpp
-  # CircleMesh.h
   Beam.cpp
   Beam.h
   HeightsSegment.cpp
   HeightsSegment.h
   LinesObject.cpp
   LinesObject.h
-  LinesShader.cpp
-  LinesShader.h
-  MainTerrainMesh.cpp
-  MainTerrainMesh.h
-  Mesh.cpp
-  Mesh.h
   ObstaclesSegment.cpp
   ObstaclesSegment.h
   Path.cpp
   Path.h
-  PlainMesh.cpp
-  PlainMesh.h
   RectangleShape.cpp
   RectangleShape.h
   Skybox.cpp
   Skybox.h
-  SkyboxShader.cpp
-  SkyboxShader.h
   Sphere.cpp
   Sphere.h
-  SphereMesh.cpp
-  SphereMesh.h
-  SubTerrainMesh.cpp
-  SubTerrainMesh.h
   Surface.cpp
   Surface.h
-  TerrainMesh.cpp
-  TerrainMesh.h
-  TerrainMeshSegment.cpp
-  TerrainMeshSegment.h
   Vertex.cpp
   Vertex.h
+  events/Event.h
+  events/EventFabric.h
+  math/AStar.cpp
+  math/AStar.h
+  math/Noise.cpp
+  math/Noise.h
+  misc/ImGuiLog.cpp
+  misc/ImGuiLog.h
+  misc/ImGuiLogger.cpp
+  misc/ImGuiLogger.h
+  shader/PhongShader.cpp
+  shader/PhongShader.h
+  shader/LinesShader.cpp
+  shader/LinesShader.h
+  shader/SkyboxShader.cpp
+  shader/SkyboxShader.h
+  shader/Shader.cpp
+  shader/Shader.h
+  # mesh/CircleMesh.cpp
+  # mesh/CircleMesh.h
+  mesh/ModelMesh.cpp
+  mesh/ModelMesh.h
+  mesh/MainTerrainMesh.cpp
+  mesh/MainTerrainMesh.h
+  mesh/Mesh.cpp
+  mesh/Mesh.h
+  mesh/TerrainMesh.cpp
+  mesh/TerrainMesh.h
+  mesh/TerrainMeshSegment.cpp
+  mesh/TerrainMeshSegment.h
+  mesh/SphereMesh.cpp
+  mesh/SphereMesh.h
+  mesh/PlainMesh.cpp
+  mesh/PlainMesh.h
+  mesh/SubTerrainMesh.cpp
+  mesh/SubTerrainMesh.h
   )
 

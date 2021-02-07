@@ -1,5 +1,5 @@
 #include "SphereMesh.h"
-#include "math/Noise.h"
+#include "../math/Noise.h"
 
 namespace fig
 {
