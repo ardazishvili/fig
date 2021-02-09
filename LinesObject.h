@@ -20,7 +20,7 @@ public:
 
   virtual ~LinesObject() = default;
   LinesObject(const LinesObject&) = delete;
-  LinesObject(LinesObject&&) = delete;
+  LinesObject(LinesObject&&) = default;
   LinesObject& operator=(const LinesObject&) = delete;
   LinesObject& operator=(LinesObject&&) = delete;
 
