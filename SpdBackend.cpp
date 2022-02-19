@@ -1,14 +1,10 @@
-#include "spdlog/sinks/stdout_color_sinks.h"
-
 #include "SpdBackend.h"
 
-SpdBackend::SpdBackend(Type t)
-{
-  init(t);
-}
+#include "spdlog/sinks/stdout_color_sinks.h"
 
-void SpdBackend::init(Type t)
-{
+SpdBackend::SpdBackend(Type t) { init(t); }
+
+void SpdBackend::init(Type t) {
   spdlog::set_pattern("%^[%T] %n: %v%$");
   switch (t) {
     case Type::App:

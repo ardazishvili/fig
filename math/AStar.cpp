@@ -1,35 +1,31 @@
+#include "math/AStar.h"
+
 #include <iomanip>
 
-#include "../globals.h"
-#include "AStar.h"
+#include "globals.h"
 
-namespace fig
-{
-const unsigned int AStar::MAX_ITER = 2000;
+namespace fig {
 
-AStar::AStar(const std::vector<VertexColor>& v, const std::vector<bool>& o, SegmentDimensions sd) :
-  _v(v), _o(o), _sd(sd)
-{
-}
+AStar::AStar(const std::vector<VertexColor>& v, const std::vector<bool>& o,
+             SegmentDimensions sd)
+    : _v(v), _o(o), _sd(sd) {}
 
-std::optional<APath> AStar::getPath(glm::vec2 s, glm::vec2 e)
-{
+std::optional<APath> AStar::getPath(glm::vec2 s, glm::vec2 e) {
   auto result = APath();
   _cache.clear();
 
   int sxi = s.x / _sd.xStep;
   int syi = s.y / _sd.yStep;
-  auto start = std::make_shared<ANode>(s, APoint{ sxi, syi });
+  auto start = std::make_shared<ANode>(s, APoint{sxi, syi});
   _cache.emplace(start);
   int exi = e.x / _sd.xStep;
   int eyi = e.y / _sd.yStep;
-  auto end = std::make_shared<ANode>(e, APoint{ exi, eyi });
+  auto end = std::make_shared<ANode>(e, APoint{exi, eyi});
   start->g = 0;
   start->f = start->g + h(start->p, end->p);
 
-  auto comp = [](const std::shared_ptr<ANode>& lhs, const std::shared_ptr<ANode>& rhs) {
-    return lhs->f < rhs->f;
-  };
+  auto comp = [](const std::shared_ptr<ANode>& lhs,
+                 const std::shared_ptr<ANode>& rhs) { return lhs->f < rhs->f; };
   auto frontier = std::set<std::shared_ptr<ANode>, decltype(comp)>(comp);
   frontier.emplace(start);
   std::set<std::shared_ptr<ANode>> closed;
@@ -73,13 +69,9 @@ std::optional<APath> AStar::getPath(glm::vec2 s, glm::vec2 e)
   return std::nullopt;
 }
 
-float AStar::h(glm::vec2 c, glm::vec2 goal)
-{
-  return glm::distance(c, goal);
-}
+float AStar::h(glm::vec2 c, glm::vec2 goal) { return glm::distance(c, goal); }
 
-APath AStar::reconstructPath(ANode* current)
-{
+APath AStar::reconstructPath(ANode* current) {
   auto path = APath();
   while (current->parent != nullptr) {
     auto p = glm::vec2(current->p.x, current->p.y);
@@ -90,35 +82,38 @@ APath AStar::reconstructPath(ANode* current)
   return path;
 }
 
-bool operator==(const APoint& lhs, const APoint& rhs)
-{
+bool operator==(const APoint& lhs, const APoint& rhs) {
   return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
-std::vector<std::shared_ptr<ANode>> AStar::getNeighbors(const ANode* const current)
-{
+std::vector<std::shared_ptr<ANode>> AStar::getNeighbors(
+    const ANode* const current) {
   auto cx = current->integerP.x;
   auto cy = current->integerP.y;
-  struct Offset
-  {
+  struct Offset {
     int x;
     int y;
   };
-  std::vector<Offset> offsets = {
-    { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 }, { -1, -1 }, { -1, 1 }, { 1, -1 }, { 1, 1 }
-  };
+  std::vector<Offset> offsets = {{-1, 0},  {1, 0},  {0, -1}, {0, 1},
+                                 {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
   std::vector<std::shared_ptr<ANode>> res;
   for (auto& offset : offsets) {
     int i = cx + offset.x;
     int j = cy + offset.y;
     // i,j is from (-sd.latticeWidth / 2, sd.latticeWidth /2) range
-    if (!_o.at((i + _sd.latticeWidth / 2) * _sd.latticeWidth + (j + _sd.latticeWidth / 2))) {
-      auto it = std::find_if(_cache.begin(), _cache.end(), [i, j](std::shared_ptr<ANode> node) {
-        return (node->integerP == APoint(i, j));
-      });
+    if (!_o.at((i + _sd.latticeWidth / 2) * _sd.latticeWidth +
+               (j + _sd.latticeWidth / 2))) {
+      auto it = std::find_if(_cache.begin(), _cache.end(),
+                             [i, j](std::shared_ptr<ANode> node) {
+                               return (node->integerP == APoint(i, j));
+                             });
       if (it == _cache.end()) {
-        float x = _v.at((i + _sd.latticeWidth / 2) * _sd.latticeWidth + (j + _sd.latticeWidth / 2)).p.x;
-        float y = _v.at((i + _sd.latticeWidth / 2) * _sd.latticeWidth + (j + _sd.latticeWidth / 2)).p.y;
+        float x = _v.at((i + _sd.latticeWidth / 2) * _sd.latticeWidth +
+                        (j + _sd.latticeWidth / 2))
+                      .p.x;
+        float y = _v.at((i + _sd.latticeWidth / 2) * _sd.latticeWidth +
+                        (j + _sd.latticeWidth / 2))
+                      .p.y;
         auto n = std::make_shared<ANode>(glm::vec2(x, y), APoint(i, j));
         _cache.emplace(n);
         res.push_back(n);
@@ -129,4 +124,4 @@ std::vector<std::shared_ptr<ANode>> AStar::getNeighbors(const ANode* const curre
   }
   return res;
 }
-}
+}  // namespace fig

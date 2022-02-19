@@ -1,13 +1,11 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
-
-#include <string>
+#pragma once
 
 #include <GL/glew.h>
 
-class Texture
-{
-public:
+#include <string>
+
+class Texture {
+ public:
   Texture(GLenum textureType, const std::string& filename);
   ~Texture();
   bool load();
@@ -15,11 +13,9 @@ public:
   bool loaded() const;
   GLuint getTextureId() const;
 
-private:
+ private:
   std::string _filename;
   GLenum _textureType;
   GLuint _id;
-  bool _loaded{ false };
+  bool _loaded{false};
 };
-
-#endif

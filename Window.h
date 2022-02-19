@@ -1,13 +1,11 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#pragma once
 
 #include <functional>
 #include <memory>
 
 #include "WindowBackground.h"
 
-namespace fig
-{
+namespace fig {
 
 class Event;
 /**
@@ -16,15 +14,12 @@ class Event;
  * This class have to be subclassed to implement window
  * handling in different frameworks such as GLFW or SFML
  */
-class Window
-{
-public:
+class Window {
+ public:
   /**
    * @brief Window paramaters
    */
-  struct Param
-  {
-
+  struct Param {
     /**
      * @brief Width
      */
@@ -75,7 +70,8 @@ public:
    *
    * @param onEvent
    */
-  virtual void setOnEvent(std::function<void(std::unique_ptr<Event> event)> onEvent) = 0;
+  virtual void setOnEvent(
+      std::function<void(std::unique_ptr<Event> event)> onEvent) = 0;
 
   /**
    * @brief Code that must be called to update window, e.g. clear the window and
@@ -108,14 +104,12 @@ public:
    */
   void setBackgroundColor(const Color& color);
 
-protected:
+ protected:
   /**
    * @brief Parameters of the window
    */
   Param _param;
-  Color _color{ 1, 1, 1, 1 };
+  Color _color{1, 1, 1, 1};
 };
 
-}
-
-#endif
+}  // namespace fig

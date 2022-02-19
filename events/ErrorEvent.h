@@ -1,19 +1,14 @@
-#ifndef COLONY_ERROR_EVENT_H
-#define COLONY_ERROR_EVENT_H
+#pragma once
 
-#include "../../fig/events/Event.h"
 #include <iostream>
 
-namespace fig
-{
-class ErrorEvent : public Event
-{
-public:
-  void process(Camera* camera, EventManager* eventManager) override
-  {
+#include "events/Event.h"
+
+namespace fig {
+class ErrorEvent : public Event {
+ public:
+  void process(Camera* camera, EventManager* eventManager) override {
     std::cout << "ErrorEvent test output" << std::endl;
   }
 };
-}
-
-#endif
+}  // namespace fig

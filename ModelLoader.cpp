@@ -1,14 +1,11 @@
 #include "ModelLoader.h"
+
 #include <filesystem>
 
-namespace fig
-{
-ModelLoader::ModelLoader(Shader& shader) : _shader(shader)
-{
-}
+namespace fig {
+ModelLoader::ModelLoader(Shader& shader) : _shader(shader) {}
 
-void ModelLoader::load()
-{
+void ModelLoader::load() {
   auto assets = std::filesystem::current_path().string() + "/assets";
 
   auto shellModel = std::make_unique<Model>(_shader);
@@ -24,10 +21,14 @@ void ModelLoader::load()
 
   auto tankFactoryModel = std::make_unique<Model>(_shader);
   tankFactoryModel->load(assets + "/garage.dae");
-  tankFactoryModel->loadTexture(assets + "/grey.png", TexturePackType::PreBuild);
-  tankFactoryModel->loadTexture(assets + "/blue.png", TexturePackType::OnSelection);
-  tankFactoryModel->loadTexture(assets + "/red.png", TexturePackType::UnderFire);
-  tankFactoryModel->loadTexture(assets + "/black.png", TexturePackType::Destroyed);
+  tankFactoryModel->loadTexture(assets + "/grey.png",
+                                TexturePackType::PreBuild);
+  tankFactoryModel->loadTexture(assets + "/blue.png",
+                                TexturePackType::OnSelection);
+  tankFactoryModel->loadTexture(assets + "/red.png",
+                                TexturePackType::UnderFire);
+  tankFactoryModel->loadTexture(assets + "/black.png",
+                                TexturePackType::Destroyed);
   _models.emplace(Models::TankFactory, std::move(tankFactoryModel));
 
   auto hqModel = std::make_unique<Model>(_shader);
@@ -69,49 +70,52 @@ void ModelLoader::load()
   turbineModel->loadTexture(assets + "/black.png", TexturePackType::Destroyed);
   _models.emplace(Models::Turbine, std::move(turbineModel));
 
-  auto tfTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Garage.png");
+  auto tfTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Garage.png");
   tfTexture->load();
   _menuTextures.emplace(MenuTextures::TankFactory, std::move(tfTexture));
   auto hqTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Hq.png");
   hqTexture->load();
   _menuTextures.emplace(MenuTextures::Hq, std::move(hqTexture));
-  auto lightTankTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/lightTank.png");
+  auto lightTankTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/lightTank.png");
   lightTankTexture->load();
   _menuTextures.emplace(MenuTextures::TankLight, std::move(lightTankTexture));
-  auto mediumTankTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/mediumTank.png");
+  auto mediumTankTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/mediumTank.png");
   mediumTankTexture->load();
   _menuTextures.emplace(MenuTextures::TankMedium, std::move(mediumTankTexture));
-  auto heavyTankTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/heavyTank.png");
+  auto heavyTankTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/heavyTank.png");
   heavyTankTexture->load();
   _menuTextures.emplace(MenuTextures::TankHeavy, std::move(heavyTankTexture));
 
-  auto plantTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Plant.png");
+  auto plantTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Plant.png");
   plantTexture->load();
   _menuTextures.emplace(MenuTextures::Plant, std::move(plantTexture));
-  auto treeTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Tree.png");
+  auto treeTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Tree.png");
   treeTexture->load();
   _menuTextures.emplace(MenuTextures::Tree, std::move(treeTexture));
 
-  auto barrierTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Barrier.png");
+  auto barrierTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Barrier.png");
   barrierTexture->load();
   _menuTextures.emplace(MenuTextures::Barrier, std::move(barrierTexture));
 
-  auto turbineTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Turbine.png");
+  auto turbineTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Turbine.png");
   turbineTexture->load();
   _menuTextures.emplace(MenuTextures::Turbine, std::move(turbineTexture));
 
-  auto wheelTexture = std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/wheel.png");
+  auto wheelTexture =
+      std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/wheel.png");
   wheelTexture->load();
   _menuTextures.emplace(MenuTextures::Wheel, std::move(wheelTexture));
 }
 
-ModelsMapping ModelLoader::models()
-{
-  return _models;
-}
+ModelsMapping ModelLoader::models() { return _models; }
 
-MenuTexturesMapping ModelLoader::menuTextures()
-{
-  return _menuTextures;
-}
-}
+MenuTexturesMapping ModelLoader::menuTextures() { return _menuTextures; }
+}  // namespace fig

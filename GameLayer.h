@@ -1,13 +1,7 @@
-#ifndef GAME_LAYER_H
-#define GAME_LAYER_H
+#pragma once
 
 #include "Layer.h"
 
-namespace fig
-{
-class GameLayer : public Layer
-{
-};
-}
-
-#endif
+namespace fig {
+class GameLayer : public Layer {};
+}  // namespace fig

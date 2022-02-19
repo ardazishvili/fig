@@ -1,19 +1,17 @@
-#include "SphereMesh.h"
-#include "../math/Noise.h"
+#include "mesh/SphereMesh.h"
 
-namespace fig
-{
-float color[3] = { 255.0f / 255, 143.0f / 255, 54.0f / 255 };
+#include "math/Noise.h"
 
-void SphereMesh::render()
-{
+namespace fig {
+float color[3] = {255.0f / 255, 143.0f / 255, 54.0f / 255};
+
+void SphereMesh::render() {
   glBindVertexArray(_vao);
   glDrawElements(GL_TRIANGLES, _indices.size() * 3, GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
 }
 
-void SphereMesh::init(float r, unsigned int divisions)
-{
+void SphereMesh::init(float r, unsigned int divisions) {
   auto noise = Noise(777);
   unsigned int stacksNum = divisions;
   unsigned int sectorNum = divisions;
@@ -29,8 +27,10 @@ void SphereMesh::init(float r, unsigned int divisions)
       auto v = VertexColor();
       v.p.x = tmp * ::cos(sectorAngle);
       v.p.y = tmp * ::sin(sectorAngle);
-      auto nv_plain = noise.fractal(
-        glm::vec2(v.p.x, v.p.y), Noise::Params{ .frequency = 1.5, .frequencyFactor = 3.0, .amplitudeFactor = 0.325 });
+      auto nv_plain = noise.fractal(glm::vec2(v.p.x, v.p.y),
+                                    Noise::Params{.frequency = 1.5,
+                                                  .frequencyFactor = 3.0,
+                                                  .amplitudeFactor = 0.325});
       v.p.z = r * ::sin(stackAngle) + nv_plain;
 
       v.normal.x = v.p.x / r;
@@ -63,19 +63,24 @@ void SphereMesh::init(float r, unsigned int divisions)
   }
 
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(VertexColor) * _v.size(), &_v[0], GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(VertexColor) * _v.size(), &_v[0],
+               GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor),
+                        (void*)0);
 
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)offsetof(VertexColor, color));
+  glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexColor),
+                        (void*)offsetof(VertexColor, color));
 
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)offsetof(VertexColor, normal));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor),
+                        (void*)offsetof(VertexColor, normal));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _indices.size(), &_indices[0], GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _indices.size(),
+               &_indices[0], GL_STATIC_DRAW);
 
   glBindVertexArray(0);
 }
-}
+}  // namespace fig

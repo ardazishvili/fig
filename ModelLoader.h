@@ -1,32 +1,36 @@
-#ifndef MODEL_LOADER_H
-#define MODEL_LOADER_H
+#pragma once
 
 #include <map>
 #include <memory>
 
 #include "Model.h"
+#include "types.h"
 
-namespace fig
-{
-enum class Models { Shell, Tank, TankFactory, Hq, Plant, Tree, Barrier, Shroud, Turbine };
-
-enum class MenuTextures { Hq, TankFactory, TankLight, TankMedium, TankHeavy, Plant, Tree, Barrier, Turbine, Wheel };
+namespace fig {
+enum class Models {
+  Shell,
+  Tank,
+  TankFactory,
+  Hq,
+  Plant,
+  Tree,
+  Barrier,
+  Shroud,
+  Turbine
+};
 
 using ModelsMapping = std::map<Models, std::shared_ptr<Model>>;
 using MenuTexturesMapping = std::map<MenuTextures, std::shared_ptr<Texture>>;
-class ModelLoader
-{
-public:
+class ModelLoader {
+ public:
   ModelLoader(Shader& shader);
   void load();
   ModelsMapping models();
   MenuTexturesMapping menuTextures();
 
-private:
+ private:
   Shader& _shader;
   ModelsMapping _models;
   MenuTexturesMapping _menuTextures;
 };
-}
-
-#endif
+}  // namespace fig

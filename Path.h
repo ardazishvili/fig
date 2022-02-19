@@ -1,29 +1,25 @@
-#ifndef PATH_H
-#define PATH_H
+#pragma once
 
 #include "LinesObject.h"
 #include "math/AStar.h"
 
-namespace fig
-{
-class Path : public LinesObject
-{
-public:
-  Path(Shader& shader, AStar* router);
+namespace fig {
+class Path : public LinesObject {
+ public:
+  Path(Shader& shader, AStar& router);
   void render();
   APath route() const;
   bool init(glm::vec3 s, glm::vec3 e);
   void popLine();
 
-private:
+ private:
   unsigned int indicesToRender() override;
-  static const float Z_OFFSET;
-  AStar* _router;
+  AStar& _router;
   APath _route;
   unsigned int _indicesToRender;
+  static constexpr float Z_OFFSET = 0.1;
 };
 
-std::shared_ptr<Path> makePath(Shader& shader, AStar* router, glm::vec3 s, glm::vec3 e);
-}
-
-#endif
+std::shared_ptr<Path> makePath(Shader& shader, AStar& router, glm::vec3 s,
+                               glm::vec3 e);
+}  // namespace fig

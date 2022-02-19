@@ -1,27 +1,21 @@
+#include "mesh/TerrainMesh.h"
+
 #include <algorithm>
 
-#include "../Core.h"
-#include "../globals.h"
-#include "TerrainMesh.h"
-#include "TerrainMeshSegment.h"
+#include "Core.h"
+#include "globals.h"
+#include "mesh/TerrainMeshSegment.h"
 
-namespace fig
-{
-void TerrainMesh::render()
-{
+namespace fig {
+void TerrainMesh::render() {
   glBindVertexArray(_vao);
   glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
 }
 
-void TerrainMesh::init(float bottomLeftX,
-                       float bottomLeftY,
-                       float topRightX,
-                       float topRightY,
-                       int divisions,
-                       float zScale,
-                       TerrainType type)
-{
+void TerrainMesh::init(float bottomLeftX, float bottomLeftY, float topRightX,
+                       float topRightY, int divisions, float zScale,
+                       TerrainType type) {
   _v.reserve((divisions + 1) * 2 * divisions);
   _width = topRightX - bottomLeftX;
   _height = topRightY - bottomLeftY;
@@ -49,24 +43,28 @@ void TerrainMesh::init(float bottomLeftX,
 
   glBindVertexArray(_vao);
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(VertexColor) * _v.size(), &_v[0], GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(VertexColor) * _v.size(), &_v[0],
+               GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)offsetof(VertexColor, p));
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor),
+                        (void*)offsetof(VertexColor, p));
 
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)offsetof(VertexColor, color));
+  glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexColor),
+                        (void*)offsetof(VertexColor, color));
 
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)offsetof(VertexColor, normal));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor),
+                        (void*)offsetof(VertexColor, normal));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _indices.size(), &_indices[0], GL_STATIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices[0]) * _indices.size(),
+               &_indices[0], GL_STATIC_DRAW);
 
   glBindVertexArray(0);
 }
 
-void TerrainMesh::calculateNormals(int width, unsigned int latticeWidth)
-{
+void TerrainMesh::calculateNormals(int width, unsigned int latticeWidth) {
   for (int i = 0; i < width - 1; ++i) {
     for (unsigned int j = 0; j < latticeWidth; ++j) {
       glm::vec3 p0(0);
@@ -99,11 +97,9 @@ void TerrainMesh::calculateNormals(int width, unsigned int latticeWidth)
   }
 }
 
-void TerrainMesh::getSegmentVertices(glm::vec2 bottomLeft,
-                                     glm::vec2 topRight,
+void TerrainMesh::getSegmentVertices(glm::vec2 bottomLeft, glm::vec2 topRight,
                                      std::vector<VertexColor>& v,
-                                     SegmentDimensions* sd)
-{
+                                     SegmentDimensions* sd) {
   sd->divisionsX = (topRight.x - bottomLeft.x) / _xStep;
   sd->divisionsY = (topRight.y - bottomLeft.y) / _yStep;
   sd->latticeWidth = sd->divisionsY + 1;
@@ -123,4 +119,4 @@ void TerrainMesh::getSegmentVertices(glm::vec2 bottomLeft,
     }
   }
 }
-}
+}  // namespace fig

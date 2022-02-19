@@ -1,27 +1,20 @@
+#include "shader/PhongShader.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../Light.h"
-#include "../globals.h"
-#include "PhongShader.h"
+#include "Light.h"
+#include "globals.h"
 
-namespace fig
-{
-PhongShader::PhongShader(Light* light,
-                         Camera& camera,
-                         glm::mat4& view,
-                         glm::mat4& projection,
-                         const std::string& vertexPath,
-                         const std::string& fragmentPath,
-                         bool& flatView) :
-  Shader(light, camera, view, projection, vertexPath, fragmentPath),
-  _flatView(flatView)
-{
-}
+namespace fig {
+PhongShader::PhongShader(Light* light, Camera& camera, glm::mat4& view,
+                         glm::mat4& projection, const std::string& vertexPath,
+                         const std::string& fragmentPath, bool& flatView)
+    : Shader(light, camera, view, projection, vertexPath, fragmentPath),
+      _flatView(flatView) {}
 
-void PhongShader::configure()
-{
+void PhongShader::configure() {
   auto cameraPosition = _camera.reference();
   setVec3("viewPos", cameraPosition);
   // material properties
@@ -57,4 +50,4 @@ void PhongShader::configure()
   setTransformation("view", glm::value_ptr(_view));
   setTransformation("projection", glm::value_ptr(_projection));
 }
-}
+}  // namespace fig

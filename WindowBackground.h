@@ -1,13 +1,10 @@
-#ifndef WINDOW_BACKGROUND_H
-#define WINDOW_BACKGROUND_H
+#pragma once
 
 #include "Camera.h"
 #include "Light.h"
 
-namespace fig
-{
-struct Color
-{
+namespace fig {
+struct Color {
   float r;
   float g;
   float b;
@@ -15,13 +12,8 @@ struct Color
 };
 
 class Window;
-class WindowBackground
-{
-public:
-  /* WindowBackground(Light* light, */
-  /*                  Camera* camera, */
-  /*                  glm::mat4& view, */
-  /*                  glm::mat4& projection); */
+class WindowBackground {
+ public:
   WindowBackground() = default;
   WindowBackground(const WindowBackground&) = delete;
   WindowBackground(WindowBackground&&) = delete;
@@ -31,13 +23,5 @@ public:
 
   virtual void render() = 0;
   virtual void bind(Window* window) = 0;
-
-protected:
-  /* Light* _light; */
-  /* Camera* _camera; */
-  /* glm::mat4& _view; */
-  /* glm::mat4& _projection; */
 };
-}
-
-#endif
+}  // namespace fig

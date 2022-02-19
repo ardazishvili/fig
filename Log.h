@@ -1,5 +1,4 @@
-#ifndef LOG_H
-#define LOG_H
+#pragma once
 
 #include <iostream>
 #include <memory>
@@ -14,17 +13,14 @@ class LogBackend;
  * Interface methods of the policy described if 'private' section
  * @tparam T - policy to handle logging, e.g. SpdBackend.
  */
-template<typename T>
-class Log : public T
-{
-public:
+template <typename T>
+class Log : public T {
+ public:
   /**
    * @brief Construct log using described type
    * @param t
    */
-  Log(Type t) : T(t)
-  {
-  }
+  Log(Type t) : T(t) {}
   Log(const Log&) = delete;
   Log(Log&&) = delete;
   Log& operator=(const Log&) = delete;
@@ -38,14 +34,11 @@ public:
    * @param params Params actual message
 
    */
-  template<typename... Params>
-  void print(Level l, Params&&... params)
-  {
+  template <typename... Params>
+  void print(Level l, Params&&... params) {
     log(l, params...);
   }
 
-private:
+ private:
   using T::log;
 };
-
-#endif

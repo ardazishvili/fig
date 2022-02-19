@@ -1,9 +1,7 @@
-#include "Mesh.h"
+#include "mesh/Mesh.h"
 
-namespace fig
-{
-Mesh::Mesh()
-{
+namespace fig {
+Mesh::Mesh() {
   _vao = 0;
   _vbo = 0;
   _ebo = 0;
@@ -16,13 +14,9 @@ Mesh::Mesh()
   glGenBuffers(1, &_ebo);
 }
 
-Mesh::~Mesh()
-{
-  deinit();
-}
+Mesh::~Mesh() { deinit(); }
 
-void Mesh::deinit()
-{
+void Mesh::deinit() {
   if (_vbo != 0) {
     glDeleteBuffers(1, &_vbo);
     glDeleteBuffers(1, &_ebo);
@@ -33,4 +27,4 @@ void Mesh::deinit()
     _vao = 0;
   }
 }
-}
+}  // namespace fig

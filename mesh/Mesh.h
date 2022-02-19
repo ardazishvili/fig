@@ -1,13 +1,10 @@
-#ifndef MESH_H
-#define MESH_H
+#pragma once
 
 #include <GL/glew.h>
 
-namespace fig
-{
-class Mesh
-{
-public:
+namespace fig {
+class Mesh {
+ public:
   Mesh();
   virtual ~Mesh();
   Mesh(const Mesh&) = delete;
@@ -15,12 +12,10 @@ public:
   Mesh& operator=(const Mesh&) = delete;
   Mesh& operator=(Mesh&&) = delete;
 
-protected:
+ protected:
   void deinit();
   GLuint _vao;
   GLuint _vbo;
   GLuint _ebo;
 };
-}
-
-#endif
+}  // namespace fig

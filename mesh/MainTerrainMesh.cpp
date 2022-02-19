@@ -1,31 +1,27 @@
+#include "mesh/MainTerrainMesh.h"
+
 #include <algorithm>
 #include <iostream>
 #include <map>
 #include <string>
 
-#include "../math/Noise.h"
-#include "MainTerrainMesh.h"
-#include "TerrainMeshSegment.h"
+#include "math/Noise.h"
+#include "mesh/TerrainMeshSegment.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/compatibility.hpp>
 
-namespace fig
-{
-struct RgbColor
-{
+namespace fig {
+struct RgbColor {
   float r;
   float g;
   float b;
 };
 
 using HeightPart = float;
-std::map<HeightPart, RgbColor> colorMapping = { { 0.0f, { 113.0f / 255, 128.0f / 255, 143.0f / 255 } },
-                                                { 0.5f, { 237.0f / 255, 227.0f / 255, 143.0f / 255 } },
-                                                { 1.0f, { 242.0f / 255, 127.0f / 255, 115.0f / 255 } } };
 
-void MainTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, float bottomLeftY)
-{
+void MainTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX,
+                                       float bottomLeftY) {
   auto noise = Noise(777);
 
   static float waterCoefLongitude = 2.0f / 8;
@@ -37,15 +33,20 @@ void MainTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, fl
       vertex.p.y = bottomLeftY + j * _yStep;
 
       auto nv = noise.fractal(glm::vec2(vertex.p.x, vertex.p.y),
-                              Noise::Params{ .frequency = 0.204, .frequencyFactor = 2.0, .amplitudeFactor = 0.6 });
+                              Noise::Params{.frequency = 0.204,
+                                            .frequencyFactor = 2.0,
+                                            .amplitudeFactor = 0.6});
       auto nonPlain = nv * _zScale;
       auto plain = noise.fractal(glm::vec2(vertex.p.x, vertex.p.y),
-                                 Noise::Params{ .frequency = 0.077, .frequencyFactor = 4.0, .amplitudeFactor = 0.366 });
+                                 Noise::Params{.frequency = 0.077,
+                                               .frequencyFactor = 4.0,
+                                               .amplitudeFactor = 0.366});
       auto water = -0.3f;
 
       auto widthFactor = (vertex.p.x - bottomLeftX) / _width;
       auto heightFactor = (vertex.p.y - bottomLeftY) / _height;
-      auto differentiate_heights = [](float& nonPlain, float& plain, float mult) {
+      auto differentiate_heights = [](float& nonPlain, float& plain,
+                                      float mult) {
         float npf = 1;
         nonPlain = nonPlain * mult - (npf - mult);
         plain = plain * mult - std::pow((npf - mult), 2);
@@ -53,11 +54,14 @@ void MainTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, fl
 
       auto nearTheBorderWidthFactor = std::min(widthFactor, 1.0f - widthFactor);
       if (nearTheBorderWidthFactor < waterCoefLongitude) {
-        differentiate_heights(nonPlain, plain, nearTheBorderWidthFactor / waterCoefLongitude);
+        differentiate_heights(nonPlain, plain,
+                              nearTheBorderWidthFactor / waterCoefLongitude);
       }
-      auto nearTheBorderHeightFactor = std::min(heightFactor, 1.0f - heightFactor);
+      auto nearTheBorderHeightFactor =
+          std::min(heightFactor, 1.0f - heightFactor);
       if (nearTheBorderHeightFactor < waterCoefLatitude) {
-        differentiate_heights(nonPlain, plain, nearTheBorderHeightFactor / waterCoefLatitude);
+        differentiate_heights(nonPlain, plain,
+                              nearTheBorderHeightFactor / waterCoefLatitude);
       }
 
       vertex.p.z = std::max(std::max(plain, nonPlain), water);
@@ -74,11 +78,16 @@ void MainTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, fl
   }
 }
 
-void MainTerrainMesh::calculateColors(unsigned int width, unsigned int augmentedWidth)
-{
-  auto [min, max] = std::minmax_element(_v.begin(), _v.end(), [](const auto& lhs, const auto& rhs) {
-    return lhs.p.z < rhs.p.z;
-  });
+void MainTerrainMesh::calculateColors(unsigned int width,
+                                      unsigned int augmentedWidth) {
+  std::map<HeightPart, RgbColor> colorMapping = {
+      {0.0f, {113.0f / 255, 128.0f / 255, 143.0f / 255}},
+      {0.5f, {237.0f / 255, 227.0f / 255, 143.0f / 255}},
+      {1.0f, {242.0f / 255, 127.0f / 255, 115.0f / 255}}};
+
+  auto [min, max] = std::minmax_element(
+      _v.begin(), _v.end(),
+      [](const auto& lhs, const auto& rhs) { return lhs.p.z < rhs.p.z; });
   auto amplitude = max->p.z - min->p.z;
   for (unsigned int i = 0; i < width; ++i) {
     for (unsigned int j = 0; j < augmentedWidth; ++j) {
@@ -102,8 +111,7 @@ void MainTerrainMesh::calculateColors(unsigned int width, unsigned int augmented
   }
 }
 
-float MainTerrainMesh::getZ(float x, float y) const
-{
+float MainTerrainMesh::getZ(float x, float y) const {
   x += _halfWidth;
   y += _halfHeight;
   auto i = ::floor(x / _xStep);
@@ -113,8 +121,7 @@ float MainTerrainMesh::getZ(float x, float y) const
   return _v.at(i * _latticeAugmentedWidth + mappedJ).p.z;
 }
 
-glm::vec3 MainTerrainMesh::getRgbColor(float x, float y) const
-{
+glm::vec3 MainTerrainMesh::getRgbColor(float x, float y) const {
   x += _halfWidth;
   y += _halfHeight;
   auto i = ::floor(x / _xStep);
@@ -128,8 +135,7 @@ glm::vec3 MainTerrainMesh::getRgbColor(float x, float y) const
 void MainTerrainMesh::getSegmentObstaclesMap(glm::vec2 bottomLeft,
                                              glm::vec2 topRight,
                                              std::vector<bool>& m,
-                                             SegmentDimensions* sd)
-{
+                                             SegmentDimensions* sd) {
   sd->divisionsX = (topRight.x - bottomLeft.x) / _xStep;
   sd->divisionsY = (topRight.y - bottomLeft.y) / _yStep;
   sd->latticeWidth = sd->divisionsY + 1;
@@ -151,8 +157,8 @@ void MainTerrainMesh::getSegmentObstaclesMap(glm::vec2 bottomLeft,
   }
 }
 
-void MainTerrainMesh::calculateIndices(int divisionsX, int divisionsY, unsigned int latticeWidth)
-{
+void MainTerrainMesh::calculateIndices(int divisionsX, int divisionsY,
+                                       unsigned int latticeWidth) {
   _indices.reserve(divisionsX * divisionsY * 2 * 3);
   for (int i = 0; i < divisionsX; ++i) {
     for (int j = 0; j < divisionsY; ++j) {
@@ -178,4 +184,4 @@ void MainTerrainMesh::calculateIndices(int divisionsX, int divisionsY, unsigned 
   }
 }
 
-}
+}  // namespace fig

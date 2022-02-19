@@ -1,25 +1,20 @@
-#ifndef SKYBOX_H
-#define SKYBOX_H
+#pragma once
 
 #include <vector>
 
 #include "shader/Shader.h"
 
-namespace fig
-{
-class Skybox
-{
-public:
+namespace fig {
+class Skybox {
+ public:
   Skybox(Shader& shader);
   void loadCubemap();
   void render();
 
-private:
+ private:
   Shader& _shader;
   unsigned int _vao;
   unsigned int _vbo;
   unsigned int _id;
 };
-}
-
-#endif
+}  // namespace fig

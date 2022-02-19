@@ -1,10 +1,8 @@
-#ifndef IMGUI_LOG_H
-#define IMGUI_LOG_H
+#pragma once
 
-#include "../third/gui/imgui/imgui.h"
+#include "third/gui/imgui/imgui.h"
 
-struct ImGuiLog
-{
+struct ImGuiLog {
   ImGuiTextBuffer Buf;
   ImGuiTextFilter Filter;
   ImVector<int> LineOffsets;
@@ -15,4 +13,3 @@ struct ImGuiLog
   void AddLog(const char* fmt, ...);
   void Draw(const char* title, bool* p_open = NULL);
 };
-#endif

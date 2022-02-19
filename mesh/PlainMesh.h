@@ -1,32 +1,24 @@
-#ifndef PLAIN_MESH_H
-#define PLAIN_MESH_H
+#pragma once
 
 #include <string>
 
-#include "../globals.h"
-#include "Mesh.h"
-#include "ModelMesh.h"
+#include "globals.h"
+#include "mesh/Mesh.h"
+#include "mesh/ModelMesh.h"
 
-namespace fig
-{
-class PlainMesh : public Mesh
-{
-public:
+namespace fig {
+class PlainMesh : public Mesh {
+ public:
   void render();
-  void initSurface(float bottomLeftX,
-                   float bottomLeftY,
-                   float topRightX,
-                   float topRightY,
-                   int divisions,
+  void initSurface(float bottomLeftX, float bottomLeftY, float topRightX,
+                   float topRightY, int divisions,
                    std::string texturePath = assets_dir + "/grey.png");
   void loadTexture(const std::string& filename, TexturePackType type);
 
-private:
+ private:
   std::vector<ModelMesh::MeshMetadata> _meshesData;
   Textures _initialTextures;
   std::vector<Vertex> _vertices;
   std::vector<unsigned int> _indices;
 };
-}
-
-#endif
+}  // namespace fig

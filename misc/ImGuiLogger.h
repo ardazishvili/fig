@@ -1,20 +1,16 @@
-#ifndef IMGUI_LOGGER_H
-#define IMGUI_LOGGER_H
+#pragma once
 
 #include <string>
 
-#include "../third/gui/imgui/imgui.h"
-#include "ImGuiLog.h"
+#include "misc/ImGuiLog.h"
+#include "third/gui/imgui/imgui.h"
 
-class ImGuiLogger
-{
-public:
+class ImGuiLogger {
+ public:
   void log(const std::string& str, float f);
   void log(const std::string& str);
   void render();
 
-private:
+ private:
   ImGuiLog _log;
 };
-
-#endif

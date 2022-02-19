@@ -1,25 +1,21 @@
-#ifndef MODEL_H
-#define MODEL_H
-
-#include <map>
-#include <vector>
-
-#include <glm/glm.hpp>
+#pragma once
 
 #include <GL/glew.h>
-#include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
+
+#include <assimp/Importer.hpp>
+#include <glm/glm.hpp>
+#include <map>
+#include <vector>
 
 #include "Texture.h"
 #include "mesh/ModelMesh.h"
 #include "shader/Shader.h"
 
-namespace fig
-{
-class Model
-{
-public:
+namespace fig {
+class Model {
+ public:
   Model(Shader& shader);
 
   bool load(const std::string& Filename);
@@ -30,7 +26,7 @@ public:
   void loadTexture(const std::string& filename, TexturePackType type);
   void setActiveTexturesPack(TexturePackType type);
 
-private:
+ private:
   bool init(const aiScene* pScene, const std::string& Filename);
 
   const aiScene* _scene;
@@ -39,6 +35,4 @@ private:
   ModelMesh _meshes;
   Shader& _shader;
 };
-}
-
-#endif
+}  // namespace fig

@@ -1,12 +1,10 @@
-#ifndef VERTEX_H
-#define VERTEX_H
-
-#define NUM_BONES_PER_VERTEX 10
+#pragma once
 
 #include <glm/glm.hpp>
 
-struct Vertex
-{
+struct Vertex {
+  static constexpr unsigned NUM_BONES_PER_VERTEX = 10;
+
   Vertex();
   void Reset();
   void AddBoneData(unsigned int BoneID, float Weight);
@@ -17,5 +15,3 @@ struct Vertex
   unsigned int IDs[NUM_BONES_PER_VERTEX];
   float Weights[NUM_BONES_PER_VERTEX];
 };
-
-#endif
