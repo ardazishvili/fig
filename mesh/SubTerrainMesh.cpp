@@ -1,20 +1,18 @@
-#include "SubTerrainMesh.h"
-#include "../globals.h"
-#include "../math/Noise.h"
+#include "mesh/SubTerrainMesh.h"
 
-namespace fig
-{
-float lerp(float a, float b, float f)
-{
-  return (a * (1.0 - f)) + (b * f);
-}
+#include "globals.h"
+#include "math/Noise.h"
 
-const glm::vec4 SubTerrainMesh::SELECTION_COLOR{ 0.0f, 0.0f, 1.0f, 0.3f };
-const glm::vec4 SubTerrainMesh::DESELECTION_COLOR{ 0.0f, 0.0f, 1.0f, 0.0f };
+namespace fig {
+float lerp(float a, float b, float f) { return (a * (1.0 - f)) + (b * f); }
 
-std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region, glm::vec4 rgba)
-{
-  RectangleRegion rect = { region.x - region.r, region.y - region.r, 2 * region.r, 2 * region.r };
+const glm::vec4 SubTerrainMesh::SELECTION_COLOR{0.0f, 0.0f, 1.0f, 0.3f};
+const glm::vec4 SubTerrainMesh::DESELECTION_COLOR{0.0f, 0.0f, 1.0f, 0.0f};
+
+std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
+                                                          glm::vec4 rgba) {
+  RectangleRegion rect = {region.x - region.r, region.y - region.r,
+                          2 * region.r, 2 * region.r};
   auto x = region.x;
   auto y = region.y;
   auto r = region.r;
@@ -54,12 +52,13 @@ std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
   return livingArea;
 }
 
-void SubTerrainMesh::growLivingArea(std::shared_ptr<LivingArea> area, float radius)
-{
+void SubTerrainMesh::growLivingArea(std::shared_ptr<LivingArea> area,
+                                    float radius) {
   auto prevRadius = area->region.r;
   area->region.r = radius;
   auto region = area->region;
-  RectangleRegion rect = { region.x - region.r, region.y - region.r, 2 * region.r, 2 * region.r };
+  RectangleRegion rect = {region.x - region.r, region.y - region.r,
+                          2 * region.r, 2 * region.r};
   auto x = region.x;
   auto y = region.y;
   auto r = region.r;
@@ -99,17 +98,15 @@ void SubTerrainMesh::growLivingArea(std::shared_ptr<LivingArea> area, float radi
   reloadLivingArea(area);
 }
 
-void SubTerrainMesh::reloadLivingArea(std::shared_ptr<LivingArea> area)
-{
+void SubTerrainMesh::reloadLivingArea(std::shared_ptr<LivingArea> area) {
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
   for (auto& cell : area->cells) {
-    glBufferSubData(
-      GL_ARRAY_BUFFER, sizeof(VertexColor) * (cell.first), sizeof(VertexColor) * cell.second, &_v[cell.first]);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(VertexColor) * (cell.first),
+                    sizeof(VertexColor) * cell.second, &_v[cell.first]);
   }
 }
 
-void SubTerrainMesh::updateLivingArea(std::shared_ptr<LivingArea> area)
-{
+void SubTerrainMesh::updateLivingArea(std::shared_ptr<LivingArea> area) {
   logger.log("begin area update");
   logger.log("area->region.r", area->region.r);
   reloadLivingArea(area);
@@ -135,8 +132,8 @@ void SubTerrainMesh::updateLivingArea(std::shared_ptr<LivingArea> area)
   logger.log("end area update");
 }
 
-void SubTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, float bottomLeftY)
-{
+void SubTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX,
+                                      float bottomLeftY) {
   auto noise = Noise(777);
   std::cout << " SubTerrainMesh width: " << width << "\n";
   for (unsigned int i = 0; i < width; ++i) {
@@ -145,7 +142,9 @@ void SubTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, flo
       vertex.p.x = bottomLeftX + i * _xStep;
       vertex.p.y = bottomLeftY + j * _yStep;
       auto nv = noise.fractal(glm::vec2(vertex.p.x, vertex.p.y),
-                              Noise::Params{ .frequency = 0.077, .frequencyFactor = 4.0, .amplitudeFactor = 0.366 });
+                              Noise::Params{.frequency = 0.077,
+                                            .frequencyFactor = 4.0,
+                                            .amplitudeFactor = 0.366});
       vertex.p.x -= _halfWidth;
       vertex.p.y -= _halfHeight;
       vertex.p.z = nv + 0.1;
@@ -154,8 +153,8 @@ void SubTerrainMesh::calculateHeights(unsigned int width, float bottomLeftX, flo
   }
 }
 
-void SubTerrainMesh::calculateIndices(int divisionsX, int divisionsY, unsigned int latticeWidth)
-{
+void SubTerrainMesh::calculateIndices(int divisionsX, int divisionsY,
+                                      unsigned int latticeWidth) {
   _indices.reserve(divisionsX * divisionsY * 2 * 3);
   for (int i = 0; i < divisionsX; ++i) {
     for (int j = 0; j < divisionsY; ++j) {
@@ -170,7 +169,6 @@ void SubTerrainMesh::calculateIndices(int divisionsX, int divisionsY, unsigned i
   }
 }
 
-void SubTerrainMesh::calculateColors(unsigned int width, unsigned int augmentedWidth)
-{
-}
-}
+void SubTerrainMesh::calculateColors(unsigned int width,
+                                     unsigned int augmentedWidth) {}
+}  // namespace fig

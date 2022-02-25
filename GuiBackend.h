@@ -1,18 +1,13 @@
-#ifndef GUI_BACKEND_H
-#define GUI_BACKEND_H
+#pragma once
 
 #include "Window.h"
 
-namespace fig
-{
-class GuiBackend
-{
-public:
+namespace fig {
+class GuiBackend {
+ public:
   virtual void init(Window* rawWindow) = 0;
   virtual void newFrame() = 0;
   virtual void render() = 0;
   virtual void shutdown() = 0;
 };
-}
-
-#endif
+}  // namespace fig

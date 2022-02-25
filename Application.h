@@ -1,5 +1,7 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#pragma once
+
+#include <memory>
+#include <vector>
 
 #include "Camera.h"
 #include "Layers.h"
@@ -8,14 +10,9 @@
 #include "SpdBackend.h"
 #include "Window.h"
 
-#include <memory>
-#include <vector>
+namespace fig {
 
-namespace fig
-{
-
-struct AppEnv
-{
+struct AppEnv {
   fig::Window* window;
   fig::Camera* camera;
   fig::Light* light;
@@ -23,32 +20,26 @@ struct AppEnv
   glm::mat4& projection;
 };
 
-class AppEnvPrivate
-{
-public:
+class AppEnvPrivate {
+ public:
   AppEnvPrivate(std::unique_ptr<Window> window,
                 std::vector<std::unique_ptr<Camera>> cameras,
-                std::vector<glm::vec3> lightsCoords) :
-    window(std::move(window)),
-    cameras(std::move(cameras))
-  {
-    view = glm::lookAt(getCurrentCamera().eye(), getCurrentCamera().reference(), getCurrentCamera().up());
+                std::vector<glm::vec3> lightsCoords)
+      : window(std::move(window)), cameras(std::move(cameras)) {
+    view = glm::lookAt(getCurrentCamera().eye(), getCurrentCamera().reference(),
+                       getCurrentCamera().up());
     projection = glm::perspective(
-      glm::radians(getCurrentCamera().fov()), this->window->width() / this->window->height(), 0.01f, 1000.0f);
+        glm::radians(getCurrentCamera().fov()),
+        this->window->width() / this->window->height(), 0.01f, 1000.0f);
     for (const auto lightCoord : lightsCoords) {
-      lights.push_back(std::make_unique<Light>(lightCoord, getCurrentCamera(), view, projection));
+      lights.push_back(std::make_unique<Light>(lightCoord, getCurrentCamera(),
+                                               view, projection));
     }
   }
 
-  Light& getCurrentLight()
-  {
-    return *lights.at(0);
-  }
+  Light& getCurrentLight() { return *lights.at(0); }
 
-  Camera& getCurrentCamera()
-  {
-    return *cameras.at(0);
-  }
+  Camera& getCurrentCamera() { return *cameras.at(0); }
 
   std::vector<std::unique_ptr<fig::Camera>> cameras;
   std::unique_ptr<Window> window;
@@ -63,13 +54,10 @@ public:
  *
  * @tparam T policy to parametrize Log class, e.g SpdBackend
  */
-template<typename T>
-class Application
-{
-public:
-  Application() : _log(Type::App)
-  {
-  }
+template <typename T>
+class Application {
+ public:
+  Application() : _log(Type::App) {}
   Application(const Application&) = delete;
   Application(Application&&) = delete;
 
@@ -136,22 +124,18 @@ public:
    * @param l
    * @param params
    */
-  template<typename... Params>
-  void log(Level l, Params&&... params)
-  {
+  template <typename... Params>
+  void log(Level l, Params&&... params) {
     _log.print(l, params...);
   }
 
-  AppEnv getEnv()
-  {
-    return AppEnv{ _appEnv->window.get(),
-                   &_appEnv->getCurrentCamera(),
-                   &_appEnv->getCurrentLight(),
-                   _appEnv->view,
-                   _appEnv->projection };
+  AppEnv getEnv() {
+    return AppEnv{_appEnv->window.get(), &_appEnv->getCurrentCamera(),
+                  &_appEnv->getCurrentLight(), _appEnv->view,
+                  _appEnv->projection};
   }
 
-protected:
+ protected:
   /**
    * @brief App environment
    */
@@ -162,7 +146,7 @@ protected:
    */
   Log<T> _log;
 
-private:
+ private:
   Layers _layers;
 };
 
@@ -172,6 +156,4 @@ private:
 #define FG_APP_WARN(...) gApp()->log(Level::Warn, __VA_ARGS__);
 #define FG_APP_ERROR(...) gApp()->log(Level::Error, __VA_ARGS__);
 #define FG_APP_CRITICAL(...) gApp()->log(Level::Critical, __VA_ARGS__);
-}
-
-#endif
+}  // namespace fig

@@ -1,21 +1,16 @@
-#ifndef SPHERE_MESH_H
-#define SPHERE_MESH_H
+#pragma once
 
-#include "Mesh.h"
-#include "TerrainMesh.h"
+#include "mesh/Mesh.h"
+#include "mesh/TerrainMesh.h"
 
-namespace fig
-{
-class SphereMesh : public Mesh
-{
-public:
+namespace fig {
+class SphereMesh : public Mesh {
+ public:
   void init(float r, unsigned int divisions);
   void render();
 
-private:
+ private:
   std::vector<VertexColor> _v;
   std::vector<unsigned int> _indices;
 };
-}
-
-#endif
+}  // namespace fig

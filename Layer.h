@@ -1,9 +1,7 @@
-#ifndef LAYER_H
-#define LAYER_H
+#pragma once
 
-class Layer
-{
-public:
+class Layer {
+ public:
   Layer() = default;
   Layer(const Layer&) = delete;
   Layer(Layer&&) = delete;
@@ -15,5 +13,3 @@ public:
   virtual void update() = 0;
   virtual void render() = 0;
 };
-
-#endif

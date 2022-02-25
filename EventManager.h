@@ -1,21 +1,16 @@
-#ifndef EVENT_MANAGER_H
-#define EVENT_MANAGER_H
+#pragma once
 
 #include <bitset>
-
 #include <glm/glm.hpp>
 
 #include "Window.h"
 
-namespace fig
-{
+namespace fig {
 enum class MouseButton { LEFT, MIDDLE, RIGHT, _LAST };
 enum class KeyButton { LEFT_SHIFT, _LAST };
 
-class EventManager
-{
-
-public:
+class EventManager {
+ public:
   EventManager() = default;
   EventManager(const EventManager&) = delete;
   EventManager(EventManager&&) = delete;
@@ -25,7 +20,7 @@ public:
 
   virtual void tick() = 0;
 
-  static glm::vec3 unProject(Window* window, glm::mat4& view, glm::mat4& proj);
+  static glm::vec3 unProject(Window& window, glm::mat4& view, glm::mat4& proj);
   void pressKey(KeyButton k);
   void pressMouse(MouseButton b);
   void releaseKey(KeyButton k);
@@ -33,11 +28,9 @@ public:
   bool isKeyPressed(KeyButton k) const;
   bool isMousePressed(MouseButton b) const;
 
-protected:
-  glm::vec2 _middleLastPressed{ 0.0f, 0.0f };
+ protected:
+  glm::vec2 _middleLastPressed{0.0f, 0.0f};
   std::bitset<static_cast<size_t>(KeyButton::_LAST)> _keyset;
   std::bitset<static_cast<size_t>(MouseButton::_LAST)> _mouseSet;
 };
-}
-
-#endif
+}  // namespace fig

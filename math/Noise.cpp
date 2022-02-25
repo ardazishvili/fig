@@ -1,16 +1,12 @@
+#include "math/Noise.h"
+
 #include <functional>
 #include <iostream>
 #include <random>
 
-#include "Noise.h"
+static float smoothstep(float t) { return t * t * (3 - 2 * t); }
 
-static float smoothstep(float t)
-{
-  return t * t * (3 - 2 * t);
-}
-
-Noise::Noise(unsigned int seed) : _mask(PERIOD - 1)
-{
+Noise::Noise(unsigned int seed) : _mask(PERIOD - 1) {
   std::mt19937 generator(seed);
   std::uniform_real_distribution<float> dReal(0, 2 * M_PI);
   auto getRandomAngle = std::bind(dReal, generator);
@@ -31,8 +27,7 @@ Noise::Noise(unsigned int seed) : _mask(PERIOD - 1)
   }
 }
 
-float Noise::eval(glm::vec2 p)
-{
+float Noise::eval(glm::vec2 p) {
   int xi = std::floor(p.x);
   float deltaX = p.x - xi;
   float u = smoothstep(deltaX);
@@ -68,8 +63,8 @@ float Noise::eval(glm::vec2 p)
   return a + u * k0 + v * k1 + u * v * k2;
 }
 
-float Noise::fractal(glm::vec2 p, Noise::Params parameters, unsigned int numLayers)
-{
+float Noise::fractal(glm::vec2 p, Noise::Params parameters,
+                     unsigned int numLayers) {
   auto res = 0.0f;
   auto fp = p * parameters.frequency;
   float amplitude = 1.0f;

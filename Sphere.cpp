@@ -1,20 +1,20 @@
+#include "Sphere.h"
+
 #include <glm/gtc/type_ptr.hpp>
 
 #include "FObject.h"
-#include "Sphere.h"
 
-namespace fig
-{
-Sphere::Sphere(Shader& shader, glm::vec3 center, float radius, unsigned int divisions) : FObject(), _shader(shader)
-{
+namespace fig {
+Sphere::Sphere(Shader& shader, glm::vec3 center, float radius,
+               unsigned int divisions)
+    : FObject(), _shader(shader) {
   _mesh.init(radius, divisions);
   _offset.x = center.x;
   _offset.y = center.y;
   _offset.z = center.z;
 }
 
-void Sphere::render()
-{
+void Sphere::render() {
   _shader.use();
   _shader.configure();
   glEnable(GL_BLEND);
@@ -30,14 +30,8 @@ void Sphere::render()
   glDepthMask(GL_TRUE);
 }
 
-void Sphere::setPosition(glm::vec3 pos)
-{
-  _offset = pos;
-}
+void Sphere::setPosition(glm::vec3 pos) { _offset = pos; }
 
-glm::vec3 Sphere::position() const
-{
-  return _offset;
-}
+glm::vec3 Sphere::position() const { return _offset; }
 
-}
+}  // namespace fig

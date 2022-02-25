@@ -1,9 +1,7 @@
-#ifndef F_OBJECT_H
-#define F_OBJECT_H
+#pragma once
 
-class FObject
-{
-public:
+class FObject {
+ public:
   virtual void render() = 0;
   FObject() = default;
   FObject(const FObject&) = delete;
@@ -12,5 +10,3 @@ public:
   FObject& operator=(FObject&&) = delete;
   ~FObject() = default;
 };
-
-#endif

@@ -1,19 +1,15 @@
-#ifndef LINES_OBJECT_H
-#define LINES_OBJECT_H
-
-#include <vector>
+#pragma once
 
 #include <glm/glm.hpp>
+#include <vector>
 
 #include "shader/Shader.h"
 
-namespace fig
-{
+namespace fig {
 using Points = std::vector<glm::vec3>;
 using Indices = std::vector<unsigned int>;
-class LinesObject
-{
-public:
+class LinesObject {
+ public:
   LinesObject(Shader& shader);
   void initBuffers();
   void render();
@@ -24,7 +20,7 @@ public:
   LinesObject& operator=(const LinesObject&) = delete;
   LinesObject& operator=(LinesObject&&) = delete;
 
-protected:
+ protected:
   virtual unsigned int indicesToRender();
 
   Shader& _shader;
@@ -34,6 +30,4 @@ protected:
   Points _v;
   Indices _i;
 };
-}
-
-#endif
+}  // namespace fig

@@ -1,28 +1,25 @@
-#ifndef LIGHT_H
-#define LIGHT_H
-
-#include <memory>
+#pragma once
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <memory>
 
 #include "Camera.h"
 #include "shader/Shader.h"
 
-namespace fig
-{
-class Light
-{
-public:
-  Light(glm::vec3 position, Camera& camera, glm::mat4& view, glm::mat4& projection);
+namespace fig {
+class Light {
+ public:
+  Light(glm::vec3 position, Camera& camera, glm::mat4& view,
+        glm::mat4& projection);
   ~Light();
   void setShader(Shader* shader);
   void render();
-  glm::vec3 position();
+  glm::vec3 position() const;
   void setPosition(glm::vec3 position);
 
-private:
+ private:
   void init();
 
   glm::vec3 _position;
@@ -34,6 +31,4 @@ private:
   glm::mat4 _projection;
   glm::mat4 _model;
 };
-}
-
-#endif
+}  // namespace fig

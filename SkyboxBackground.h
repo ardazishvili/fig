@@ -1,5 +1,4 @@
-#ifndef SKYBOX_BACKGROUND_H
-#define SKYBOX_BACKGROUND_H
+#pragma once
 
 #include <memory>
 
@@ -8,22 +7,19 @@
 #include "shader/PhongShader.h"
 #include "shader/SkyboxShader.h"
 
-namespace fig
-{
-class SkyboxBackground : public WindowBackground
-{
-public:
-  SkyboxBackground(Camera* camera, glm::mat4& view, glm::mat4& projection, bool& flatView);
+namespace fig {
+class SkyboxBackground : public WindowBackground {
+ public:
+  SkyboxBackground(Camera* camera, glm::mat4& view, glm::mat4& projection,
+                   bool& flatView);
 
   void render() override;
   void bind(Window* window) override;
 
-private:
+ private:
   std::unique_ptr<Light> _light;
   std::unique_ptr<PhongShader> _lampShader;
   std::unique_ptr<SkyboxShader> _skyboxShader;
   std::unique_ptr<Skybox> _skybox;
 };
-}
-
-#endif
+}  // namespace fig

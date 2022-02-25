@@ -1,28 +1,21 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
 #include <GL/glew.h>
-#include <glm/gtc/matrix_transform.hpp>
 
 #include <fstream>
+#include <glm/gtc/matrix_transform.hpp>
 #include <sstream>
 #include <string>
 
-#include "../Camera.h"
+#include "Camera.h"
 
-namespace fig
-{
+namespace fig {
 class Light;
-class Shader
-{
-public:
+class Shader {
+ public:
   static const unsigned int MAX_BONES = 100;
-  Shader(Light* light,
-         Camera& camera,
-         glm::mat4& view,
-         glm::mat4& projection,
-         const std::string& vertexPath,
-         const std::string& fragmentPath);
+  Shader(Light* light, Camera& camera, glm::mat4& view, glm::mat4& projection,
+         const std::string& vertexPath, const std::string& fragmentPath);
   virtual ~Shader() = default;
   Shader(const Shader&) = delete;
   Shader(Shader&&) = delete;
@@ -47,16 +40,14 @@ public:
   void setBoneTransform(unsigned int index, const glm::mat4& matrix);
   virtual void configure() = 0;
 
-protected:
+ protected:
   unsigned int _id;
   Light* _light;
   Camera& _camera;
   glm::mat4& _view;
   glm::mat4& _projection;
 
-private:
+ private:
   GLuint m_boneLocation[MAX_BONES];
 };
-}
-
-#endif
+}  // namespace fig

@@ -1,13 +1,10 @@
-#ifndef RECTANGLE_SHAPE_H
-#define RECTANGLE_SHAPE_H
+#pragma once
 
 #include "LinesObject.h"
 
-namespace fig
-{
-class RectangleShape : public LinesObject
-{
-public:
+namespace fig {
+class RectangleShape : public LinesObject {
+ public:
   RectangleShape(Shader& shader, Camera& camera);
   void render();
   void setStart(glm::vec3 start);
@@ -19,11 +16,9 @@ public:
   glm::vec2 bottomLeft() const;
   glm::vec2 topRight() const;
 
-private:
+ private:
   void init(glm::vec3 start, glm::vec3 end);
 
   Camera& _camera;
 };
-}
-
-#endif
+}  // namespace fig

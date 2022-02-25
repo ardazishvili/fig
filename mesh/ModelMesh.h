@@ -1,36 +1,36 @@
-#ifndef MODEL_MESH_H
-#define MODEL_MESH_H
+#pragma once
 
 #include <GL/glew.h>
-
-#include <memory>
-#include <vector>
-
-#include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-#include "../Animation.h"
-#include "../Texture.h"
-#include "../Vertex.h"
-#include "Mesh.h"
+#include <assimp/Importer.hpp>
+#include <memory>
+#include <vector>
+
+#include "Animation.h"
+#include "Texture.h"
+#include "Vertex.h"
+#include "mesh/Mesh.h"
 #define INVALID_MATERIAL 0xFFFFFFFF
 
-namespace fig
-{
+namespace fig {
 
-enum class TexturePackType { PreBuild, Initial, OnSelection, UnderFire, Destroyed };
+enum class TexturePackType {
+  PreBuild,
+  Initial,
+  OnSelection,
+  UnderFire,
+  Destroyed
+};
 
 using Textures = std::vector<std::shared_ptr<Texture>>;
-class ModelMesh : public Mesh
-{
-public:
+class ModelMesh : public Mesh {
+ public:
   ModelMesh();
 
-  struct MeshMetadata
-  {
-    MeshMetadata()
-    {
+  struct MeshMetadata {
+    MeshMetadata() {
       numIndices = 0;
       baseVertex = 0;
       baseIndex = 0;
@@ -50,7 +50,7 @@ public:
   void setActiveTexturesPack(TexturePackType type);
   void animate(Shader& shader, Animation::Type type, float percent);
 
-private:
+ private:
   void initMesh(unsigned int MeshIndex, const aiMesh* paiMesh);
   void loadBones(unsigned int MeshIndex, const aiMesh* pMesh);
   bool initMaterials(const aiScene* pScene, const std::string& Filename);
@@ -69,8 +69,6 @@ private:
   Textures _preBuildTextures;
   Textures _underFireTextures;
   Textures _destroyedTextures;
-  TexturePackType _texturesType{ TexturePackType::Initial };
+  TexturePackType _texturesType{TexturePackType::Initial};
 };
-}
-
-#endif
+}  // namespace fig

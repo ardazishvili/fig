@@ -1,11 +1,9 @@
-#ifndef LOG_BACKEND_H
-#define LOG_BACKEND_H
+#pragma once
 
 #include "Log.h"
 
-class LogBackend
-{
-public:
+class LogBackend {
+ public:
   LogBackend() = default;
   LogBackend(const LogBackend&) = delete;
   LogBackend(LogBackend&&) = delete;
@@ -15,5 +13,3 @@ public:
 
   virtual void init(Type t) = 0;
 };
-
-#endif
