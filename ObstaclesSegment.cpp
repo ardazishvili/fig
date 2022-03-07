@@ -1,5 +1,7 @@
 #include "ObstaclesSegment.h"
 
+#include <memory>
+
 namespace fig {
 ObstaclesSegment::ObstaclesSegment(Shader& colorShader, Terrain& terrain,
                                    glm::vec2 bottomLeft, glm::vec2 topRight)
@@ -19,11 +21,11 @@ SegmentDimensions ObstaclesSegment::initVertices() {
   return _sd;
 }
 
-std::shared_ptr<ObstaclesSegment> makeObstaclesSegment(Shader& colorShader,
+std::unique_ptr<ObstaclesSegment> makeObstaclesSegment(Shader& colorShader,
                                                        Terrain& terrain,
                                                        glm::vec2 bottomLeft,
                                                        glm::vec2 topRight) {
-  auto hs = std::make_shared<ObstaclesSegment>(colorShader, terrain, bottomLeft,
+  auto hs = std::make_unique<ObstaclesSegment>(colorShader, terrain, bottomLeft,
                                                topRight);
   hs->init();
   return hs;

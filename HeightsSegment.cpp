@@ -1,5 +1,7 @@
 #include "HeightsSegment.h"
 
+#include <memory>
+
 namespace fig {
 HeightsSegment::HeightsSegment(Shader& colorShader, Terrain& terrain,
                                glm::vec2 bottomLeft, glm::vec2 topRight)
@@ -17,11 +19,11 @@ SegmentDimensions HeightsSegment::initVertices() {
   return sd;
 }
 
-std::shared_ptr<HeightsSegment> makeHeightsSegment(Shader& colorShader,
+std::unique_ptr<HeightsSegment> makeHeightsSegment(Shader& colorShader,
                                                    Terrain& terrain,
                                                    glm::vec2 bottomLeft,
                                                    glm::vec2 topRight) {
-  auto hs = std::make_shared<HeightsSegment>(colorShader, terrain, bottomLeft,
+  auto hs = std::make_unique<HeightsSegment>(colorShader, terrain, bottomLeft,
                                              topRight);
   hs->init();
   return hs;

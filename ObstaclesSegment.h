@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "mesh/TerrainMeshSegment.h"
 
 namespace fig {
@@ -17,7 +19,7 @@ class ObstaclesSegment : public TerrainMeshSegment {
   SegmentDimensions _sd;
 };
 
-std::shared_ptr<ObstaclesSegment> makeObstaclesSegment(Shader& colorShader,
+std::unique_ptr<ObstaclesSegment> makeObstaclesSegment(Shader& colorShader,
                                                        Terrain& terrain,
                                                        glm::vec2 bottomLeft,
                                                        glm::vec2 topRight);

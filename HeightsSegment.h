@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "mesh/TerrainMeshSegment.h"
 
 namespace fig {
@@ -12,7 +14,7 @@ class HeightsSegment : public TerrainMeshSegment {
   SegmentDimensions initVertices() override;
 };
 
-std::shared_ptr<HeightsSegment> makeHeightsSegment(Shader& colorShader,
+std::unique_ptr<HeightsSegment> makeHeightsSegment(Shader& colorShader,
                                                    Terrain& terrain,
                                                    glm::vec2 bottomLeft,
                                                    glm::vec2 topRight);

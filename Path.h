@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "LinesObject.h"
 #include "math/AStar.h"
 
@@ -20,6 +22,6 @@ class Path : public LinesObject {
   static constexpr float Z_OFFSET = 0.1;
 };
 
-std::shared_ptr<Path> makePath(Shader& shader, AStar& router, glm::vec3 s,
-                               glm::vec3 e);
+std::optional<std::unique_ptr<Path>> makePath(Shader& shader, AStar& router,
+                                              glm::vec3 s, glm::vec3 e);
 }  // namespace fig
