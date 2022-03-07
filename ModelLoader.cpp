@@ -10,14 +10,14 @@ void ModelLoader::load() {
 
   auto shellModel = std::make_unique<Model>(_shader);
   shellModel->load(assets + "/shell.dae");
-  _models.emplace(Models::Shell, std::move(shellModel));
+  _models.emplace(ModelType::Shell, std::move(shellModel));
 
   auto tankModel = std::make_unique<Model>(_shader);
   tankModel->load(assets + "/tank.dae");
   tankModel->loadTexture(assets + "/blue.png", TexturePackType::OnSelection);
   tankModel->loadTexture(assets + "/red.png", TexturePackType::UnderFire);
   tankModel->loadTexture(assets + "/black.png", TexturePackType::Destroyed);
-  _models.emplace(Models::Tank, std::move(tankModel));
+  _models.emplace(ModelType::Tank, std::move(tankModel));
 
   auto tankFactoryModel = std::make_unique<Model>(_shader);
   tankFactoryModel->load(assets + "/garage.dae");
@@ -29,7 +29,7 @@ void ModelLoader::load() {
                                 TexturePackType::UnderFire);
   tankFactoryModel->loadTexture(assets + "/black.png",
                                 TexturePackType::Destroyed);
-  _models.emplace(Models::TankFactory, std::move(tankFactoryModel));
+  _models.emplace(ModelType::TankFactory, std::move(tankFactoryModel));
 
   auto hqModel = std::make_unique<Model>(_shader);
   hqModel->load(assets + "/hq.dae");
@@ -37,15 +37,15 @@ void ModelLoader::load() {
   hqModel->loadTexture(assets + "/blue.png", TexturePackType::OnSelection);
   hqModel->loadTexture(assets + "/red.png", TexturePackType::UnderFire);
   hqModel->loadTexture(assets + "/black.png", TexturePackType::Destroyed);
-  _models.emplace(Models::Hq, std::move(hqModel));
+  _models.emplace(ModelType::Hq, std::move(hqModel));
 
   auto plantModel = std::make_unique<Model>(_shader);
   plantModel->load(assets + "/plant.dae");
-  _models.emplace(Models::Plant, std::move(plantModel));
+  _models.emplace(ModelType::Plant, std::move(plantModel));
 
   auto treeModel = std::make_unique<Model>(_shader);
   treeModel->load(assets + "/tree.dae");
-  _models.emplace(Models::Tree, std::move(treeModel));
+  _models.emplace(ModelType::Tree, std::move(treeModel));
 
   auto barrierModel = std::make_unique<Model>(_shader);
   barrierModel->load(assets + "/barrier.dae");
@@ -53,14 +53,14 @@ void ModelLoader::load() {
   barrierModel->loadTexture(assets + "/blue.png", TexturePackType::OnSelection);
   barrierModel->loadTexture(assets + "/red.png", TexturePackType::UnderFire);
   barrierModel->loadTexture(assets + "/black.png", TexturePackType::Destroyed);
-  _models.emplace(Models::Barrier, std::move(barrierModel));
+  _models.emplace(ModelType::Barrier, std::move(barrierModel));
 
   auto shroudModel = std::make_unique<Model>(_shader);
   shroudModel->load(assets + "/shroud.dae");
   shroudModel->loadTexture(assets + "/blue.png", TexturePackType::OnSelection);
   shroudModel->loadTexture(assets + "/red.png", TexturePackType::UnderFire);
   shroudModel->loadTexture(assets + "/black.png", TexturePackType::Destroyed);
-  _models.emplace(Models::Shroud, std::move(shroudModel));
+  _models.emplace(ModelType::Shroud, std::move(shroudModel));
 
   auto turbineModel = std::make_unique<Model>(_shader);
   turbineModel->load(assets + "/turbine.dae");
@@ -68,7 +68,7 @@ void ModelLoader::load() {
   turbineModel->loadTexture(assets + "/blue.png", TexturePackType::OnSelection);
   turbineModel->loadTexture(assets + "/red.png", TexturePackType::UnderFire);
   turbineModel->loadTexture(assets + "/black.png", TexturePackType::Destroyed);
-  _models.emplace(Models::Turbine, std::move(turbineModel));
+  _models.emplace(ModelType::Turbine, std::move(turbineModel));
 
   auto tfTexture =
       std::make_shared<Texture>(GL_TEXTURE_2D, assets + "/Garage.png");
@@ -114,8 +114,6 @@ void ModelLoader::load() {
   wheelTexture->load();
   _menuTextures.emplace(MenuTextures::Wheel, std::move(wheelTexture));
 }
-
-ModelsMapping ModelLoader::models() { return _models; }
 
 MenuTexturesMapping ModelLoader::menuTextures() { return _menuTextures; }
 }  // namespace fig

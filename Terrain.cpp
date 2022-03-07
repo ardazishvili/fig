@@ -1,6 +1,7 @@
 #include "Terrain.h"
 
 #include <glm/gtc/type_ptr.hpp>
+#include <memory>
 
 namespace fig {
 
@@ -47,18 +48,18 @@ glm::vec3 Terrain::getRgbColor(float x, float y) const {
   return _mainMesh.getRgbColor(x, y);
 }
 
-std::shared_ptr<LivingArea> Terrain::addLivingArea(CircularRegion region,
+std::unique_ptr<LivingArea> Terrain::addLivingArea(CircularRegion region,
                                                    glm::vec4 rgba) {
   return _subMesh.addLivingArea(region, rgba);
 }
 
-void Terrain::updateLivingArea(std::shared_ptr<LivingArea> area) {
+void Terrain::updateLivingArea(LivingArea* area) {
   _subMesh.updateLivingArea(area);
 }
 
 std::pair<float, float> Terrain::getMaxXy() const { return {_maxX, _maxY}; }
 
-void Terrain::growLivingArea(std::shared_ptr<LivingArea> area, float radius) {
+void Terrain::growLivingArea(LivingArea* area, float radius) {
   _subMesh.growLivingArea(area, radius);
 }
 void Terrain::getSegmentVertices(glm::vec2 bottomLeft, glm::vec2 topRight,

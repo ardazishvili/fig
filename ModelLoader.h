@@ -7,7 +7,7 @@
 #include "types.h"
 
 namespace fig {
-enum class Models {
+enum class ModelType {
   Shell,
   Tank,
   TankFactory,
@@ -19,13 +19,13 @@ enum class Models {
   Turbine
 };
 
-using ModelsMapping = std::map<Models, std::shared_ptr<Model>>;
+using ModelsMapping = std::map<ModelType, std::shared_ptr<Model>>;
 using MenuTexturesMapping = std::map<MenuTextures, std::shared_ptr<Texture>>;
 class ModelLoader {
  public:
   ModelLoader(Shader& shader);
   void load();
-  ModelsMapping models();
+  Model* getModel(ModelType model) { return _models[model].get(); }
   MenuTexturesMapping menuTextures();
 
  private:

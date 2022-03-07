@@ -1,5 +1,7 @@
 #include "mesh/SubTerrainMesh.h"
 
+#include <memory>
+
 #include "globals.h"
 #include "math/Noise.h"
 
@@ -9,7 +11,7 @@ float lerp(float a, float b, float f) { return (a * (1.0 - f)) + (b * f); }
 const glm::vec4 SubTerrainMesh::SELECTION_COLOR{0.0f, 0.0f, 1.0f, 0.3f};
 const glm::vec4 SubTerrainMesh::DESELECTION_COLOR{0.0f, 0.0f, 1.0f, 0.0f};
 
-std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
+std::unique_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
                                                           glm::vec4 rgba) {
   RectangleRegion rect = {region.x - region.r, region.y - region.r,
                           2 * region.r, 2 * region.r};
@@ -21,7 +23,7 @@ std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
   auto j = ::floor(rect.y / _yStep) + _latticeAugmentedWidth / 2;
   signed int xWidth = rect.width / _xStep;
   signed int yWidth = rect.height / _yStep;
-  auto livingArea = std::make_shared<LivingArea>();
+  auto livingArea = std::make_unique<LivingArea>();
   auto center = glm::vec2(x, y);
   for (unsigned int k = i; k <= i + xWidth; ++k) {
     unsigned int index = 0;
@@ -47,13 +49,12 @@ std::shared_ptr<LivingArea> SubTerrainMesh::addLivingArea(CircularRegion region,
     livingArea->region = region;
     livingArea->initRgba = rgba;
   }
-  reloadLivingArea(livingArea);
-  _livingAreas.push_back(livingArea);
+  reloadLivingArea(livingArea.get());
+  _livingAreas.push_back(livingArea.get());
   return livingArea;
 }
 
-void SubTerrainMesh::growLivingArea(std::shared_ptr<LivingArea> area,
-                                    float radius) {
+void SubTerrainMesh::growLivingArea(LivingArea* area, float radius) {
   auto prevRadius = area->region.r;
   area->region.r = radius;
   auto region = area->region;
@@ -98,7 +99,7 @@ void SubTerrainMesh::growLivingArea(std::shared_ptr<LivingArea> area,
   reloadLivingArea(area);
 }
 
-void SubTerrainMesh::reloadLivingArea(std::shared_ptr<LivingArea> area) {
+void SubTerrainMesh::reloadLivingArea(LivingArea* area) {
   glBindBuffer(GL_ARRAY_BUFFER, _vbo);
   for (auto& cell : area->cells) {
     glBufferSubData(GL_ARRAY_BUFFER, sizeof(VertexColor) * (cell.first),
@@ -106,7 +107,7 @@ void SubTerrainMesh::reloadLivingArea(std::shared_ptr<LivingArea> area) {
   }
 }
 
-void SubTerrainMesh::updateLivingArea(std::shared_ptr<LivingArea> area) {
+void SubTerrainMesh::updateLivingArea(LivingArea* area) {
   logger.log("begin area update");
   logger.log("area->region.r", area->region.r);
   reloadLivingArea(area);

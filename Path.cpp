@@ -1,7 +1,10 @@
 #include "Path.h"
 
+#include <cstddef>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <memory>
+#include <optional>
 
 #include "../fig/globals.h"
 #include "Core.h"
@@ -51,10 +54,13 @@ void Path::render() {
   LinesObject::render();
 }
 
-std::shared_ptr<Path> makePath(Shader& shader, AStar& router, glm::vec3 s,
-                               glm::vec3 e) {
-  auto path = std::make_shared<Path>(shader, router);
-  return path->init(s, e) ? path : nullptr;
+std::optional<std::unique_ptr<Path>> makePath(Shader& shader, AStar& router,
+                                              glm::vec3 s, glm::vec3 e) {
+  auto path = std::make_unique<Path>(shader, router);
+  if (path->init(s, e)) {
+    return path;
+  }
+  return {};
 }
 
 void Path::popLine() { _indicesToRender -= 2; }
