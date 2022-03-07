@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Window.h"
+#include "events/KeyHandler.h"
 
 namespace fig {
 class EventManager;
@@ -20,23 +21,25 @@ class Event {
 
 class KeyboardEvent : public Event {
  public:
-  KeyboardEvent(int key, int scancode, int mods)
+  KeyboardEvent(KeyboardKey key, int scancode, int mods)
       : _key(key), _scancode(), _mods(mods) {}
 
-  KeyboardEvent(int key, int mods) : _key(key), _scancode(), _mods(mods) {}
+  KeyboardEvent(KeyboardKey key, int mods)
+      : _key(key), _scancode(), _mods(mods) {}
 
  protected:
-  int _key;
+  KeyboardKey _key;
   int _scancode;
   int _mods;
+  KeyHander _handler;
 };
 
 class KeyboardPressEvent : public KeyboardEvent {
  public:
-  KeyboardPressEvent(int key, int scancode, int mods)
+  KeyboardPressEvent(KeyboardKey key, int scancode, int mods)
       : KeyboardEvent(key, scancode, mods){FG_CORE_TRACE("key pressed")}
 
-        KeyboardPressEvent(int key, int mods)
+        KeyboardPressEvent(KeyboardKey key, int mods)
       : KeyboardEvent(key, mods) {
     FG_CORE_TRACE("key pressed")
   }
@@ -44,22 +47,25 @@ class KeyboardPressEvent : public KeyboardEvent {
 
 class KeyboardReleaseEvent : public KeyboardEvent {
  public:
-  KeyboardReleaseEvent(int key, int scancode, int mods)
+  KeyboardReleaseEvent(KeyboardKey key, int scancode, int mods)
       : KeyboardEvent(key, scancode, mods){FG_CORE_TRACE("key released")}
 
-        KeyboardReleaseEvent(int key, int mods)
+        KeyboardReleaseEvent(KeyboardKey key, int mods)
       : KeyboardEvent(key, mods) {
     FG_CORE_TRACE("key released")
+  }
+  void process(Camera* camera, EventManager* eventManager) override {
+    _handler.process(_key, eventManager);
   }
 };
 
 class KeyboardRepeatEvent : public KeyboardEvent {
  public:
-  KeyboardRepeatEvent(int key, int scancode, int mods)
+  KeyboardRepeatEvent(KeyboardKey key, int scancode, int mods)
       : KeyboardEvent(key, scancode,
                       mods){FG_CORE_TRACE("key repeatedly pressed")}
 
-        KeyboardRepeatEvent(int key, int mods)
+        KeyboardRepeatEvent(KeyboardKey key, int mods)
       : KeyboardEvent(key, mods) {
     FG_CORE_TRACE("key repeatedly pressed")
   }
