@@ -31,7 +31,7 @@ class KeyboardEvent : public Event {
   KeyboardKey _key;
   int _scancode;
   int _mods;
-  KeyHander _handler;
+  KeyHandler _handler;
 };
 
 class KeyboardPressEvent : public KeyboardEvent {
