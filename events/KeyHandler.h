@@ -9,23 +9,26 @@ namespace fig {
 using KeyboardKey = int;
 using KeyHandlerFunction = std::function<void(EventManager*)>;
 
-struct Action {
+struct Handler {
   KeyHandlerFunction action;
   std::string description;
-  bool isCustom{false};
 };
 
-using ActionMap = std::map<KeyboardKey, Action>;
+using HandlerMap = std::map<KeyboardKey, Handler>;
+using Actions = std::map<std::string, KeyHandlerFunction>;
 
 class KeyHandler {
  public:
   KeyHandler();
   void process(KeyboardKey key, EventManager* m);
   void setHandler(KeyboardKey, KeyHandlerFunction f, std::string description);
-  ActionMap getCustomHandlers() const;
+  void setAction(std::string name, KeyHandlerFunction action) {
+    _actions[name] = action;
+  }
 
  private:
-  ActionMap _handlers;
+  HandlerMap _handlers;
+  Actions _actions;
 };
 
 }  // namespace fig
